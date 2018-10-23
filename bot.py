@@ -4,6 +4,7 @@ import giphy_client
 from giphy_client.rest import ApiException
 from pprint import pprint
 import random
+import os
 
 client = commands.Bot(command_prefix = '!')
 
