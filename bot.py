@@ -26,7 +26,7 @@ async def gif(ctx, *args):
 
     try: 
         # Search Endpoint
-        api_response = api_instance.gifs_search_get(api_key, q, lang=lang, fmt=fmt)
+        api_response = api_instance.gifs_random_get(api_key, tag=q, lang=lang, fmt=fmt)
         i = 0
         while i < len(api_response.data):
             urls.append(api_response.data[i].images.original.url)
