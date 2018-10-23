@@ -10,7 +10,7 @@ client = commands.Bot(command_prefix = '!')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='24/7 Gif bot'))
+    await client.change_presence(game=discord.Game(name='!gif 24/7 Gif bot'))
     print('Ready')
 
 @client.command(pass_context=True)
