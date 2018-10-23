@@ -18,7 +18,7 @@ async def gif(ctx, *args):
     # create an instance of the API class
     api_instance = giphy_client.DefaultApi()
     api_key = os.environ.get('GIF_TOKEN') # str | Giphy API Key.
-    q = '-'.join(str(i) for i in args)
+    q = '+'.join(str(i) for i in args)
     lang = 'en'
     fmt = 'json'
 
@@ -26,7 +26,7 @@ async def gif(ctx, *args):
 
     try: 
         # Search Endpoint
-        api_response = api_instance.gifs_search_get(api_key, q, limit=1000, lang=lang, fmt=fmt)
+        api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
         i = 0
         while i < len(api_response.data):
             urls.append(api_response.data[i].images.original.url)
