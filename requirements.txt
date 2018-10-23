@@ -1,5 +1,3 @@
 discord
 giphy_client
 pprint
-config
-os
