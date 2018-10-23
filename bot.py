@@ -4,7 +4,6 @@ import giphy_client
 from giphy_client.rest import ApiException
 from pprint import pprint
 import random
-import config
 
 client = commands.Bot(command_prefix = '!')
 
@@ -16,7 +15,7 @@ async def on_ready():
 async def gif(ctx, *args):
     # create an instance of the API class
     api_instance = giphy_client.DefaultApi()
-    api_key = config.GIF_TOKEN # str | Giphy API Key.
+    api_key = process.env.GIF_TOKEN # str | Giphy API Key.
     q = '-'.join(str(i) for i in args)
     lang = 'en'
     fmt = 'json'
@@ -36,4 +35,4 @@ async def gif(ctx, *args):
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-client.run(config.BOT_TOKEN)
+client.run(process.env.BOT_TOKEN)
