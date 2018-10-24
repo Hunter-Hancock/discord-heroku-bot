@@ -5,26 +5,26 @@ from giphy_client.rest import ApiException
 from pprint import pprint
 import random
 import os
-#from imgurpython import ImgurClient
+from imgurpython import ImgurClient
 
 client = commands.Bot(command_prefix = '!')
 
 client_id = 'f8a16eb86692a3f'
 client_secret = 'e332cbb5ca28a1df06f7b3cba0f702c47158b82b'
-#imgclient = ImgurClient(client_id, client_secret)
+imgclient = ImgurClient(client_id, client_secret)
 
 @client.event
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif 24/7 Gif bot'))
     print('Ready')
 
-#@client.command(pass_context=True)
-#async def img(ctx, *args):
+@client.command(pass_context=True)
+async def img(ctx, *args):
 
-#    search = '+'.join(str(i) for i in args)
-#    res = [item for item in  imgclient.gallery_search(search)]
+    search = '+'.join(str(i) for i in args)
+    res = [item for item in  imgclient.gallery_search(search)]
 
-#    await client.say(res[random.randint(0, len(res))].link)
+    await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
@@ -58,4 +58,4 @@ async def gif(ctx, *args):
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-#client.run(os.environ.get('BOT_TOKEN'))
+client.run(os.environ.get('BOT_TOKEN'))
