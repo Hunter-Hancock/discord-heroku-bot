@@ -20,7 +20,7 @@ async def clear(ctx, amount):
     async for message in client.logs_from(channel, limit=int(amount)):
         messages.append(message)
     await client.delete_messages(messages)
-    await client.say('deleted %s messages') % (len(messages))
+    await client.say('deleted %s messages' % len(messages))
 
 
 @client.command(pass_context=True)
