@@ -19,11 +19,12 @@ async def on_ready():
     print('Ready')
 
 @client.command(pass_context=True)
-async def img(ctx, *args):
+async def imgur(ctx, *args):
 
     search = '+'.join(str(i) for i in args)
     res = [item for item in  imgclient.gallery_search(search)]
 
+    await client.say('Here is what i found for: %s on imgur' % search)
     await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
@@ -53,7 +54,7 @@ async def gif(ctx, *args):
             urls.append(api_response.data[i].images.original.url)
             i += 1
 
-        await client.say('Here is what i found for: %s' % q)
+        await client.say('Here is what i found for: %s on giphy' % q)
         await client.say(urls[random.randint(0, len(urls))])
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
