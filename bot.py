@@ -5,7 +5,6 @@ from giphy_client.rest import ApiException
 from pprint import pprint
 import random
 import os
-import requests
 from imgurpython import ImgurClient
 
 client = commands.Bot(command_prefix = '!')
