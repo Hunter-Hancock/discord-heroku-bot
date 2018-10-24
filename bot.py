@@ -54,7 +54,8 @@ async def gif(ctx, *args):
         urls.append(data['gfycats'][i]['gifUrl'])
         i += 1
 
-    await client.say('Here is what i found for: %s on gfycat' % q)
+    results = len(urls)
+    await client.say('Here is what i found for: %s on gfycat. %s results' % (q, results))
     await client.say(urls[random.randint(0, len(urls))])
 
 client.run(os.environ.get('BOT_TOKEN'))
