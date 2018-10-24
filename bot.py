@@ -6,7 +6,6 @@ from pprint import pprint
 import random
 import os
 from imgurpython import ImgurClient
-import image_scraper
 
 client = commands.Bot(command_prefix = '!')
 
@@ -27,11 +26,6 @@ async def imgur(ctx, *args):
 
     await client.say('Here is what i found for: %s on imgur' % search)
     await client.say(res[random.randint(0, len(res))].link)
-
-@client.command(pass_context=True)
-async def nsfw(ctx, url):
-    #image_scraper.scrape_images('https://scrolller.com/nsfw', dump_urls=True)
-    await client.say(image_scraper.scrape_images(url, dump_urls=True))
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
@@ -65,4 +59,4 @@ async def gif(ctx, *args):
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-client.run(os.environ.get('BOT_TOKEN'))
+#client.run(os.environ.get('BOT_TOKEN'))
