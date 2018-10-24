@@ -81,4 +81,4 @@ async def gif(ctx, *args):
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-#client.run(os.environ.get('BOT_TOKEN'))
+client.run(os.environ.get('BOT_TOKEN'))
