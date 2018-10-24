@@ -31,7 +31,7 @@ async def imgur(ctx, *args):
 @client.command(pass_context=True)
 async def nsfw(ctx, url):
     #image_scraper.scrape_images('https://scrolller.com/nsfw', dump_urls=True)
-    await client.say(image_scraper.scrape_images('https://scrolller.com/nsfw', dump_urls=True))
+    await client.say(image_scraper.scrape_images(url, dump_urls=True))
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
