@@ -44,9 +44,9 @@ async def gif(ctx, *args):
     q = '+'.join(str(i) for i in args)
 
     urls = []
-
+    count = 6000
     # Search Endpoint
-    r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s' % q)
+    r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s?count=%s' % (q, count))
     data = r.json()
 
     i = 0
