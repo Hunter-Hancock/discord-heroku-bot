@@ -5,6 +5,9 @@ from giphy_client.rest import ApiException
 from pprint import pprint
 import random
 import os
+from BeautifulSoup import BeautifulSoup
+import urllib2
+import re
 
 client = commands.Bot(command_prefix = '!')
 
@@ -12,6 +15,15 @@ client = commands.Bot(command_prefix = '!')
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif 24/7 Gif bot'))
     print('Ready')
+
+@client.command(pass_context=True)
+async def nsfwimages(ctx):
+    html_page = urllib2.urlopen("https://scrolller.com/nsfw")
+    soup = BeautifulSoup(html_page)
+    images = []
+    for img in soup.findAll('img'):
+        images.append(img.get('src'))
+    await client.say(images)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
