@@ -9,9 +9,9 @@ from imgurpython import ImgurClient
 
 client = commands.Bot(command_prefix = '!')
 
-client_id = 'f8a16eb86692a3f'
-client_secret = 'e332cbb5ca28a1df06f7b3cba0f702c47158b82b'
-imgclient = ImgurClient(client_id, client_secret)
+imgclient_id = os.environ.get('IMGCLIENT_ID')
+imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
+imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
 @client.event
 async def on_ready():
