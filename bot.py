@@ -6,8 +6,13 @@ from pprint import pprint
 import random
 import os
 from imgurpython import ImgurClient
+import requests
+import json
 
 client = commands.Bot(command_prefix = '!')
+
+gfyclient_id: '2_WTCi12'
+gfyclient_secret: 'J6pITJVLezQShlLJxCqyvxJWOeFklGRepRVE6xvekVmJO69kY8H76HxEipagvA9y'
 
 imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
@@ -26,6 +31,22 @@ async def imgur(ctx, *args):
 
     await client.say('Here is what i found for: %s on imgur' % search)
     await client.say(res[random.randint(0, len(res))].link)
+
+
+@client.command(pass_context=True)
+async def gfy(ctx, *args):
+    query = '+'.join(str(i) for i in args)
+    r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s' % query)
+    data = r.json()
+
+    test = []
+
+    k = 0
+    while k < len(data):
+        test.append(data['gfycats'][k]['gifUrl'])
+        k += 1
+    await client.say(data['gfycats'][random.randint(0, len(test))]['gifUrl'])
+
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
@@ -49,6 +70,7 @@ async def gif(ctx, *args):
     try: 
         # Search Endpoint
         api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
+
         i = 0
         while i < len(api_response.data):
             urls.append(api_response.data[i].images.original.url)
@@ -59,4 +81,4 @@ async def gif(ctx, *args):
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-client.run(os.environ.get('BOT_TOKEN'))
+#client.run(os.environ.get('BOT_TOKEN'))
