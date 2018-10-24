@@ -5,8 +5,8 @@ from giphy_client.rest import ApiException
 from pprint import pprint
 import random
 import os
-from BeautifulSoup import BeautifulSoup
-import urllib2
+#from bs4 import BeautifulSoup
+#import urllib2
 import re
 
 client = commands.Bot(command_prefix = '!')
