@@ -16,15 +16,13 @@ imgclient = ImgurClient(client_id, client_secret)
 @client.event
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif, !imgur 24/7 Gif bot'))
-    channel = 465986403281534979
-    client.send_message(channel, 'Ready')
     print('Ready')
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
 
     search = '+'.join(str(i) for i in args)
-    res = [item for item in  imgclient.gallery_search(search)]
+    res = [item for item in  imgclient.gallery_search(search, sort='top', window='all')]
 
     await client.say('Here is what i found for: %s on imgur' % search)
     await client.say(res[random.randint(0, len(res))].link)
