@@ -39,7 +39,7 @@ async def imgur(ctx, *args):
 async def clear(ctx, amount):
     channel = ctx.message.channel
     messages = []
-    async for message in client.logs_from(channel, limit=int(amount)):
+    async for message in client.logs_from(channel, limit=int(amount + 1)):
         messages.append(message)
     await client.delete_messages(messages)
 
