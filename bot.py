@@ -44,6 +44,7 @@ async def gfy(ctx, *args):
     while k < len(data):
         test.append(data['gfycats'][k]['gifUrl'])
         k += 1
+    await client.say('found this on gfycat: %s' % query)
     await client.say(test[random.randint(0, len(test))])
 
 
@@ -68,7 +69,7 @@ async def gif(ctx, *args):
 
     try: 
         # Search Endpoint
-        api_response = api_instance.gifs_search_get(api_key, 'Scarlett Johansson', limit=100, lang=lang, fmt=fmt)
+        api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
 
         i = 0
         while i < len(api_response.data):
