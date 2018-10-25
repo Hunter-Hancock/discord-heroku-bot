@@ -75,10 +75,10 @@ async def gif(ctx, *args):
             urls.append(api_response.data[i].images.original.url)
             i += 1
 
-        #await client.say('Here is what i found for: %s on giphy' % q)
-        #await client.say(urls[random.randint(0, len(urls))])
+        await client.say('Here is what i found for: %s on giphy' % q)
+        await client.say(urls[random.randint(0, len(urls))])
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-#client.run(os.environ.get('BOT_TOKEN'))
+client.run(os.environ.get('BOT_TOKEN'))
 
