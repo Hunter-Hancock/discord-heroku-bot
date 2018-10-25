@@ -29,18 +29,11 @@ async def imgur(ctx, *args):
     search = '+'.join(str(i) for i in args)
     res = [item for item in  imgclient.gallery_search(search, sort='top', window='all')]
 
-    await client.say('Here is what i found for: %s on imgur' % search)
-    await client.say(res[random.randint(0, len(res))].link)
-
-#@client.command(pass_context=True)
-#async def gfy(ctx, *args):
-#    query = '+'.join(str(i) for i in args)
-
-
-
-#    await client.say('found this on gfycat: %s' % query)
-#    await client.say(test[random.randint(0, len(test))])
-
+    if (len(res) == 0):
+        await client.say('Sorry no results for: %s' % search)
+    else:
+        await client.say('Here is what i found for: %s on imgur' % search)
+        await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
@@ -77,9 +70,14 @@ async def gif(ctx, *args):
         while i < len(api_response.data):
             urls.append(api_response.data[i].images.original.url)
             i += 1
+        
+        if (len(urls) == 0):
+            await client.say('Sorry no results for: %s' % q)
+        else:
+            await client.say('Here is what i found for: %s on giphy/gfycat' % q)
+            await client.say(urls[random.randint(0, len(urls))])
 
-        await client.say('Here is what i found for: %s on giphy/gfycat' % q)
-        await client.say(urls[random.randint(0, len(urls))])
+        
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
