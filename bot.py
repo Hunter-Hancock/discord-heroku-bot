@@ -1,5 +1,7 @@
 import discord
 from discord.ext import commands
+import giphy_client
+from giphy_client.rest import ApiException
 from pprint import pprint
 import random
 import os
@@ -31,6 +33,21 @@ async def imgur(ctx, *args):
     await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
+async def gfy(ctx, *args):
+    query = '+'.join(str(i) for i in args)
+    r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s' % query)
+    data = r.json()
+
+    test = []
+
+    k = 0
+    while k < len(data):
+        test.append(data['gfycats'][k]['gifUrl'])
+        k += 1
+    client.say(test[random.randint(0, len(test))])
+
+
+@client.command(pass_context=True)
 async def clear(ctx, amount):
     channel = ctx.message.channel
     messages = []
@@ -41,21 +58,27 @@ async def clear(ctx, amount):
 @client.command(pass_context=True)
 async def gif(ctx, *args):
     # create an instance of the API class
+    api_instance = giphy_client.DefaultApi()
+    api_key = os.environ.get('GIF_TOKEN') # str | Giphy API Key.
     q = '+'.join(str(i) for i in args)
+    lang = 'en'
+    fmt = 'json'
 
     urls = []
-    count = 6000
-    # Search Endpoint
-    r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s?count=%s' % (q, count))
-    data = r.json()
 
-    i = 0
-    while i < len(data):
-        urls.append(data['gfycats'][i]['gifUrl'])
-        i += 1
+    try: 
+        # Search Endpoint
+        api_response = api_instance.gifs_search_get(api_key, 'Scarlett Johansson', limit=100, lang=lang, fmt=fmt)
 
-    results = len(urls)
-    await client.say('Here is what i found for: %s on gfycat. %s results' % (q, results))
-    await client.say(urls[random.randint(0, len(urls))])
+        i = 0
+        while i < len(api_response.data):
+            urls.append(api_response.data[i].images.original.url)
+            i += 1
 
-client.run(os.environ.get('BOT_TOKEN'))
+        #await client.say('Here is what i found for: %s on giphy' % q)
+        #await client.say(urls[random.randint(0, len(urls))])
+    except ApiException as e:
+        print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
+
+#client.run(os.environ.get('BOT_TOKEN'))
+
