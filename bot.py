@@ -44,7 +44,7 @@ async def gfy(ctx, *args):
     while k < len(data):
         test.append(data['gfycats'][k]['gifUrl'])
         k += 1
-    client.say(test[random.randint(0, len(test))])
+    await client.say(test[random.randint(0, len(test))])
 
 
 @client.command(pass_context=True)
