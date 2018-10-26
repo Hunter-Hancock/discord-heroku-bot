@@ -3,3 +3,4 @@ giphy_client
 pprint
 imgurpython
 requests
+praw
