@@ -8,6 +8,7 @@ import os
 from imgurpython import ImgurClient
 import requests
 import json
+import praw
 
 client = commands.Bot(command_prefix = '!')
 
@@ -17,6 +18,15 @@ gfyclient_secret: 'J6pITJVLezQShlLJxCqyvxJWOeFklGRepRVE6xvekVmJO69kY8H76HxEipagv
 imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
 imgclient = ImgurClient(imgclient_id, imgclient_secret)
+
+
+#client_auth = requests.auth.HTTPBasicAuth(os.environ.get('REDDIT_CLIENT_ID'), os.environ.get('REDDIT_CLIENT_SECRET'))
+#post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": }
+#headers = {"User-Agent": "discord-bot/0.1 by MildlyAdequateDOC"}
+#test_response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=headers)
+#pprint(test_response.json())
+
+#bot_auth = '112223157440-e_P1wON56ltclGn-2Q2LkSazPwQ' # acquire token
 
 @client.event
 async def on_ready():
@@ -34,6 +44,23 @@ async def imgur(ctx, *args):
     else:
         await client.say('Here is what i found for: %s on imgur' % search)
         await client.say(res[random.randint(0, len(res))].link)
+
+@client.command(pass_context=True)
+async def patch(ctx):
+    reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
+                    client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
+                    username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
+
+    test = []
+
+    for submission in reddit.subreddit('blackops4').hot():
+        test.append(submission)
+
+    index = test[1]
+
+    await client.say('Here is the latest patch notes for Black ops 4. (I think)')
+    await client.say('https://www.reddit.com/comments/%s' % index)
+
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
@@ -81,5 +108,5 @@ async def gif(ctx, *args):
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
-client.run(os.environ.get('BOT_TOKEN'))
+#client.run(os.environ.get('BOT_TOKEN'))
 
