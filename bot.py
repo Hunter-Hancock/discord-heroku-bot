@@ -93,7 +93,7 @@ async def gif(ctx, *args):
         data2 = r2.json()
 
         k = 0
-        while k < len(data):
+        while k < len(data) + len(data2):
             urls.append(data['gfycats'][k]['mp4Url'])
             urls.append(data2['gfycats'][k]['mp4Url'])
             k += 1
