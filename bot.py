@@ -100,7 +100,7 @@ async def gif(ctx, *args):
             k += 1
 
         i = 0
-        while i < len(api_response.data):
+        while i < len(api_response.data) + len(api_response2.data):
             urls.append(api_response.data[i].images.original.url)
             urls.append(api_response2.data[i].images.original.url)
             i += 1
