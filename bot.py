@@ -63,8 +63,8 @@ async def test(ctx, *args):
         fuck.append(data['gfycats'][k]['mp4Url'])
         fuck.append(data2['gfycats'][k]['mp4Url'])
         k += 1
-    await client.say(len(fuck))
-
+    await client.say(fuck)
+    await clieknt.say(len(data) + len(data2))
 
 
 @client.command(pass_context=True)
