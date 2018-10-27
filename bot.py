@@ -59,7 +59,7 @@ async def test(ctx, *args):
 
 
     k = 0
-    while k < len(data) + len(data2):
+    while k < 20:
         fuck.append(data['gfycats'][k]['mp4Url'])
         fuck.append(data2['gfycats'][k]['mp4Url'])
         k += 1
