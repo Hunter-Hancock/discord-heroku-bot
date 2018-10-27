@@ -85,7 +85,6 @@ async def gif(ctx, *args):
     try: 
         # Search Endpoint
         api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
-        api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
 
         r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s' % q)
         data = r.json()
@@ -100,9 +99,8 @@ async def gif(ctx, *args):
             k += 1
 
         i = 0
-        while i <= len(api_response.data) + len(api_response2.data):
+        while i <= len(api_response.data):
             urls.append(api_response.data[i].images.original.url)
-            urls.append(api_response2.data[i].images.original.url)
             i += 1
         
         if (len(urls) == 0):
@@ -110,7 +108,6 @@ async def gif(ctx, *args):
         else:
             await client.say('Here is what i found for: %s on giphy/gfycat' % q)
             await client.say(urls[random.randint(0, len(urls))])
-            await client.say(len(urls))
         
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
