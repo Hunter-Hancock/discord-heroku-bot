@@ -19,9 +19,8 @@ imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
 imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
-
 #client_auth = requests.auth.HTTPBasicAuth(os.environ.get('REDDIT_CLIENT_ID'), os.environ.get('REDDIT_CLIENT_SECRET'))
-#post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": }
+#post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": os.environ.get('REDDIT_PASSWORD')}
 #headers = {"User-Agent": "discord-bot/0.1 by MildlyAdequateDOC"}
 #test_response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=headers)
 #pprint(test_response.json())
@@ -58,7 +57,7 @@ async def patch(ctx):
 
     index = test[1]
 
-    await client.say('Here is the latest patch notes for Black ops 4. (I think)')
+    await client.say('Here is the latest patch notes for Black ops 4.')
     await client.say('https://www.reddit.com/comments/%s' % index)
 
 
@@ -109,4 +108,3 @@ async def gif(ctx, *args):
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
 
 client.run(os.environ.get('BOT_TOKEN'))
-
