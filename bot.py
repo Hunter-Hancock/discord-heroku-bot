@@ -108,8 +108,6 @@ async def gif(ctx, *args):
         else:
             await client.say('Here is what i found for: %s on giphy/gfycat' % q)
             await client.say(urls[random.randint(0, len(urls))])
-            await client.say(len(urls))
-
         
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
