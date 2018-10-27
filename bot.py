@@ -46,39 +46,17 @@ async def imgur(ctx, *args):
         await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
-async def test(ctx, *args):
-    q = '+'.join(str(i) for i in args)
-    q2 = ''.join(str(i) for i in args)
-    r = requests.get('https://api.gfycat.com/v1/gfycats/search?search_text=%s' % q)
-    data = r.json()
-
-    r2 = requests.get('https://api.gfycat.com/v1/gfycats/search?search_text=%s' % q2)
-    data2 = r2.json()
-
-    fuck = []
-
-
-    k = 0
-    while k < 20:
-        fuck.append(data['gfycats'][k]['mp4Url'])
-        fuck.append(data2['gfycats'][k]['mp4Url'])
-        k += 1
-    await client.say(fuck)
-    await client.say(len(data) + len(data2))
-
-
-@client.command(pass_context=True)
 async def patch(ctx):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                     client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
 
-    test = []
+    posts = []
 
-    for submission in reddit.subreddit('blackops4').hot():
-        test.append(submission)
+    for post in reddit.subreddit('blackops4').hot():
+        posts.append(post)
 
-    index = test[1]
+    index = posts[1]
 
     await client.say('Here is the latest patch notes for Black ops 4.')
     await client.say('https://www.reddit.com/comments/%s' % index)
@@ -98,6 +76,7 @@ async def gif(ctx, *args):
     api_instance = giphy_client.DefaultApi()
     api_key = os.environ.get('GIF_TOKEN') # str | Giphy API Key.
     q = '+'.join(str(i) for i in args)
+    q2 = ''.join(str(i) for i in args)
     lang = 'en'
     fmt = 'json'
 
@@ -110,9 +89,13 @@ async def gif(ctx, *args):
         r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s' % q)
         data = r.json()
 
+        r2 = requests.get('https://api.gfycat.com/v1/gfycats/search?search_text=%s' % q2)
+        data2 = r2.json()
+
         k = 0
         while k < len(data):
             urls.append(data['gfycats'][k]['mp4Url'])
+            urls.append(data2['gfycats'][k]['mp4Url'])
             k += 1
 
         i = 0
