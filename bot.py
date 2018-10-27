@@ -19,6 +19,7 @@ imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
 imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
+
 #client_auth = requests.auth.HTTPBasicAuth(os.environ.get('REDDIT_CLIENT_ID'), os.environ.get('REDDIT_CLIENT_SECRET'))
 #post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": os.environ.get('REDDIT_PASSWORD')}
 #headers = {"User-Agent": "discord-bot/0.1 by MildlyAdequateDOC"}
@@ -43,6 +44,28 @@ async def imgur(ctx, *args):
     else:
         await client.say('Here is what i found for: %s on imgur' % search)
         await client.say(res[random.randint(0, len(res))].link)
+
+@client.command(pass_context=True)
+async def test(ctx, *args):
+    q = '+'.join(str(i) for i in args)
+    q2 = ''.join(str(i) for i in args)
+    r = requests.get('https://api.gfycat.com/v1/gfycats/search?search_text=%s' % q)
+    data = r.json()
+
+    r2 = requests.get('https://api.gfycat.com/v1/gfycats/search?search_text=%s' % q2)
+    data2 = r2.json()
+
+    fuck = []
+
+
+    k = 0
+    while k < len(data) + len(data2):
+        fuck.append(data['gfycats'][k]['mp4Url'])
+        fuck.append(data2['gfycats'][k]['mp4Url'])
+        k += 1
+    await client.say(len(fuck))
+
+
 
 @client.command(pass_context=True)
 async def patch(ctx):
