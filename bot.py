@@ -57,13 +57,14 @@ async def patch(ctx):
     for post in reddit.subreddit('blackops4').hot():
         posts.append(post)
 
-    pembed = discord.Embed(
-    title = posts[1].title,
-    description = posts[1].selftext,
-    colour = discord.Colour.green())
+    embed = discord.Embed(
+        title = posts[1].title,
+        description = posts[1].selftext,
+        colour = discord.Colour.green())
+    embed.set_footer(posts[1].url)
 
     await client.say('Here is the latest patch notes for Black ops 4.')
-    await client.say(embed=pembed)
+    await client.say(embed=embed)
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
