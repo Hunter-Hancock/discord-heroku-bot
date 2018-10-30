@@ -61,7 +61,6 @@ async def patch(ctx):
     await client.say('Here is the latest patch notes for Black ops 4.')
     await client.say('https://www.reddit.com/comments/%s' % index)
 
-
 @client.command(pass_context=True)
 async def clear(ctx, amount):
     channel = ctx.message.channel
@@ -76,7 +75,6 @@ async def gif(ctx, *args):
     api_instance = giphy_client.DefaultApi()
     api_key = os.environ.get('GIF_TOKEN') # str | Giphy API Key.
     q = '+'.join(str(i) for i in args)
-    q2 = ''.join(str(i) for i in args)
     lang = 'en'
     fmt = 'json'
 
@@ -90,13 +88,9 @@ async def gif(ctx, *args):
         r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s' % q)
         data = r.json()
 
-        r2 = requests.get('https://api.gfycat.com/v1/gfycats/search?search_text=%s' % q2)
-        data2 = r2.json()
-
         k = 0
-        while k < len(data) + len(data2):
+        while k < len(data):
             urls.append(data['gfycats'][k]['mp4Url'])
-            urls.append(data2['gfycats'][k]['mp4Url'])
             k += 1
 
         i = 0
