@@ -86,7 +86,7 @@ async def reddit(ctx, *args):
         title = wadu.title,
         description = wadu.selftext,
         colour = discord.Colour.green())
-
+    embed.set_image(url=wadu.url)
     embed.set_footer(text=wadu.url)
     await client.say(embed=embed)   
 
