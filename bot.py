@@ -65,7 +65,6 @@ async def patch(ctx):
 
     await client.say('Here is the latest patch notes for Black ops 4.')
     await client.say(embed.title)
-    await client.say(embed.description)
     await client.say(embed.url)
 
 @client.command(pass_context=True)
