@@ -9,6 +9,7 @@ from imgurpython import ImgurClient
 import requests
 import json
 import praw
+import urllib.request
 
 client = commands.Bot(command_prefix = '!')
 
@@ -77,8 +78,9 @@ async def reddit(ctx, *args):
     try:
         await client.say('Here is a hot post in: %s' % q)
         await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
-    except:
-        await client.say('No such subreddit')
+    except urllib.error.HTTPError as err:
+        if (err.code == 404):
+            await client.say('No such subreddit')
 
 
 @client.command(pass_context=True)
