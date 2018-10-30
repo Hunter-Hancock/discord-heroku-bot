@@ -80,6 +80,8 @@ async def reddit(ctx, *args):
 
     length = len(posts) - 1
 
+    pid = posts[1].id
+
     random.seed(datetime.datetime.now().time())
     wadu = posts[random.randint(0, length)]
     embed = discord.Embed(
@@ -87,15 +89,8 @@ async def reddit(ctx, *args):
         description = wadu.selftext,
         colour = discord.Colour.green())
     embed.set_image(url=wadu.url)
-    embed.set_footer(text=wadu.url)
-    await client.say(embed=embed)   
-
-
-#    try:
-#       await client.say('Here is a hot post in: %s' % q)
-#       await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
-#   except discord.ext.commands.errors.CommandInvokeError:
-#        await client.say('No such subreddit')
+    embed.set_footer(text='https://www.reddit.com/comments/%s' % pid)
+    await client.say(embed=embed)
 
 
 @client.command(pass_context=True)
