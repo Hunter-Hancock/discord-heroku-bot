@@ -9,6 +9,7 @@ from imgurpython import ImgurClient
 import requests
 import json
 import praw
+import datetime
 
 client = commands.Bot(command_prefix = '!')
 
@@ -52,7 +53,6 @@ async def patch(ctx):
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
 
     posts = []
-    
 
     for post in reddit.subreddit('blackops4').hot():
         posts.append(post)
@@ -63,7 +63,7 @@ async def patch(ctx):
     colour = discord.Colour.green())
 
     await client.say('Here is the latest patch notes for Black ops 4.')
-    await client.say(embed = pembed)
+    await client.say(embed=pembed)
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
@@ -80,6 +80,7 @@ async def reddit(ctx, *args):
 
     length = len(posts) - 1
 
+    random.seed(datetime.datetime.now().time())
     embed = discord.Embed(
         title = posts[random.randint(0, length)].title,
         description = posts[random.randint(0, length)].selftext,
