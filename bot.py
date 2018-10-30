@@ -53,14 +53,20 @@ async def patch(ctx):
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
 
     posts = []
+    
 
     for post in reddit.subreddit('blackops4').hot():
         posts.append(post)
 
     index = posts[1]
 
+    pembed = discord.Embed(
+    title = index.title,
+    description = index.selftext,
+    colour = discord.Colour.green())
+
     await client.say('Here is the latest patch notes for Black ops 4.')
-    await client.say('https://www.reddit.com/comments/%s' % index)
+    await client.say(embed = pembed)
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
@@ -69,31 +75,24 @@ async def reddit(ctx, *args):
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
     q = ''.join(str(i) for i in args)
     posts = []
-    reddit_dict = { "title":[],
-                    "body":[],
-                    "url":[]
-}
+
+    length = len(posts) - 1
+    randomr = random.randint(0, length)
+
     for post in reddit.subreddit(q).hot():
         posts.append(post)
 
-    for submission in reddit.subreddit(q).hot():
-        reddit_dict["title"].append(submission.title)
-        reddit_dict["body"].append(submission.selftext)
-        reddit_dict["url"].append(submission.url)
-
     embed = discord.Embed(
-        title = submission.title,
-        description = submission.selftext
+        title = posts[randomr].title,
+        description = posts[randomr].selftext
     )
-    embed.set_footer(text=submission.url)
+    embed.set_footer(text=posts[randomr].url)
     await client.say(embed=embed)   
 
 
-#    length = len(posts) - 1
-
 #    try:
 #       await client.say('Here is a hot post in: %s' % q)
-#        await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
+#       await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
 #   except discord.ext.commands.errors.CommandInvokeError:
 #        await client.say('No such subreddit')
 
