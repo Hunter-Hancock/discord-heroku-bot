@@ -81,12 +81,13 @@ async def reddit(ctx, *args):
     length = len(posts) - 1
 
     random.seed(datetime.datetime.now().time())
+    wadu = posts[random.randint(0, length)]
     embed = discord.Embed(
-        title = posts[random.randint(0, length)].title,
-        description = posts[random.randint(0, length)].selftext,
+        title = wadu.title,
+        description = wadu.selftext,
         colour = discord.Colour.green())
 
-    embed.set_footer(text=posts[random.randint(0, length)].url)
+    embed.set_footer(text=wadu.url)
     await client.say(embed=embed)   
 
 
