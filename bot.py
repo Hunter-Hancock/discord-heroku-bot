@@ -9,6 +9,7 @@ from imgurpython import ImgurClient
 import requests
 import json
 import praw
+import pandas as pd
 
 client = commands.Bot(command_prefix = '!')
 
@@ -68,9 +69,17 @@ async def reddit(ctx, *args):
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
     q = ''.join(str(i) for i in args)
     posts = []
-
+    reddit_dict = { "title":[],
+                    "body":[]
+}
     for post in reddit.subreddit(q).hot():
         posts.append(post)
+
+    for submission in reddit.subreddit(q).hot():
+        reddit_dict["title"].append(submission.title)
+        reddit_dict["body"].append(submission.selftext)
+    pprint(reddit_dict)
+
 
     length = len(posts) - 1
 
