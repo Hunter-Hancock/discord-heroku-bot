@@ -4,4 +4,3 @@ pprint
 imgurpython
 requests
 praw
-urllib
