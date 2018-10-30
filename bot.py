@@ -9,7 +9,6 @@ from imgurpython import ImgurClient
 import requests
 import json
 import praw
-import pandas as pd
 
 client = commands.Bot(command_prefix = '!')
 
@@ -58,11 +57,9 @@ async def patch(ctx):
     for post in reddit.subreddit('blackops4').hot():
         posts.append(post)
 
-    index = posts[1]
-
     pembed = discord.Embed(
-    title = index.title,
-    description = index.selftext,
+    title = posts[1].title,
+    description = posts[1].selftext,
     colour = discord.Colour.green())
 
     await client.say('Here is the latest patch notes for Black ops 4.')
@@ -77,16 +74,16 @@ async def reddit(ctx, *args):
     posts = []
 
     length = len(posts) - 1
-    randomr = random.randint(0, length)
 
     for post in reddit.subreddit(q).hot():
         posts.append(post)
 
     embed = discord.Embed(
-        title = posts[randomr].title,
-        description = posts[randomr].selftext
-    )
-    embed.set_footer(text=posts[randomr].url)
+        title = posts[random.randint(0, length)].title,
+        description = posts[random.randint(0, length)].selftext,
+        colour = discord.Colour.green())
+
+    embed.set_footer(text=posts[random.randint(0, length)].url)
     await client.say(embed=embed)   
 
 
