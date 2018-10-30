@@ -74,7 +74,7 @@ async def reddit(ctx, *args):
 
     length = len(posts) - 1
 
-    await client.say('Here is the latest patch notes for Black ops 4.')
+    await client.say('Here is a hot post in: %s' % q)
     await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
 
 @client.command(pass_context=True)
