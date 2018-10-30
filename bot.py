@@ -62,6 +62,22 @@ async def patch(ctx):
     await client.say('https://www.reddit.com/comments/%s' % index)
 
 @client.command(pass_context=True)
+async def reddit(ctx, *args):
+    reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
+                    client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
+                    username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
+    q = ''.join(str(i) for i in args)
+    posts = []
+
+    for post in reddit.subreddit(q).hot():
+        posts.append(post)
+
+    length = len(posts) - 1
+
+    await client.say('Here is the latest patch notes for Black ops 4.')
+    await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
+
+@client.command(pass_context=True)
 async def clear(ctx, amount):
     channel = ctx.message.channel
     messages = []
@@ -103,7 +119,7 @@ async def gif(ctx, *args):
             await client.say('Sorry no results for: %s' % q)
         else:
             await client.say('Here is what i found for: %s on giphy/gfycat' % q)
-            await client.say(urls[random.randint(0, len(urls))])
+            await client.say(urls[random.randint(0, len(urls) - 1)])
         
     except ApiException as e:
         print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
