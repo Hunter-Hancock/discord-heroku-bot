@@ -58,9 +58,9 @@ async def patch(ctx):
         posts.append(post)
 
     embed = discord.Embed(
-        title = posts[1].title,
+        title = posts[0].title,
         colour = discord.Colour.green())
-    embed.set_footer(text=posts[1].url)
+    embed.set_footer(text=posts[0].url)
 
     await client.say('Here is the latest patch notes for Black ops 4.')
     await client.say(embed=embed)
