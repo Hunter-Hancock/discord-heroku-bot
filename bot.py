@@ -78,6 +78,8 @@ async def reddit(ctx, *args):
     for post in reddit.subreddit(q).hot():
         posts.append(post)
 
+    length = len(posts) - 1
+
     embed = discord.Embed(
         title = posts[random.randint(0, length)].title,
         description = posts[random.randint(0, length)].selftext,
