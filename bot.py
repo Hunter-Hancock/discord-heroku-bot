@@ -59,13 +59,11 @@ async def patch(ctx):
 
     embed = discord.Embed(
         title = posts[1].title,
-        description = posts[1].selftext,
         colour = discord.Colour.green())
     embed.set_footer(text=posts[1].url)
 
     await client.say('Here is the latest patch notes for Black ops 4.')
-    await client.say(embed.title)
-    await client.say(embed.url)
+    await client.say(embed=embed)
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
