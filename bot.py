@@ -83,6 +83,7 @@ async def reddit(ctx, *args):
     pid = posts[1].id
 
     random.seed(datetime.datetime.now().time())
+    pid = posts[1].id
     wadu = posts[random.randint(0, length)]
     embed = discord.Embed(
         title = wadu.title,
