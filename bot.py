@@ -74,11 +74,12 @@ async def reddit(ctx, *args):
 
     length = len(posts) - 1
 
-    if (len(posts) == 0):
-        await client.say('No such subreddit')
-    else:
+    try:
         await client.say('Here is a hot post in: %s' % q)
         await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
+    except:
+        await client.say('No such subreddit')
+
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
@@ -124,7 +125,7 @@ async def gif(ctx, *args):
             await client.say('Here is what i found for: %s on giphy/gfycat' % q)
             await client.say(urls[random.randint(0, len(urls) - 1)])
         
-    except ApiException as e:
-        print("Exception when calling DefaultApi->gifs_search_get: %s\n" % e)
+    except ApiException:
+        await client.say('No gifs found')
 
 client.run(os.environ.get('BOT_TOKEN'))
