@@ -74,8 +74,11 @@ async def reddit(ctx, *args):
 
     length = len(posts) - 1
 
-    await client.say('Here is a hot post in: %s' % q)
-    await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
+    if (len(posts) == 0):
+        await client.say('No such subreddit')
+    else:
+        await client.say('Here is a hot post in: %s' % q)
+        await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
