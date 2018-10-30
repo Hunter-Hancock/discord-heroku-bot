@@ -70,7 +70,8 @@ async def reddit(ctx, *args):
     q = ''.join(str(i) for i in args)
     posts = []
     reddit_dict = { "title":[],
-                    "body":[]
+                    "body":[],
+                    "url":[]
 }
     for post in reddit.subreddit(q).hot():
         posts.append(post)
@@ -78,16 +79,23 @@ async def reddit(ctx, *args):
     for submission in reddit.subreddit(q).hot():
         reddit_dict["title"].append(submission.title)
         reddit_dict["body"].append(submission.selftext)
-    pprint(reddit_dict)
+        reddit_dict["url"].append(submission.url)
+
+    embed = discord.Embed(
+        title = submission.title,
+        description = submission.selftext
+    )
+    embed.set_footer(text=submission.url)
+    await client.say(embed=embed)   
 
 
-    length = len(posts) - 1
+#    length = len(posts) - 1
 
-    try:
-        await client.say('Here is a hot post in: %s' % q)
-        await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
-    except discord.ext.commands.errors.CommandInvokeError:
-        await client.say('No such subreddit')
+#    try:
+#       await client.say('Here is a hot post in: %s' % q)
+#        await client.say('https://www.reddit.com/comments/%s' % posts[random.randint(0, length)])
+#   except discord.ext.commands.errors.CommandInvokeError:
+#        await client.say('No such subreddit')
 
 
 @client.command(pass_context=True)
