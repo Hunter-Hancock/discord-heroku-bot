@@ -64,7 +64,7 @@ async def patch(ctx):
     embed.set_footer(text=posts[1].url)
 
     await client.say('Here is the latest patch notes for Black ops 4.')
-    await client.say(embed=embed)
+    await client.say(embed)
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
@@ -143,7 +143,7 @@ async def gif(ctx, *args):
             await client.say('Here is what i found for: %s on giphy/gfycat' % q)
             await client.say(urls[random.randint(0, len(urls) - 1)])
         
-    except discord.ext.commands.errors.CommandInvokeError:
-        await client.say('No gifs found')
+    except discord.ext.commands.errors.CommandInvokeError as e:
+        await client.say(e)
 
 client.run(os.environ.get('BOT_TOKEN'))
