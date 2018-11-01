@@ -46,16 +46,16 @@ async def imgur(ctx, *args):
         await client.say('Here is what i found for: %s on imgur' % search)
         await client.say(res[random.randint(0, len(res))].link)
 
-@client.command(pass_context=True)
-async def join(ctx):
-    channel = ctx.message.author.voice.voice_channel
-    await client.join_voice_channel(channel)
+# @client.command(pass_context=True)
+# async def join(ctx):
+#     channel = ctx.message.author.voice.voice_channel
+#     await client.join_voice_channel(channel)
 
-@client.command(pass_context=True)
-async def leave(ctx):
-    server = ctx.message.server
-    voice_client = client.voice_client_in(server)
-    await voice_client.disconnect()
+# @client.command(pass_context=True)
+# async def leave(ctx):
+#     server = ctx.message.server
+#     voice_client = client.voice_client_in(server)
+#     await voice_client.disconnect()
 
 @client.command(pass_context=True)
 async def patch(ctx):
