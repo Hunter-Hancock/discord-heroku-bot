@@ -47,6 +47,17 @@ async def imgur(ctx, *args):
         await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
+async def join(ctx):
+    channel = ctx.message.author.voice.voice_channel
+    await client.join_voice_channel(channel)
+
+@client.command(pass_context=True)
+async def leave(ctx):
+    server = ctx.message.server
+    voice_client = client.voice_client_in(server)
+    await voice_client.disconnect()
+
+@client.command(pass_context=True)
 async def patch(ctx):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                     client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
