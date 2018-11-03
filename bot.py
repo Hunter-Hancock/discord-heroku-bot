@@ -78,45 +78,27 @@ async def patch(ctx):
     await client.say(embed=embed)
 
 @client.command(pass_context=True)
-async def reddit(ctx, *args, query=0):
+async def reddit(ctx, *args):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                     client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
+    q = ''.join(str(i) for i in args)
+    posts = []
 
-    if (query == 0):
-        q = ''.join(str(i) for i in args)
-        posts = []
-        for post in reddit.subreddit(q).hot():
-            posts.append(post)
+    length = len(posts) - 1
 
-        length = len(posts) - 1
+    for post in reddit.subreddit(q).hot():
+        posts.append(post)
 
-        random.seed(datetime.datetime.now().time())
-        wadu = posts[random.randint(0, length)]
-        embed = discord.Embed(
-            title = wadu.title,
-            description = wadu.selftext,
-            colour = discord.Colour.green())
-        embed.set_image(url=wadu.url)
-        embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
-        await client.say(embed=embed)
-    else:
-        q = ''.join(str(i) for i in args)
-        posts = []
-
-        for post in reddit.subreddit(q).hot():
-            posts.append(post)
-
-        index = query + 1
-
-        wadu = posts[index]
-        embed = discord.Embed(
-            title = wadu.title,
-            description = wadu.selftext,
-            colour = discord.Colour.green())
-        embed.set_image(url=wadu.url)
-        embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
-        await client.say(embed=embed)
+    random.seed(datetime.datetime.now().time())
+    wadu = posts[random.randint(0, length)]
+    embed = discord.Embed(
+        title = wadu.title,
+        description = wadu.selftext,
+        colour = discord.Colour.green())
+    embed.set_image(url=wadu.url)
+    embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
+    await client.say(embed=embed)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
