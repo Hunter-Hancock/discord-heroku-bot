@@ -178,8 +178,7 @@ async def summon(self, ctx):
 
     return True
 
-
-@commands.command(pass_context=True, no_pm=True)
+@client.command(pass_context=True, no_pm=True)
 async def play(self, ctx, *, song : str):
     """Plays a song.
     If there is a song currently in the queue, then it is
@@ -211,7 +210,7 @@ async def play(self, ctx, *, song : str):
         await self.bot.say('Enqueued ' + str(entry))
         await state.songs.put(entry)
 
-@commands.command(pass_context=True, no_pm=True)
+@client.command(pass_context=True, no_pm=True)
 async def stop(self, ctx):
     """Stops playing audio and leaves the voice channel.
     This also clears the queue.
@@ -230,7 +229,7 @@ async def stop(self, ctx):
     except:
         pass
 
-@commands.command(pass_context=True, no_pm=True)
+@client.command(pass_context=True, no_pm=True)
 async def skip(self, ctx):
     state = self.get_voice_state(ctx.message.server)
     if not state.is_playing():
