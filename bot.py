@@ -85,10 +85,10 @@ async def reddit(ctx, *args):
     q = ''.join(str(i) for i in args)
     posts = []
 
-    length = len(posts) - 1
-
     for post in reddit.subreddit(q).hot():
         posts.append(post)
+
+    length = len(posts) - 1
 
     random.seed(datetime.datetime.now().time())
     wadu = posts[random.randint(0, length)]
