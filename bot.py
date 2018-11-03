@@ -11,6 +11,7 @@ import json
 import praw
 import datetime
 import asyncio
+from discord import opus
 
 client = commands.Bot(command_prefix = '!')
 
