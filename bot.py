@@ -107,8 +107,9 @@ async def reddit(ctx, *args, query=0):
         for post in reddit.subreddit(q).hot():
             posts.append(post)
 
-        random.seed(datetime.datetime.now().time())
-        wadu = posts[query]
+        index = query + 1
+
+        wadu = posts[index]
         embed = discord.Embed(
             title = wadu.title,
             description = wadu.selftext,
