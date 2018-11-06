@@ -67,12 +67,13 @@ async def patch(ctx):
     posts = []
 
     for post in reddit.subreddit('blackops4').hot():
-        posts.append(post)
+        if 'Update' in post.title:
+            posts.append(post)
 
     embed = discord.Embed(
-        title = posts[1].title,
+        title = posts[0].title,
         colour = discord.Colour.green())
-    embed.set_footer(text=posts[1].url)
+    embed.set_footer(text=posts[0].url)
 
     await client.say('Here is the latest patch notes for Black ops 4.')
     await client.say(embed=embed)
@@ -101,7 +102,7 @@ async def reddit(ctx, *args):
     embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
     await client.say(embed=embed)
     if wadu.media_embed:
-        await client.say(wadu.media)
+        await client.say(wadu.media_only)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
