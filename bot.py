@@ -102,7 +102,11 @@ async def reddit(ctx, *args):
     embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
     await client.say(embed=embed)
     if wadu.media_embed:
-        await client.say(wadu.permalink)
+        await client.say('found embed')
+        await client.say(wadu.media_embed)
+    elif wadu.media:
+        await client.say('found media')
+        await client.say(wadu.media)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
