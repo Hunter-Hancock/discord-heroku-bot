@@ -86,7 +86,8 @@ async def reddit(ctx, *args):
     posts = []
 
     for post in reddit.subreddit(q).hot():
-        posts.append(post)
+        if not post.is_video:
+            posts.append(post)
 
     length = len(posts) - 1
 
