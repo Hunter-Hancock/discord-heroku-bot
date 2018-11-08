@@ -11,6 +11,8 @@ import json
 import praw
 import datetime
 import asyncio
+from discord import opus
+
 
 client = commands.Bot(command_prefix = '!')
 
@@ -251,7 +253,7 @@ class Music:
             await self.create_voice_client(channel)
         except discord.ClientException:
             await self.bot.say('Already in a voice channel...')
-        except discord.InvalidArgument:
+        except discord.ClientException:
             await self.bot.say('This is not a voice channel...')
         else:
             await self.bot.say('Ready to play audio in ' + channel.name)

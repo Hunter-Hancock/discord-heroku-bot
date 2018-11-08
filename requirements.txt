@@ -1,4 +1,7 @@
 discord
+discord.py[voice]
+youtube_dl
+PyNaCl
 giphy_client
 pprint
 imgurpython
