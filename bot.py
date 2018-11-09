@@ -48,12 +48,6 @@ async def imgur(ctx, *args):
         await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
-async def info(ctx):
-    user = ctx.message.author.id
-    info = client.get_user_info(user)
-    await client.say(info)
-
-@client.command(pass_context=True)
 async def patch(ctx):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                     client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
