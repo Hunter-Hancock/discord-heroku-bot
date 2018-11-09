@@ -50,7 +50,7 @@ async def imgur(ctx, *args):
 @client.command(pass_context=True)
 async def info(ctx):
     user = ctx.message.author.id
-    await client.get_user_info(user)
+    await client.say(client.get_user_info(user))
 
 @client.command(pass_context=True)
 async def patch(ctx):
