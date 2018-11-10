@@ -140,6 +140,11 @@ async def gif(ctx, *args):
     except discord.ClientException as e:
         await client.say(e)
 
+@client.command()
+async def move():
+    client.move_member(120256404446642176, 450427881013772298)
+    await client.say("Moved.")
+
 
 #music-code:
     # if not discord.opus.is_loaded():
