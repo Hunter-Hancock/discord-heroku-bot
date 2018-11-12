@@ -32,7 +32,7 @@ imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif, !imgur 24/7 Gif bot'))
+    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit 24/7'))
     print('Ready')
 
 @client.command(pass_context=True)
