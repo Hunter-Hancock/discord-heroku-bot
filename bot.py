@@ -100,14 +100,6 @@ async def clear(ctx, amount):
     await client.delete_messages(messages)
 
 @client.command(pass_context=True)
-async def logs(ctx):
-    channel = ctx.message.channel
-    messages = []
-    async for message in client.logs_from(channel):
-        messages.append(message)
-    await client.say(messages)
-
-@client.command(pass_context=True)
 async def gif(ctx, *args):
     # create an instance of the API class
     api_instance = giphy_client.DefaultApi()
