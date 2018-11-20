@@ -94,7 +94,10 @@ async def reddit(ctx, *args):
 @client.command(pass_context=True)
 async def avatar(ctx):
     user = ctx.message.author
-    await client.say(user.avatar_url)
+    if not user.avatar_url:
+        await client.say(user.avatar_default_url)
+    else:
+        await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
