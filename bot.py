@@ -92,6 +92,11 @@ async def reddit(ctx, *args):
     await client.say(embed=embed)
 
 @client.command(pass_context=True)
+async def avatar(ctx):
+    user = ctx.message.author
+    await client.say(user.avatar_url)
+
+@client.command(pass_context=True)
 async def clear(ctx, amount):
     channel = ctx.message.channel
     messages = []
