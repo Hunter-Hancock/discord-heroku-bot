@@ -101,12 +101,22 @@ async def avatar(ctx):
 
 @client.command(pass_context=True)
 async def ffz(ctx, q):
-    url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
-    s = requests.Session()
-    r = s.get(url).json()
-
-    res = 'https:',(r['emoticons'][0]['urls']['4'])
-    await client.say(''.join(res))
+    if(q == 'hypers'):
+        await client.say('https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
+    if(q == 'Pog'):
+        await client.say('https://cdn.frankerfacez.com/7c4a79a81eb71b28bf67a3a390455237.png')
+    if(q == 'monkaS'):
+        await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
+    else:
+        url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
+        s = requests.Session()
+        r = s.get(url).json()
+        
+        try:
+            res = 'https:',(r['emoticons'][0]['urls']['4'])
+        except KeyError:
+            res = 'https:',(r['emoticons'][0]['urls']['2'])
+        await client.say(''.join(res))
 
 
 @client.command(pass_context=True)
