@@ -32,7 +32,7 @@ imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit 24/7'))
+    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wip'))
     print('Ready')
 
 @client.command(pass_context=True)
@@ -103,6 +103,8 @@ async def avatar(ctx):
 async def wip(ctx, q):
     if(q == 'monkaS'):
         await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
+    elif(q == null):
+        await client.say('Enter an arguement.')
     elif(q == 'hypers'):
         await client.say('https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
     elif(q == 'pepehands'):
@@ -116,10 +118,6 @@ async def wip(ctx, q):
             res = 'https:',(r['emoticons'][0]['urls']['4'])
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
-        try:
-            res = 'https:',(r['emoticons'][0]['urls']['2'])
-        except KeyError:
-            res = 'https:',(r['emoticons'][0]['urls']['1'])
         await client.say(''.join(res))
 
 
