@@ -101,10 +101,10 @@ async def avatar(ctx):
 
 @client.command(pass_context=True)
 async def ffz(ctx, q):
-
     url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
+    s = requests.Session()
+    r = s.get(url).json()
 
-    r = requests.get(url).json()
     res = 'https:',(r['emoticons'][0]['urls']['1'])
     await client.say(''.join(res))
 
