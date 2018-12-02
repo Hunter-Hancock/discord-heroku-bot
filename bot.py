@@ -106,7 +106,7 @@ async def ffz(ctx, q):
 
     r = requests.get(url).json()
 
-    await client.say((r['emoticons'][0]['urls']['1']))
+    await client.say('https:'(r['emoticons'][0]['urls']['1']))
 
 
 @client.command(pass_context=True)
