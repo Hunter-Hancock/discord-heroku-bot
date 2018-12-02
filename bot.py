@@ -116,6 +116,8 @@ async def ffz(ctx, q):
             res = 'https:',(r['emoticons'][0]['urls']['4'])
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
+        try:
+            res = 'https:',(r['emoticons'][0]['urls']['2'])
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['1'])
         await client.say(''.join(res))
