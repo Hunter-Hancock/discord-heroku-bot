@@ -105,8 +105,8 @@ async def ffz(ctx, q):
     url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
 
     r = requests.get(url).json()
-
-    await client.say('https:',(r['emoticons'][0]['urls']['1']))
+    res = 'https:',(r['emoticons'][0]['urls']['1'])
+    await client.say(''.join(res))
 
 
 @client.command(pass_context=True)
