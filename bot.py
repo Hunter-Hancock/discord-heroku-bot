@@ -115,12 +115,14 @@ async def wip(ctx, q):
         # r = s.get(url).json()
         r = requests.get(url).json()
 
+    try:
         try:
             res = 'https:',(r['emoticons'][0]['urls']['4'])
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
         await client.say(''.join(res))
-
+    except KeyError:
+        res = 'https:',(r['emoticons'][0]['urls']['1'])
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
