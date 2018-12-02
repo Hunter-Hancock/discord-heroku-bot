@@ -100,6 +100,16 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
+async def ffz(ctx, q):
+
+    url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
+
+    r = requests.get(url).json()
+
+    await client.say((r['emoticons'][0]['urls']['1']))
+
+
+@client.command(pass_context=True)
 async def clear(ctx, amount):
     channel = ctx.message.channel
     messages = []
