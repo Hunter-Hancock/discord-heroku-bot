@@ -118,7 +118,6 @@ async def wip(ctx, q):
     try:
         try:
             res = 'https:',(r['emoticons'][0]['urls']['4'])
-            await client.say(''.join(res))
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
         await client.say(''.join(res))
