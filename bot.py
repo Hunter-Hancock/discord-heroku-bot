@@ -100,7 +100,7 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
-async def ffz(ctx, q):
+async def wip(ctx, q):
     if(q == 'monkaS'):
         await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
     elif(q == 'hypers'):
