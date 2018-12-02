@@ -105,7 +105,7 @@ async def ffz(ctx, q):
     s = requests.Session()
     r = s.get(url).json()
 
-    res = 'https:',(r['emoticons'][0]['urls']['1'])
+    res = 'https:',(r['emoticons'][0]['urls']['4'])
     await client.say(''.join(res))
 
 
