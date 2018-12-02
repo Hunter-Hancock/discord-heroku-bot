@@ -103,7 +103,7 @@ async def avatar(ctx):
 async def wip(ctx, q):
     if(q == 'monkaS'):
         await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
-    elif(q == null):
+    elif(q == None):
         await client.say('Enter an arguement.')
     elif(q == 'hypers'):
         await client.say('https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
@@ -111,9 +111,10 @@ async def wip(ctx, q):
         await client.say('https://cdn.frankerfacez.com/b97ed9ea44a548134578aecd47348784.png')
     else:
         url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
-        s = requests.Session()
-        r = s.get(url).json()
-        
+        # s = requests.Session()
+        # r = s.get(url).json()
+        r = requests.get(url).json()
+
         try:
             res = 'https:',(r['emoticons'][0]['urls']['4'])
         except KeyError:
