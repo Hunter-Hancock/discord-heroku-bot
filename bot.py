@@ -117,23 +117,33 @@ async def wip(ctx, q):
         # r = s.get(url).json()
         r = requests.get(url).json()
 
+
     try:
-        try:
-            res = 'https:',(r['emoticons'][0]['urls']['4'])
-        except KeyError:
-            res = 'https:',(r['emoticons'][0]['urls']['2'])
-        await client.say(''.join(res))
-        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-        if (time.time() - starttime > 4):
-            await client.say('FeelsSlowMan')
-            await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
+        res = 'https:',(r['emoticons'][0]['urls']['4'])
+        embed = discord.Embed(
+            title = q,
+            colour = discord.Colour.green())
+        embed.set_image(url=''.join(res))
+        await client.say(embed=embed)
     except KeyError:
-        res = 'https:',(r['emoticons'][0]['urls']['1'])
-        await client.say(''.join(res))
-        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-        if (time.time() - starttime > 4):
-            await client.say('FeelsSlowMan')
-            await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
+        res = 'https:',(r['emoticons'][0]['urls']['2'])
+    # try:
+    #     try:
+    #         res = 'https:',(r['emoticons'][0]['urls']['4'])
+    #     except KeyError:
+    #         res = 'https:',(r['emoticons'][0]['urls']['2'])
+    #     await client.say(''.join(res))
+    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+    #     if (time.time() - starttime > 4):
+    #         await client.say('FeelsSlowMan')
+    #         await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
+    # except KeyError:
+    #     res = 'https:',(r['emoticons'][0]['urls']['1'])
+    #     await client.say(''.join(res))
+    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+    #     if (time.time() - starttime > 4):
+    #         await client.say('FeelsSlowMan')
+    #         await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
