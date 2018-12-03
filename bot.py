@@ -117,16 +117,21 @@ async def wip(ctx, q):
         # r = s.get(url).json()
         r = requests.get(url).json()
 
-
     try:
-        res = 'https:',(r['emoticons'][0]['urls']['4'])
-        embed = discord.Embed(
-            title = q,
-            colour = discord.Colour.green())
-        embed.set_image(url=''.join(res))
-        await client.say(embed=embed)
+        try:
+            res = 'https:',(r['emoticons'][0]['urls']['4'])
+            embed = discord.Embed(
+                title = q,
+                colour = discord.Colour.green())
+            embed.set_image(url=''.join(res))
+            # await client.say(embed=embed)
+        except KeyError:
+            res = 'https:',(r['emoticons'][0]['urls']['2'])
     except KeyError:
-        res = 'https:',(r['emoticons'][0]['urls']['2'])
+        res = 'https:',(r['emoticons'][0]['urls']['1'])
+    await client.say(embed=embed)
+
+
     # try:
     #     try:
     #         res = 'https:',(r['emoticons'][0]['urls']['4'])
