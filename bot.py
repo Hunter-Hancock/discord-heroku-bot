@@ -33,8 +33,8 @@ imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wip'))
-    print('Ready')
+    await client.change_presence(game=discord.Game(name='UNDER GOING MAINTENANCE'))
+    await client.change_presence(status=discord.Status.dnd)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
