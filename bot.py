@@ -123,11 +123,17 @@ async def wip(ctx, q):
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
         await client.say(''.join(res))
-        await client.say(time.time() - starttime)
+        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+        if (time.time() - starttime > 4):
+            await client.say('FeelsSlowMan')
+            await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
     except KeyError:
         res = 'https:',(r['emoticons'][0]['urls']['1'])
         await client.say(''.join(res))
         await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+        if (time.time() - starttime > 4):
+            await client.say('FeelsSlowMan')
+            await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
