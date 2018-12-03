@@ -124,12 +124,14 @@ async def wip(ctx, q):
                 title = q,
                 colour = discord.Colour.green())
             embed.set_image(url=''.join(res))
-            # await client.say(embed=embed)
+            await client.say(embed=embed)
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
+            await client.say(embed=embed)
     except KeyError:
         res = 'https:',(r['emoticons'][0]['urls']['1'])
-    await client.say(embed=embed)
+        await client.say(embed=embed)
+    await client.say('Took %s seconds' % round(time.time() - starttime, 2))
 
 
     # try:
