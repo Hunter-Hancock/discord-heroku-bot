@@ -128,9 +128,11 @@ async def wip(ctx, q):
             await client.say(embed=embed)
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
+            embed.set_image(url=''.join(res))
             await client.say(embed=embed)
     except KeyError:
         res = 'https:',(r['emoticons'][0]['urls']['1'])
+        embed.set_image(url=''.join(res))
         await client.say(embed=embed)
     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
 
