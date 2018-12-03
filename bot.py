@@ -117,12 +117,13 @@ async def wip(ctx, q):
         # r = s.get(url).json()
         r = requests.get(url).json()
 
+    embed = discord.Embed(
+        title = q,
+        colour = discord.Colour.green())
+
     try:
         try:
             res = 'https:',(r['emoticons'][0]['urls']['4'])
-            embed = discord.Embed(
-                title = q,
-                colour = discord.Colour.green())
             embed.set_image(url=''.join(res))
             await client.say(embed=embed)
         except KeyError:
