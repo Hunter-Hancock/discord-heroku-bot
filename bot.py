@@ -49,14 +49,14 @@ async def imgur(ctx, *args):
         await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
-async def patch(ctx):
+async def patch(ctx, q):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                     client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                     username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
 
     posts = []
 
-    for post in reddit.subreddit('blackops4').hot():
+    for post in reddit.subreddit(q).hot():
         if 'Update' in post.title:
             posts.append(post)
 
@@ -65,7 +65,7 @@ async def patch(ctx):
         colour = discord.Colour.green())
     embed.set_footer(text=posts[0].url)
 
-    await client.say('Here is the latest patch notes for Black ops 4.')
+    await client.say('Here is the latest patch notes for %s.' % q)
     await client.say(embed=embed)
 
 @client.command(pass_context=True)
@@ -117,36 +117,36 @@ async def wip(ctx, q):
         r = s.get(url).json()
         # r = requests.get(url).json()
 
-    # embed = discord.Embed(
-    #     title = q,
-    #     colour = discord.Colour.green())
-
-    # try:
-    #     try:
-    #         res = 'https:',(r['emoticons'][0]['urls']['4'])
-    #         embed.set_image(url=''.join(res))
-    #         await client.say(embed=embed)
-    #     except KeyError:
-    #         res = 'https:',(r['emoticons'][0]['urls']['2'])
-    #         embed.set_image(url=''.join(res))
-    #         await client.say(embed=embed)
-    # except KeyError:
-    #     res = 'https:',(r['emoticons'][0]['urls']['1'])
-    #     embed.set_image(url=''.join(res))
-    #     await client.say(embed=embed)
-    # await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+    embed = discord.Embed(
+        title = q,
+        colour = discord.Colour.green())
 
     try:
         try:
             res = 'https:',(r['emoticons'][0]['urls']['4'])
+            embed.set_image(url=''.join(res))
+            await client.say(embed=embed)
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
-        await client.say(''.join(res))
-        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+            embed.set_image(url=''.join(res))
+            await client.say(embed=embed)
     except KeyError:
         res = 'https:',(r['emoticons'][0]['urls']['1'])
-        await client.say(''.join(res))
-        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+        embed.set_image(url=''.join(res))
+        await client.say(embed=embed)
+    await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+
+    # try:
+    #     try:
+    #         res = 'https:',(r['emoticons'][0]['urls']['4'])
+    #     except KeyError:
+    #         res = 'https:',(r['emoticons'][0]['urls']['2'])
+    #     await client.say(''.join(res))
+    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+    # except KeyError:
+    #     res = 'https:',(r['emoticons'][0]['urls']['1'])
+    #     await client.say(''.join(res))
+    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
 
 
 @client.command(pass_context=True)
