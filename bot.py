@@ -113,47 +113,41 @@ async def wip(ctx, q):
         await client.say('https://cdn.frankerfacez.com/b97ed9ea44a548134578aecd47348784.png')
     else:
         url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
-        # s = requests.Session()
-        # r = s.get(url).json()
-        r = requests.get(url).json()
+        s = requests.Session()
+        r = s.get(url).json()
+        # r = requests.get(url).json()
 
-    embed = discord.Embed(
-        title = q,
-        colour = discord.Colour.green())
-
-    try:
-        try:
-            res = 'https:',(r['emoticons'][0]['urls']['4'])
-            embed.set_image(url=''.join(res))
-            await client.say(embed=embed)
-        except KeyError:
-            res = 'https:',(r['emoticons'][0]['urls']['2'])
-            embed.set_image(url=''.join(res))
-            await client.say(embed=embed)
-    except KeyError:
-        res = 'https:',(r['emoticons'][0]['urls']['1'])
-        embed.set_image(url=''.join(res))
-        await client.say(embed=embed)
-    await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-
+    # embed = discord.Embed(
+    #     title = q,
+    #     colour = discord.Colour.green())
 
     # try:
     #     try:
     #         res = 'https:',(r['emoticons'][0]['urls']['4'])
+    #         embed.set_image(url=''.join(res))
+    #         await client.say(embed=embed)
     #     except KeyError:
     #         res = 'https:',(r['emoticons'][0]['urls']['2'])
-    #     await client.say(''.join(res))
-    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-    #     if (time.time() - starttime > 4):
-    #         await client.say('FeelsSlowMan')
-    #         await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
+    #         embed.set_image(url=''.join(res))
+    #         await client.say(embed=embed)
     # except KeyError:
     #     res = 'https:',(r['emoticons'][0]['urls']['1'])
-    #     await client.say(''.join(res))
-    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-    #     if (time.time() - starttime > 4):
-    #         await client.say('FeelsSlowMan')
-    #         await client.say('https://cdn.frankerfacez.com/04b144281096a8ad3862434a628d44eb.png')
+    #     embed.set_image(url=''.join(res))
+    #     await client.say(embed=embed)
+    # await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+
+    try:
+        try:
+            res = 'https:',(r['emoticons'][0]['urls']['4'])
+        except KeyError:
+            res = 'https:',(r['emoticons'][0]['urls']['2'])
+        await client.say(''.join(res))
+        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+    except KeyError:
+        res = 'https:',(r['emoticons'][0]['urls']['1'])
+        await client.say(''.join(res))
+        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
