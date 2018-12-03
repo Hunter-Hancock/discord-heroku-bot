@@ -127,7 +127,7 @@ async def wip(ctx, q):
     except KeyError:
         res = 'https:',(r['emoticons'][0]['urls']['1'])
         await client.say(''.join(res))
-        await client.say(time.time() - starttime)
+        await client.say('Took %s seconds' % round(time.time() - starttime, 2))
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
