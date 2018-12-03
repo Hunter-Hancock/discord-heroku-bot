@@ -11,6 +11,7 @@ import json
 import praw
 import datetime
 import asyncio
+import time
 
 client = commands.Bot(command_prefix = '!')
 
@@ -101,6 +102,7 @@ async def avatar(ctx):
 
 @client.command(pass_context=True)
 async def wip(ctx, q):
+    starttime = time.time()
     if(q == 'monkaS'):
         await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
     elif(q == None):
@@ -121,9 +123,11 @@ async def wip(ctx, q):
         except KeyError:
             res = 'https:',(r['emoticons'][0]['urls']['2'])
         await client.say(''.join(res))
+        await client.say(time.time() - starttime)
     except KeyError:
         res = 'https:',(r['emoticons'][0]['urls']['1'])
         await client.say(''.join(res))
+        await client.say(time.time() - starttime)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
