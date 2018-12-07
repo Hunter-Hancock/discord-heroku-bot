@@ -33,7 +33,7 @@ imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='UNDER GOING MAINTENANCE'))
+    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz'))
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
@@ -56,7 +56,7 @@ async def patch(ctx, q):
     posts = []
 
     for post in reddit.subreddit(q).hot():
-        if 'Update' or 'Patch'in post.title:
+        if 'Update' in post.title:
             posts.append(post)
 
     embed = discord.Embed(
@@ -100,8 +100,8 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
-async def wip(ctx, q):
-    starttime = time.time()
+async def ffz(ctx, q):
+    #starttime = time.time()
     if(q == 'monkaS'):
         await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
     elif(q == None):
@@ -133,7 +133,7 @@ async def wip(ctx, q):
         res = 'https:',(r['emoticons'][0]['urls']['1'])
         embed.set_image(url=''.join(res))
         await client.say(embed=embed)
-    await client.say('Took %s seconds' % round(time.time() - starttime, 2))
+    #await client.say('Took %s seconds' % round(time.time() - starttime, 2))
 
     # try:
     #     try:
