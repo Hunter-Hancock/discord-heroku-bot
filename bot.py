@@ -35,14 +35,11 @@ imgclient = ImgurClient(imgclient_id, imgclient_secret)
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz'))
 
-async def test():
-    now = datetime.datetime.now
-    run_at = now + datetime.timedelta(minutes=2)
-    if now == run_at:
-        await client.send_message(client.get_channel('465986403281534979'), 'Anthem Closed Alpha servers are up.')
 
-while 1 == 1:
-    test()
+# now = datetime.datetime.now
+# run_at = now + datetime.timedelta(minutes=2)
+# if now == run_at:
+#     client.send_message(client.get_channel('465986403281534979'), 'Anthem Closed Alpha servers are up.')
 
 # now = datetime.datetime.now()
 # run_at = now + datetime.timedelta(hours=11,minutes=5)
