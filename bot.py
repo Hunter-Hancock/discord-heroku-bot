@@ -213,5 +213,6 @@ async def gif(ctx, *args):
         
     except discord.ClientException as e:
         await client.say(e)
+        
 
 client.run(os.environ.get('BOT_TOKEN'))
