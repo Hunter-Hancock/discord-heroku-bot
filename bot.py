@@ -186,7 +186,7 @@ async def gif(ctx, *args):
         api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
         api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
 
-        r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s&count=2500' % q)
+        r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s&count=1500' % q)
         data = r.json()
 
         r2 = requests.get('https://api.tenor.com/v1/search?q=%s' % q)
