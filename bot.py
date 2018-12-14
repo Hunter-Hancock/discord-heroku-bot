@@ -175,7 +175,7 @@ async def gif(ctx, *args):
     # create an instance of the API class
     api_instance = giphy_client.DefaultApi()
     api_key = os.environ.get('GIF_TOKEN') # str | Giphy API Key.
-    q = ''.join(str(i) for i in args)
+    q = '+'.join(str(i) for i in args)
     lang = 'en'
     fmt = 'json'
 
