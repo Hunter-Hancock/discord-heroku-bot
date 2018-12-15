@@ -123,6 +123,8 @@ async def text(ctx, number, message):
         number = +12565049695
     if number == 'lewis':
         number = +12565539578
+    if number == 'doc':
+        number = +12564583348
     twilio = Client(account_sid, auth_token)
     twilio.messages.create(
         to=number,
