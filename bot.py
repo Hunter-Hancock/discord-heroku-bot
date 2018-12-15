@@ -118,7 +118,7 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
-async def text(ctx, number, message):
+async def text(ctx, number, *args):
     if number == 'travis':
         number = +12565049695
     if number == 'lewis':
@@ -129,7 +129,7 @@ async def text(ctx, number, message):
     twilio.messages.create(
         to=number,
         from_='+12564948478',
-        body=message
+        body=' '.join(str(i) for i in args)
     )
 
 @client.command(pass_context=True)
