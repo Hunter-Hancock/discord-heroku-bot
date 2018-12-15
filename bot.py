@@ -121,6 +121,8 @@ async def avatar(ctx):
 async def text(ctx, number, message):
     if number == 'travis':
         number = +12565049695
+    if number == 'lewis':
+        number = +12565539578
     twilio = Client(account_sid, auth_token)
     twilio.messages.create(
         to=number,
