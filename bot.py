@@ -12,6 +12,8 @@ import praw
 import datetime
 import asyncio
 import time
+from twilio.rest import Client
+
 
 client = commands.Bot(command_prefix = '!')
 
@@ -22,6 +24,8 @@ imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
 imgclient = ImgurClient(imgclient_id, imgclient_secret)
 
+account_sid = os.environ.get('ACCOUNT_SID')
+auth_token = os.environ.get('AUTH_TOKEN')
 
 #client_auth = requests.auth.HTTPBasicAuth(os.environ.get('REDDIT_CLIENT_ID'), os.environ.get('REDDIT_CLIENT_SECRET'))
 #post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": os.environ.get('REDDIT_PASSWORD')}
@@ -112,6 +116,15 @@ async def avatar(ctx):
         await client.say(user.avatar_default_url)
     else:
         await client.say(user.avatar_url)
+
+@client.command(pass_context=True)
+async def text(ctx, number, message):
+    twilio = Client(account_sid, auth_token)
+    twilio.messages.create(
+        to=number,
+        from_='+12564948478',
+        body=message
+    )
 
 @client.command(pass_context=True)
 async def ffz(ctx, q):
