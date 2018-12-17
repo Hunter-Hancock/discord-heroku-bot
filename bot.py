@@ -37,7 +37,7 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz'))
+    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz !wfa'))
 
 
 # now = datetime.datetime.now
@@ -118,8 +118,8 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
-async def wolf(ctx, *args):
-    id='LA998V-JWV5L9Y85R'
+async def wfa(ctx, *args):
+    id=os.environ.get('WFA_ID')
     q = ' '.join(str(i) for i in args)
     if '+' in q:
         q = q.replace('+', 'plus')
