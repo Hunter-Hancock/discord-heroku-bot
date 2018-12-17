@@ -118,9 +118,9 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
-async def wolf(ctx, q):
+async def wolf(ctx, *args):
     id='LA998V-JWV5L9Y85R'
-    q = ' '.join(q)
+    q = ' '.join(str(i) for i in args)
     r = requests.get('http://api.wolframalpha.com/v1/result?appid=%s&i=%s' % (id, q))
     
     await client.say(r.text)
