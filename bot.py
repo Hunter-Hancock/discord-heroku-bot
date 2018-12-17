@@ -125,7 +125,6 @@ async def wolf(ctx, *args):
         q = q.replace('+', 'plus')
     r = requests.get('http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext&output=json' % (id, q))
     data = r.json()
-    await client.say(q)
     await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
 @client.command(pass_context=True)
