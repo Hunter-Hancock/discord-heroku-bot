@@ -122,7 +122,7 @@ async def wolf(ctx, q):
     id='LA998V-JWV5L9Y85R'
     q = ' '.join(q)
     r = requests.get('http://api.wolframalpha.com/v1/result?appid=%s&i=%s' % (id, q))
-    data = r.json()
+    data = r.text()
     await client.say(data)
 
 @client.command(pass_context=True)
