@@ -121,10 +121,8 @@ async def avatar(ctx):
 async def wolf(ctx, *args):
     id='LA998V-JWV5L9Y85R'
     q = ' '.join(str(i) for i in args)
-    if q.isdigit():
-        q = int(q)
     r = requests.get('http://api.wolframalpha.com/v1/result?appid=%s&i=%s' % (id, q))
-    
+    await client.say(q)
     await client.say(r.text)
 
 @client.command(pass_context=True)
