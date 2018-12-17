@@ -118,6 +118,13 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
+async def wolf(ctx, q):
+    id='LA998V-JWV5L9Y85R'
+    r = requests.get('http://api.wolframalpha.com/v1/result?appid=%s&i=%s') % (id, q)
+    data = r.json()
+    await client.say(data)
+
+@client.command(pass_context=True)
 async def text(ctx, number, *args):
     if number == 'travis':
         number = +12565049695
