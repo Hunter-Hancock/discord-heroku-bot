@@ -115,7 +115,7 @@ async def wfa(ctx, *args):
 
 @client.command(pass_context=True)
 async def test(ctx, member : discord.Member):
-    await client.say(f'hello {member}')
+    await client.say(f'hello {member.mention}')
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
