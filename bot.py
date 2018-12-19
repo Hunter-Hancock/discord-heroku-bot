@@ -112,7 +112,7 @@ async def reddit(ctx, *args):
 @client.command(pass_context=True)
 async def avatar(ctx):
     user = ctx.message.author
-    if not user.avatar_url:
+    if user.avatar_url == None:
         await client.say(user.avatar_default_url)
     else:
         await client.say(user.avatar_url)
