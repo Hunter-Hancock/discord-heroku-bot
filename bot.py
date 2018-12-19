@@ -114,8 +114,12 @@ async def wfa(ctx, *args):
     await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
 @client.command(pass_context=True)
-async def test(ctx, member : discord.Member):
-    await client.say(f'hello {member.mention}')
+async def bait(ctx, member : discord.Member):
+    jebaits = []
+
+    jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
+
+    await client.say(f'{member.mention} {jebaits[0]}')
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
