@@ -39,20 +39,6 @@ auth_token = os.environ.get('AUTH_TOKEN')
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz !wfa'))
 
-
-# now = datetime.datetime.now
-# run_at = now + datetime.timedelta(minutes=2)
-# if now == run_at:
-#     client.send_message(client.get_channel('465986403281534979'), 'Anthem Closed Alpha servers are up.')
-
-# now = datetime.datetime.now()
-# run_at = now + datetime.timedelta(hours=11,minutes=5)
-
-# if now == run_at:
-#     client.send_message(client.get_channel('225748465714462721'), 'Anthem Closed Alpha servers are up.')
-
-
-
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
 
@@ -128,6 +114,10 @@ async def wfa(ctx, *args):
     await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
 @client.command(pass_context=True)
+async def test(ctx, member : discord.Member):
+    await client.say(f'hello {member}')
+
+@client.command(pass_context=True)
 async def text(ctx, number, *args):
     if number == 'travis':
         number = +12565049695
@@ -176,20 +166,6 @@ async def ffz(ctx, q):
         res = 'https:',(r['emoticons'][0]['urls']['1'])
         embed.set_image(url=''.join(res))
         await client.say(embed=embed)
-    #await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-
-    # try:
-    #     try:
-    #         res = 'https:',(r['emoticons'][0]['urls']['4'])
-    #     except KeyError:
-    #         res = 'https:',(r['emoticons'][0]['urls']['2'])
-    #     await client.say(''.join(res))
-    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-    # except KeyError:
-    #     res = 'https:',(r['emoticons'][0]['urls']['1'])
-    #     await client.say(''.join(res))
-    #     await client.say('Took %s seconds' % round(time.time() - starttime, 2))
-
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
