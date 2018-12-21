@@ -140,13 +140,25 @@ async def text(ctx, number, *args):
 async def ffz(ctx, q):
     #starttime = time.time()
     if(q == 'monkaS'):
-        await client.say('https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')    
+        embed = discord.Embed(
+        title = 'monkaS',
+        colour = discord.Colour.green())
+        embed.set_image(url='https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')
+        await client.say(embed=embed)
     elif(q == None):
         await client.say('Enter an arguement.')
     elif(q == 'hypers'):
-        await client.say('https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
+        embed = discord.Embed(
+        title = 'hypers',
+        colour = discord.Colour.green())
+        embed.set_image(url='https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
+        await client.say(embed=embed)
     elif(q == 'pepehands'):
-        await client.say('https://cdn.frankerfacez.com/b97ed9ea44a548134578aecd47348784.png')
+        embed = discord.Embed(
+        title = 'pepehands',
+        colour = discord.Colour.green())
+        embed.set_image(url='https://cdn.frankerfacez.com/b97ed9ea44a548134578aecd47348784.png')
+        await client.say(embed=embed)
     else:
         url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
         s = requests.Session()
