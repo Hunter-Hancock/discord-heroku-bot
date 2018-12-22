@@ -98,7 +98,7 @@ async def reddit(ctx, *args):
 @client.command(pass_context=True)
 async def avatar(ctx):
     user = ctx.message.author
-    if user.avatar_url == None:
+    if user.avatar == None:
         await client.say('https://cdn.discordapp.com/embed/avatars/0.png')
     else:
         await client.say(user.avatar_url)
