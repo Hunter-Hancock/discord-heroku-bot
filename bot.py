@@ -13,7 +13,8 @@ import datetime
 import asyncio
 import time
 from twilio.rest import Client
-
+from bs4 import BeautifulSoup
+import urllib.request
 
 client = commands.Bot(command_prefix = '!')
 
@@ -102,6 +103,29 @@ async def avatar(ctx):
         await client.say('https://cdn.discordapp.com/embed/avatars/0.png')
     else:
         await client.say(user.avatar_url)
+
+@client.command(pass_context=True)
+async def scrape(ctx, url, tag, **class_):
+    url = url
+    tag = tag
+    c = ''.join(str(i) for i in class_)
+
+    r = requests.get(url)
+    content = r.text
+
+    urls = []
+    text = []
+
+    soup = BeautifulSoup(content, 'html.parser')
+    if c is not None:
+        for p in soup.find_all(tag, class_=c):
+            text.append(p.text)
+            await client.say(random.randint(0, len(text) - 1))
+    elif tag == 'img':
+        for img in soup.find_all('img'):
+           urls.append(img['src'])
+           await client.say(random.randint(0, len(urls) - 1))
+
 
 @client.command(pass_context=True)
 async def wfa(ctx, *args):
