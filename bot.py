@@ -118,8 +118,9 @@ async def bait(ctx, member : discord.Member):
     jebaits = []
 
     jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
+    jebaits.append('HOLY MOLY http://hentaihaven.org/ IS COMING BACK NO FUCKING JOKE')
 
-    await client.say(f'{member.mention} {jebaits[0]}')
+    await client.say(f'{member.mention} {jebaits[1]}')
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
