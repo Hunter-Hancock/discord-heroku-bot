@@ -99,7 +99,7 @@ async def reddit(ctx, *args):
 async def avatar(ctx):
     user = ctx.message.author
     if user.avatar_url == None:
-        await client.say(user.avatar_default_url)
+        await client.say('https://cdn.discordapp.com/embed/avatars/0.png')
     else:
         await client.say(user.avatar_url)
 
@@ -214,17 +214,17 @@ async def gif(ctx, *args):
         data2 = r2.json()
 
         l = 0
-        while l < len(data2['results']):
+        while l < len(data2['results']) - 1:
             urls.append(data2['results'][l]['url'])
             l += 1
 
         k = 0
-        while k < len(data['gfycats']):
+        while k < len(data['gfycats']) - 1:
             urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
 
         i = 0
-        while i < len(api_response.data):
+        while i < len(api_response.data) - 1:
             urls.append(api_response.data[i].images.original.url)
             urls.append(api_response2.data[i].images.original.url)
             i += 1
