@@ -108,7 +108,7 @@ async def avatar(ctx):
 async def scrape(ctx, url, tag, class_=None):
     url = url
     tag = tag
-    c = ''.join(str(i) for i in class_)
+    c = class_
 
     r = requests.get(url)
     content = r.text
@@ -144,14 +144,14 @@ async def bait(ctx, member : discord.Member):
     # tag = tag
     # c = ''.join(str(i) for i in class_)
 
-    r = requests.get('https://www.animenewsnetwork.com/')
+    r = requests.get('https://myanimelist.net/anime/season')
     content = r.text
 
     # urls = []
     text = []
 
     soup = BeautifulSoup(content, 'html.parser')
-    for p in soup.find_all('span', class_='full'):
+    for p in soup.find_all('span', class_='preline'):
         text.append(p.text)
     # print(text[random.randint(0, len(text) - 1)])
 
