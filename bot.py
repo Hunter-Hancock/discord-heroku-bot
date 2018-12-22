@@ -105,7 +105,7 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 @client.command(pass_context=True)
-async def scrape(ctx, url, tag, **class_):
+async def scrape(ctx, url, tag, class_=None):
     url = url
     tag = tag
     c = ''.join(str(i) for i in class_)
@@ -117,7 +117,7 @@ async def scrape(ctx, url, tag, **class_):
     text = []
 
     soup = BeautifulSoup(content, 'html.parser')
-    if c is not None:
+    if c:
         for p in soup.find_all(tag, class_=c):
             text.append(p.text)
             await client.say(text[random.randint(0, len(text) - 1)])
