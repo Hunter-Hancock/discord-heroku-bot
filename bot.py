@@ -121,7 +121,7 @@ async def scrape(ctx, url, tag, class_=None):
         for p in soup.find_all(tag, class_=c):
             text.append(p.text)
         await client.say(text[random.randint(0, len(text) - 1)])
-    if tag == 'img':
+    if tag == 'image':
         for img in soup.find_all('img'):
            urls.append(img['src'])
         await client.say(urls[random.randint(0, len(urls) - 1)])
