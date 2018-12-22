@@ -8,3 +8,4 @@ imgurpython
 requests
 praw
 twilio
+bs4
