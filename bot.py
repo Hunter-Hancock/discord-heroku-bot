@@ -140,20 +140,15 @@ async def wfa(ctx, *args):
 @client.command(pass_context=True)
 async def bait(ctx, member : discord.Member):
     jebaits = []
-    # url = url
-    # tag = tag
-    # c = ''.join(str(i) for i in class_)
 
     r = requests.get('https://myanimelist.net/anime/season')
     content = r.text
 
-    # urls = []
     text = []
 
     soup = BeautifulSoup(content, 'html.parser')
     for p in soup.find_all('span', class_='preline'):
         text.append(p.text)
-    # print(text[random.randint(0, len(text) - 1)])
 
     jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
     jebaits.append('HOLY MOLY http://hentaihaven.org/ IS COMING BACK NO FUCKING JOKE')
