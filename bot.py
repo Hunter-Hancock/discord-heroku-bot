@@ -120,11 +120,11 @@ async def scrape(ctx, url, tag, **class_):
     if c is not None:
         for p in soup.find_all(tag, class_=c):
             text.append(p.text)
-            await client.say(random.randint(0, len(text) - 1))
+            await client.say(text[random.randint(0, len(text) - 1)])
     elif tag == 'img':
         for img in soup.find_all('img'):
            urls.append(img['src'])
-           await client.say(random.randint(0, len(urls) - 1))
+           await client.say(urls[random.randint(0, len(urls) - 1)])
 
 
 @client.command(pass_context=True)
