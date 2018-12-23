@@ -239,8 +239,8 @@ async def gif(ctx, *args):
 
     try:
         # Search EndpointK
-        api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
-        api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
+        # api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
+        # api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
 
         r = requests.get('https://api.gfycat.com/v1/me/gfycats/search?search_text=%s&count=750' % q)
         data = r.json()
@@ -258,11 +258,11 @@ async def gif(ctx, *args):
             urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
 
-        i = 0
-        while i < len(api_response.data) - 1:
-            urls.append(api_response.data[i].images.original.url)
-            urls.append(api_response2.data[i].images.original.url)
-            i += 1
+        # i = 0
+        # while i < len(api_response.data) - 1:
+        #     urls.append(api_response.data[i].images.original.url)
+        #     urls.append(api_response2.data[i].images.original.url)
+        #     i += 1
 
         await client.say('Here is what i found for: %s' % q)
         await client.say(urls[random.randint(0, len(urls) - 1)])
