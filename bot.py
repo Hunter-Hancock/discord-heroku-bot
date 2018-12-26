@@ -268,7 +268,7 @@ async def gif(ctx, *args):
         await client.say('Here is what i found for: %s' % q)
         await client.say(urls[random.randint(0, len(urls) - 1)])
         
-    except (ValueError, IndexError, RuntimeError):
+    except:
         await client.say('Sumtin fucked up gimme sec')
         os.system('heroku restart -a discord-heroku-bot')
 
