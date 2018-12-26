@@ -252,9 +252,10 @@ async def gif(ctx, *args):
         # while l < len(data2['results']) - 1:
         #     urls.append(data2['results'][l]['url'])
         #     l += 1
-
+        
         k = 0
-        while k < len(data['gfycats']) - 1:
+        length = len(data['gfycats']) - 1
+        while k < length:
             urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
 
@@ -267,7 +268,7 @@ async def gif(ctx, *args):
         await client.say('Here is what i found for: %s' % q)
         await client.say(urls[random.randint(0, len(urls) - 1)])
         
-    except discord.ClientException as e:
-        await client.say(e)
+    except (ValueError, IndexError):
+        await client.say('Sumtin fucked up gimme sec')
 
 client.run(os.environ.get('BOT_TOKEN'))
