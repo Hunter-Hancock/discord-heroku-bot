@@ -134,7 +134,7 @@ async def wfa(ctx, *args):
     await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
 @client.command(pass_context=True)
-async def bait(ctx, member : discord.Member):
+async def bait(ctx, member : discord.Member, member1 : discord.member = None):
     jebaits = []
 
     r = requests.get('https://myanimelist.net/anime/season')
@@ -150,7 +150,10 @@ async def bait(ctx, member : discord.Member):
     jebaits.append('HOLY MOLY http://hentaihaven.org/ IS COMING BACK NO FUCKING JOKE')
     jebaits.extend(text)
 
-    await client.say(f'{member.mention} {jebaits[random.randint(0, len(jebaits) - 1)]}')
+    if member1 != None:
+        await client.say(f'{member.mention} {member1.mention} {jebaits[random.randint(0, len(jebaits) - 1)]}')
+    else:
+        await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
