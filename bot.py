@@ -2,16 +2,12 @@ import discord
 from discord.ext import commands
 import giphy_client
 from giphy_client.rest import ApiException
-from pprint import pprint
 import random
 import os
 from imgurpython import ImgurClient
 import requests
-import json
 import praw
 import datetime
-import asyncio
-import time
 from twilio.rest import Client
 from bs4 import BeautifulSoup
 import urllib.request
