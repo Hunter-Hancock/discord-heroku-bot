@@ -229,6 +229,8 @@ async def gal(ctx, s=2):
         await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
     if s == 2:
         await client.say('https://gfycat.com/arctichideoushoneyeater')
+    if s == 3:
+        await client.say('https://gfycat.com/SplendidNextAsiaticgreaterfreshwaterclam')
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
