@@ -224,7 +224,7 @@ async def clear(ctx, amount):
 
 
 @client.command(pass_context=True)
-async def gal(ctx, s=2):
+async def gal(ctx, s=3):
     if s == 1:
         await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
     if s == 2:
