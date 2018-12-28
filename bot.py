@@ -228,9 +228,17 @@ async def gal(ctx, s=2):
     if s == 1:
         await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
     if s == 2:
-        await client.say('https://gfycat.com/arctichideoushoneyeater')
+        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-legs.gif')
     if s == 3:
+        await client.say('https://gfycat.com/arctichideoushoneyeater')
+    if s == 4:
         await client.say('https://gfycat.com/SplendidNextAsiaticgreaterfreshwaterclam')
+    if s == 5:
+        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-on-bed.gif')
+    if s == 6:
+        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-cleavage.gif')
+    if s == 7:
+        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
