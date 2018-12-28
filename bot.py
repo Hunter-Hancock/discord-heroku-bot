@@ -222,6 +222,12 @@ async def clear(ctx, amount):
         messages.append(message)
     await client.delete_messages(messages)
 
+
+@client.command(pass_context=True)
+async def gal(ctx):
+    await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
+    await client.say('https://gfycat.com/arctichideoushoneyeater')
+
 @client.command(pass_context=True)
 async def gif(ctx, *args):
     # create an instance of the API class
