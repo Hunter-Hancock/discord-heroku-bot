@@ -224,9 +224,11 @@ async def clear(ctx, amount):
 
 
 @client.command(pass_context=True)
-async def gal(ctx):
-    await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
-    await client.say('https://gfycat.com/arctichideoushoneyeater')
+async def gal(ctx, s=1):
+    if s == 1:
+        await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
+    if s == 2:
+        await client.say('https://gfycat.com/arctichideoushoneyeater')
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
