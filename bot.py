@@ -243,9 +243,10 @@ async def gal(ctx, s=3):
 @client.command(pass_context=True)
 async def brb(ctx, b=0):
     author = ctx.message.author
-    await client.say(f'{author.mention} is now afk')
     if b == 1:
         await client.say(f'{author.mention} is back')
+    else:
+        await client.say(f'{author.mention} is now afk')
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
