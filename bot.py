@@ -241,6 +241,13 @@ async def gal(ctx, s=3):
         await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
 @client.command(pass_context=True)
+async def brb(ctx, b=0):
+    author = ctx.message.author
+    await client.say(f'{author.mention} is now afk')
+    if b == 1:
+        await client.say(f'{author.mention} is back')
+
+@client.command(pass_context=True)
 async def gif(ctx, *args):
     # create an instance of the API class
     # api_instance = giphy_client.DefaultApi()
