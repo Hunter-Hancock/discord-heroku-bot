@@ -137,14 +137,24 @@ async def wfa(ctx, *args):
 async def bait(ctx, member : discord.Member):
     jebaits = []
 
-    r = requests.get('https://myanimelist.net/anime/season')
+    r = requests.get('https://manga.tokyo/')
     content = r.text
+    r2 = requests.get('https://myanimelist.net/news')
+    content2 = r2.text
+    r3 = requests.get('https://www.crunchyroll.com/news')
+    content3 = r3.text
 
     text = []
 
     soup = BeautifulSoup(content, 'html.parser')
+    soup2 = BeautifulSoup(content2, 'html.parser')
+    soup3 = BeautifulSoup(content3, 'hrml.parser')
     for p in soup.find_all('h3', class_='post-list-content-ttl'):
         text.append(p.text)
+    for n in soup2.find_all('div', class_='text'):
+        text.append(n.text)
+    for c in soup3.find_all('h2'):
+        text.append(c.get_text())
 
     jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
     jebaits.append('HOLY MOLY http://hentaihaven.org/ IS COMING BACK NO FUCKING JOKE')
