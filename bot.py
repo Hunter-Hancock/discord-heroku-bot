@@ -148,7 +148,7 @@ async def bait(ctx, member : discord.Member):
 
     soup = BeautifulSoup(content, 'html.parser')
     soup2 = BeautifulSoup(content2, 'html.parser')
-    soup3 = BeautifulSoup(content3, 'hrml.parser')
+    soup3 = BeautifulSoup(content3, 'html.parser')
     for p in soup.find_all('h3', class_='post-list-content-ttl'):
         text.append(p.text)
     for n in soup2.find_all('div', class_='text'):
