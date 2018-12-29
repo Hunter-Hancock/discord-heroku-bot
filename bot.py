@@ -163,6 +163,10 @@ async def bait(ctx, member : discord.Member):
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 @client.command(pass_context=True)
+async def image(ctx):
+    await client.say(ctx.message.attachments)
+
+@client.command(pass_context=True)
 async def text(ctx, number, *args):
     if number == 'travis':
         number = +12565049695
@@ -232,7 +236,6 @@ async def clear(ctx, amount):
         messages.append(message)
     await client.delete_messages(messages)
 
-
 @client.command(pass_context=True)
 async def gal(ctx, s=3):
     if s == 1:
@@ -249,14 +252,6 @@ async def gal(ctx, s=3):
         await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-cleavage.gif')
     if s == 7:
         await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
-
-@client.command(pass_context=True)
-async def brb(ctx, b=0):
-    author = ctx.message.author
-    if b == 1:
-        await client.say(f'{author.mention} is back')
-    else:
-        await client.say(f'{author.mention} is now afk')
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
