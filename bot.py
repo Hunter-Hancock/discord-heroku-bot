@@ -143,7 +143,7 @@ async def bait(ctx, member : discord.Member):
     text = []
 
     soup = BeautifulSoup(content, 'html.parser')
-    for p in soup.find_all('span', class_='preline'):
+    for p in soup.find_all('h3', class_='post-list-content-ttl'):
         text.append(p.text)
 
     jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
