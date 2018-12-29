@@ -164,7 +164,7 @@ async def bait(ctx, member : discord.Member):
 
 @client.command(pass_context=True)
 async def image(ctx):
-    await client.say(ctx.message.attachments)
+    await client.say(ctx.message.attachments['url'])
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
