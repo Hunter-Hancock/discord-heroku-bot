@@ -36,6 +36,11 @@ auth_token = os.environ.get('AUTH_TOKEN')
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz !wfa'))
 
+log = []
+async def on_message():
+    log.append(message)
+    await client.say(log)
+
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
 
