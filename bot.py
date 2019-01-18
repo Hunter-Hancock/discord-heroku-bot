@@ -169,11 +169,11 @@ async def image(ctx):
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
     if number == 'travis':
-        number = +12565049695
+        number = os.environ.get('num1')
     if number == 'lewis':
-        number = +12565539578
+        number = os.environ.get('num2')
     if number == 'doc':
-        number = +12564583348
+        number = os.environ.get('num3')
     twilio = Client(account_sid, auth_token)
     twilio.messages.create(
         to=number,
