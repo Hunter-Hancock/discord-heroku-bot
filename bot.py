@@ -36,7 +36,9 @@ messages = []
 
 @client.event
 async def on_message(message):
-    messages.append(message)
+    messages.append(message.content)
+    if message.content == '!log':
+        await client.say(messages)
 
 @client.command(pass_context=True)
 async def logs():
