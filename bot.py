@@ -32,19 +32,6 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 #bot_auth = '112223157440-e_P1wON56ltclGn-2Q2LkSazPwQ' # acquire token
 
-messages = []
-
-@client.event
-async def on_message(message):
-    messages.append(message.content)
-    if message.content == '!log':
-        await client.say(messages)
-
-@client.command(pass_context=True)
-async def logs():
-    await client.say(messages)
-
-
 @client.event
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !ffz !wfa'))
