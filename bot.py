@@ -11,6 +11,7 @@ import datetime
 from twilio.rest import Client
 from bs4 import BeautifulSoup
 import urllib.request
+from googletrans import Translator
 
 client = commands.Bot(command_prefix = '!')
 
@@ -20,6 +21,7 @@ gfyclient_secret: 'J6pITJVLezQShlLJxCqyvxJWOeFklGRepRVE6xvekVmJO69kY8H76HxEipagv
 imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
 imgclient = ImgurClient(imgclient_id, imgclient_secret)
+translator = Translator()
 
 account_sid = os.environ.get('ACCOUNT_SID')
 auth_token = os.environ.get('AUTH_TOKEN')
@@ -47,6 +49,12 @@ async def imgur(ctx, *args):
     else:
         await client.say('Here is what i found for: %s on imgur' % search)
         await client.say(res[random.randint(0, len(res))].link)
+
+@client.command(pass_context=True)
+async def translate(ctx, *args, lang='en'):
+    imsg = ''.join(str(i) for i in args)
+    tmsg = translator.translate(imsg, dest=lang)
+    await client.say(tmsg)
 
 @client.command(pass_context=True)
 async def patch(ctx, q):
