@@ -8,3 +8,4 @@ requests
 praw
 twilio
 bs4
+googletrans
