@@ -54,7 +54,7 @@ async def imgur(ctx, *args):
 async def translate(ctx, *args):
     imsg = ''.join(str(i) for i in args)
     #tmsg = translator.translate(imsg, dest=lang)
-    tmsg = translator.translate(imsg, dest='es')
+    tmsg = translator.translate(imsg, dest='en')
     #await client.say(f'Translating from {tmsg.src} to {tmsg.dest}')
     await client.say(tmsg.text)
 
