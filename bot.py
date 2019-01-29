@@ -51,10 +51,11 @@ async def imgur(ctx, *args):
         await client.say(res[random.randint(0, len(res))].link)
 
 @client.command(pass_context=True)
-async def translate(ctx, *args, lang='en'):
+async def translate(ctx, *args):
     imsg = ''.join(str(i) for i in args)
-    tmsg = translator.translate(imsg, dest=lang)
-    await client.say(f'Translating from {tmsg.src} to {tmsg.dest}')
+    #tmsg = translator.translate(imsg, dest=lang)
+    tmsg = translator.translate(imsg, dest='es')
+    #await client.say(f'Translating from {tmsg.src} to {tmsg.dest}')
     await client.say(tmsg.text)
 
 @client.command(pass_context=True)
