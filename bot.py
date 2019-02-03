@@ -12,8 +12,6 @@ from twilio.rest import Client
 from bs4 import BeautifulSoup
 import urllib.request
 from googletrans import Translator
-from pypresence import Presence
-import time
 
 client = commands.Bot(command_prefix = '!')
 
@@ -35,24 +33,6 @@ auth_token = os.environ.get('AUTH_TOKEN')
 #pprint(test_response.json())
 
 #bot_auth = '112223157440-e_P1wON56ltclGn-2Q2LkSazPwQ' # acquire token
-
-client_id = '541491075391422465'
-
-RPC = Presence(client_id)  # Initialize the Presence class
-RPC.connect()  # Start the handshake loop
-print('FUCK FUCK FUCK UFCKFSDFJKNISJDOFNSDIJOF')
-
-while True:
-    RPC.update(
-        state='In my room',
-        details='Dying',
-        large_image='fbm',
-        large_text='Wadu hek',
-        instance=True,
-        join='MTI4NzM0OjFpMmhuZToxMjMxMjM',
-        spectate='MTIzNDV8MTIzNDV8MTMyNDU0',
-        party_size=[1,1])
-    time.sleep(15)
 
 @client.event
 async def on_ready():
