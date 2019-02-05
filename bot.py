@@ -101,6 +101,7 @@ async def reddit(ctx, *args):
     embed.set_image(url=wadu.url)
     embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
     await client.say(embed=embed)
+    await client.say('https://www.reddit.com/comments/%s' % wadu.id)
 
 @client.command(pass_context=True)
 async def avatar(ctx):
