@@ -77,6 +77,7 @@ async def patch(ctx, q):
 
     await client.say('Here is the latest patch notes for %s.' % q)
     await client.say(embed=embed)
+    await client.say(posts[0].url)
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
