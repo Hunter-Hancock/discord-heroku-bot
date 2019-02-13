@@ -76,7 +76,7 @@ async def patch(ctx, q):
     embed.set_footer(text=posts[0].url)
 
     await client.say('Here is the latest patch notes for %s.' % q)
-    await client.say(embed=embed)
+    #await client.say(embed=embed)
     await client.say(posts[0].url)
 
 @client.command(pass_context=True)
