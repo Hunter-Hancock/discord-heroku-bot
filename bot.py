@@ -67,7 +67,7 @@ async def patch(ctx, q):
     posts = []
 
     for post in reddit.subreddit(q).hot():
-        if 'Update' in post.title:
+        if 'Patch' in post.title:
             posts.append(post)
 
     embed = discord.Embed(
