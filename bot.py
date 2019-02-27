@@ -84,6 +84,9 @@ async def patch(ctx, q):
     # await client.say(embed=embed)
     await client.say(posts[0].url)
 
+    if len(posts) == 0:
+        await client.say("Didn't find patch")
+
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
