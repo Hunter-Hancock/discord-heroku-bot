@@ -133,7 +133,7 @@ async def tomatoes(*args):
     soup = BeautifulSoup(content, 'html.parser')
     for i in soup.find_all('span', class_='mop-ratings-wrap__percentage'):
         text.append(i.text)
-    await client.say(f'{q1} got a: ' + text[0])
+    await client.say(f'{q1} got a:' + text[0])
 
 
 @client.command(pass_context=True)
