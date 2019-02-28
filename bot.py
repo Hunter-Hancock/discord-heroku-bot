@@ -123,6 +123,19 @@ async def avatar(ctx):
         await client.say(user.avatar_url)
 
 
+@client.command()
+async def tomatoes(*args):
+    text = []
+    q = '_'.join(str(i) for i in args)
+    q1 = ' '.join(str(i) for i in args)
+    r = requests.get(f'https://www.rottentomatoes.com/m/{q}')
+    content = r.text
+    soup = BeautifulSoup(content, 'html.parser')
+    for i in soup.find_all('span', class_='mop-ratings-wrap__percentage'):
+        text.append(i.text)
+    await client.say(f'{q1} got a: ' + text[0])
+
+
 @client.command(pass_context=True)
 async def scrape(ctx, url, tag, class_=None):
     url = url
