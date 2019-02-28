@@ -127,7 +127,6 @@ async def avatar(ctx):
 async def tomatoes(*args):
     text = []
     q = '_'.join(str(i) for i in args)
-    q1 = ' '.join(str(i) for i in args)
     r = requests.get(f'https://www.rottentomatoes.com/m/{q}')
     content = r.text
     soup = BeautifulSoup(content, 'html.parser')
