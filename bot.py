@@ -202,6 +202,22 @@ async def bait(ctx, member: discord.Member):
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 
+@client.command()
+async def diceroll(numroll=1):
+    r1 = str(random.randint(1, 6))
+    r1 += "/6"
+    r2 = str(random.randint(1, 6))
+    r2 += "/6"
+    r3 = str(random.randint(1, 6))
+    r3 += "/6"
+    if numroll == 1:
+        print(r1)
+    if numroll == 2:
+        print(r1 + " " + r2)
+    if numroll == 3:
+        print(r1 + " " + r2 + " " + r3)
+
+
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
     if number == 'travis':
@@ -294,13 +310,7 @@ async def gal(ctx, s=3):
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
-    # create an instance of the API class
-    # api_instance = giphy_client.DefaultApi()
-    # api_key = os.environ.get('GIF_TOKEN') # str | Giphy API Key.
     q = '+'.join(str(i) for i in args)
-    # lang = 'en'
-    # fmt = 'json'
-
     urls = []
 
     try:
