@@ -213,9 +213,9 @@ async def diceroll(numroll=1):
     if numroll == 1:
         await client.say(r1)
     if numroll == 2:
-        await client.say(r1 + " " + r2)
+        await client.say(r1 + "    " + r2)
     if numroll == 3:
-        await client.say(r1 + " " + r2 + " " + r3)
+        await client.say(r1 + "    " + r2 + "    " + r3)
 
 
 @client.command(pass_context=True)
