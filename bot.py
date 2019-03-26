@@ -211,11 +211,11 @@ async def diceroll(numroll=1):
     r3 = str(random.randint(1, 6))
     r3 += "/6"
     if numroll == 1:
-        print(r1)
+        await client.say(r1)
     if numroll == 2:
-        print(r1 + " " + r2)
+        await client.say(r1 + " " + r2)
     if numroll == 3:
-        print(r1 + " " + r2 + " " + r3)
+        await client.say(r1 + " " + r2 + " " + r3)
 
 
 @client.command(pass_context=True)
