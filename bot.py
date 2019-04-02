@@ -202,21 +202,27 @@ async def bait(ctx, member: discord.Member):
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 
+# @client.command(pass_context=True)
+# async def roll(numRolls, sides):
+#     for i in range(int(numRolls)):
+#         await client.say(str(random.randint(1, int(sides)) + f'/{sides}')
+
 @client.command()
 async def roll(numRolls, sides):
     for i in range(int(numRolls)):
-        await client.say(str(random.randint(1, int(sides)) + f'/{sides}')
+
+        await client.say(str(random.randint(1, int(sides))) + f'/{sides}')
 
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
     if number == 'travis':
-        number=os.environ.get('num1')
+        number = os.environ.get('num1')
     if number == 'lewis':
-        number=os.environ.get('num2')
+        number = os.environ.get('num2')
     if number == 'doc':
-        number=os.environ.get('num3')
-    twilio=Client(account_sid, auth_token)
+        number = os.environ.get('num3')
+    twilio = Client(account_sid, auth_token)
     twilio.messages.create(
         to=number,
         from_='+12564948478',
@@ -273,8 +279,8 @@ async def text(ctx, number, *args):
 
 @client.command(pass_context=True)
 async def clear(ctx, amount):
-    channel=ctx.message.channel
-    messages=[]
+    channel = ctx.message.channel
+    messages = []
     async for message in client.logs_from(channel, limit=int(amount)):
         messages.append(message)
     await client.delete_messages(messages)
@@ -300,17 +306,17 @@ async def gal(ctx, s=3):
 
 @client.command(pass_context=True)
 async def gif(ctx, *args):
-    q='+'.join(str(i) for i in args)
-    urls=[]
+    q = '+'.join(str(i) for i in args)
+    urls = []
 
     try:
         # Search EndpointK
         # api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
         # api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
 
-        r=requests.get(
+        r = requests.get(
             f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=1000')
-        data=r.json()
+        data = r.json()
 
         # r2 = requests.get('https://api.tenor.com/v1/search?q=%s' % q)
         # data2 = r2.json()
@@ -320,8 +326,8 @@ async def gif(ctx, *args):
         #     urls.append(data2['results'][l]['url'])
         #     l += 1
 
-        k=0
-        length=len(data['gfycats']) - 1
+        k = 0
+        length = len(data['gfycats']) - 1
         while k < length:
             urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
