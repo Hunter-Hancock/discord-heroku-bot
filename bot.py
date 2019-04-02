@@ -202,15 +202,9 @@ async def bait(ctx, member: discord.Member):
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 
-# @client.command(pass_context=True)
-# async def roll(numRolls, sides):
-#     for i in range(int(numRolls)):
-#         await client.say(str(random.randint(1, int(sides)) + f'/{sides}')
-
 @client.command()
 async def roll(numRolls, sides):
     for i in range(int(numRolls)):
-
         await client.say(str(random.randint(1, int(sides))) + f'/{sides}')
 
 
