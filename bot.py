@@ -203,20 +203,9 @@ async def bait(ctx, member: discord.Member):
 
 
 @client.command()
-async def diceroll(numroll=1):
-    r1 = str(random.randint(1, 6))
-    r1 += "/6"
-    r2 = str(random.randint(1, 6))
-    r2 += "/6"
-    r3 = str(random.randint(1, 6))
-    r3 += "/6"
-    if numroll == 1:
-        await client.say(r1)
-    if numroll == 2:
-        await client.say(r1 + "    " + r2)
-    if numroll == 3:
-        await client.say(r1 + "    " + r2 + "    " + r3)
-
+async def roll(numRoll, sides):
+    for i in range(numRolls):
+        await client.say(str(random.randint(1, sides)) + f'/{sides}')
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
