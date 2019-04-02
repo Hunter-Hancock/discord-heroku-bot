@@ -204,9 +204,8 @@ async def bait(ctx, member: discord.Member):
 
 @client.command()
 async def roll(numRolls, sides):
-    for i in range(numRolls):
-        r = str(random.randint(1, sides))
-        await client.say(r + f'/{sides}')
+    for i in range(int(numRolls)):
+        await client.say(str(random.randint(1, sides)) + f'/{sides}')
 
 
 @client.command(pass_context=True)
