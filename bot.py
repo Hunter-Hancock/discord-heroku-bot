@@ -26,10 +26,10 @@ translator = Translator()
 account_sid = os.environ.get('ACCOUNT_SID')
 auth_token = os.environ.get('AUTH_TOKEN')
 
-#client_auth = requests.auth.HTTPBasicAuth(os.environ.get('REDDIT_CLIENT_ID'), os.environ.get('REDDIT_CLIENT_SECRET'))
-#post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": os.environ.get('REDDIT_PASSWORD')}
-#headers = {"User-Agent": "discord-bot/0.1 by MildlyAdequateDOC"}
-#test_response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=headers)
+# client_auth = requests.auth.HTTPBasicAuth(os.environ.get('REDDIT_CLIENT_ID'), os.environ.get('REDDIT_CLIENT_SECRET'))
+# post_data = {"grant_type": "password", "username": "MildlyAdequateDOC", "password": os.environ.get('REDDIT_PASSWORD')}
+# headers = {"User-Agent": "discord-bot/0.1 by MildlyAdequateDOC"}
+# test_response = requests.post("https://www.reddit.com/api/v1/access_token", auth=client_auth, data=post_data, headers=headers)
 # pprint(test_response.json())
 
 # bot_auth = '112223157440-e_P1wON56ltclGn-2Q2LkSazPwQ' # acquire token
@@ -57,7 +57,7 @@ async def imgur(ctx, *args):
 @client.command(pass_context=True)
 async def translate(ctx, *args):
     imsg = ''.join(str(i) for i in args)
-    #tmsg = translator.translate(imsg, dest=lang)
+    # tmsg = translator.translate(imsg, dest=lang)
     tmsg = translator.translate(imsg, dest='en')
     # await client.say(f'Translating from {tmsg.src} to {tmsg.dest}')
     await client.say(tmsg.text)
@@ -205,7 +205,9 @@ async def bait(ctx, member: discord.Member):
 @client.command()
 async def roll(numRolls, sides):
     for i in range(numRolls):
-        await client.say(str(random.randint(1, sides)) + f'/{sides}')
+        r = str(random.randint(1, sides))
+        await client.say(r + f'/{sides}')
+
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
