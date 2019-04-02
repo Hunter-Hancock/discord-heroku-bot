@@ -207,7 +207,7 @@ async def roll(numRolls, sides):
     rolls = []
     for i in range(int(numRolls)):
         r = random.randint(1, int(sides))
-        await client.say(str(r)) + f'/{sides}')
+        client.say(str(r)) + f'/{sides}')
         rolls.append(r)
         total=0
     for num in rolls:
