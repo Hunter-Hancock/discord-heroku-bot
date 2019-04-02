@@ -204,23 +204,30 @@ async def bait(ctx, member: discord.Member):
 
 @client.command()
 async def roll(numRolls, sides):
+    rolls = []
     for i in range(int(numRolls)):
-        await client.say(str(random.randint(1, int(sides))) + f'/{sides}')
+        r = random.randint(1, int(sides))
+        await client.say(str(r)) + f'/{sides}')
+        rolls.append(r)
+    total=0
+    for num in rolls:
+        total += num1
+    await client.say(f'You rolled {total}')
 
 
-@client.command(pass_context=True)
+@client.command(pass_context = True)
 async def text(ctx, number, *args):
     if number == 'travis':
-        number = os.environ.get('num1')
+        number=os.environ.get('num1')
     if number == 'lewis':
-        number = os.environ.get('num2')
+        number=os.environ.get('num2')
     if number == 'doc':
-        number = os.environ.get('num3')
-    twilio = Client(account_sid, auth_token)
+        number=os.environ.get('num3')
+    twilio=Client(account_sid, auth_token)
     twilio.messages.create(
-        to=number,
-        from_='+12564948478',
-        body=' '.join(str(i) for i in args)
+        to = number,
+        from_ = '+12564948478',
+        body = ' '.join(str(i) for i in args)
     )
 
 # @client.command(pass_context=True)
@@ -271,17 +278,17 @@ async def text(ctx, number, *args):
 #         await client.say(embed=embed)
 
 
-@client.command(pass_context=True)
+@client.command(pass_context = True)
 async def clear(ctx, amount):
-    channel = ctx.message.channel
-    messages = []
-    async for message in client.logs_from(channel, limit=int(amount)):
+    channel=ctx.message.channel
+    messages=[]
+    async for message in client.logs_from(channel, limit = int(amount)):
         messages.append(message)
     await client.delete_messages(messages)
 
 
-@client.command(pass_context=True)
-async def gal(ctx, s=3):
+@client.command(pass_context = True)
+async def gal(ctx, s = 3):
     if s == 1:
         await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
     if s == 2:
@@ -298,19 +305,19 @@ async def gal(ctx, s=3):
         await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
 
-@client.command(pass_context=True)
+@client.command(pass_context = True)
 async def gif(ctx, *args):
-    q = '+'.join(str(i) for i in args)
-    urls = []
+    q='+'.join(str(i) for i in args)
+    urls=[]
 
     try:
         # Search EndpointK
         # api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
         # api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
 
-        r = requests.get(
+        r=requests.get(
             f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=1000')
-        data = r.json()
+        data=r.json()
 
         # r2 = requests.get('https://api.tenor.com/v1/search?q=%s' % q)
         # data2 = r2.json()
@@ -320,8 +327,8 @@ async def gif(ctx, *args):
         #     urls.append(data2['results'][l]['url'])
         #     l += 1
 
-        k = 0
-        length = len(data['gfycats']) - 1
+        k=0
+        length=len(data['gfycats']) - 1
         while k < length:
             urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
