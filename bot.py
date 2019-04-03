@@ -37,7 +37,7 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
+    await client.change_presence(game=discord.Game(name='/gif /imgur /reddit /wfa'))
 
 
 @client.command(pass_context=True)
