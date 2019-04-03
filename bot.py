@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 import urllib.request
 from googletrans import Translator
 
-client = commands.Bot(command_prefix='/')
+client = commands.Bot(command_prefix='!')
 
 gfyclient_id: '2_WTCi12'
 gfyclient_secret: 'J6pITJVLezQShlLJxCqyvxJWOeFklGRepRVE6xvekVmJO69kY8H76HxEipagvA9y'
@@ -37,7 +37,7 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='/gif /imgur /reddit /wfa'))
+    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
 
 
 @client.command(pass_context=True)
