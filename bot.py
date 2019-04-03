@@ -195,8 +195,6 @@ async def bait(ctx, member: discord.Member):
 
     jebaits.append(
         'BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
-    jebaits.append(
-        'HOLY MOLY http://hentaihaven.org/ IS COMING BACK NO FUCKING JOKE')
     jebaits.extend(text)
 
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
