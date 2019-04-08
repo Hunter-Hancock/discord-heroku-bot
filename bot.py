@@ -313,24 +313,12 @@ async def gif(ctx, *args):
         k = 0
         length = len(data['gfycats']) - 1
         while k < length:
-            if data['gfycats'][k]['content_urls']['largeGif']:
-                urls.append(data['gfycats'][k]['content_urls']['largeGif']['url'])
-            # if data['gfycats'][k]['content_urls']['max5mbGif']:
-            #     urls.append(data['gfycats'][k]['content_urls']['max5mbGif']['url'])
-            # if data['gfycats'][k]['content_urls']['max2mbGif']:
-            #     urls.append(data['gfycats'][k]['content_urls']['max2mbGif']['url'])
-            # if data['gfycats'][k]['content_urls']['max1mbGif']:
-            #     urls.append(data['gfycats'][k]['content_urls']['max1mbGif']['url'])
-            # if data['gfycats'][k]['content_urls']['100pxGif']:
-            #     urls.append(data['gfycats'][k]['content_urls']['100pxGif']['url'])
+            urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
 
-        embed = discord.Embed(title = '%s' % q, colour = discord.Colour.green())
-        embed.set_image('https://gfycat.com/arctichideoushoneyeater')
-        #str(urls[random.randint(0, len(urls) - 1)])
 
         await client.say('Here is what i found for: %s' % q)
-        await client.say(embed=embed)
+        await client.say(urls[random.randint(0, len(urls) - 1)])
 
     except Exception as e:
         await client.say(e)
