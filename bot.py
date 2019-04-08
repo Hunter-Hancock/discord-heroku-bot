@@ -313,15 +313,15 @@ async def gif(ctx, *args):
         k = 0
         length = len(data['gfycats']) - 1
         while k < length:
-            if data['gfycats'][k]['content_urls']['largeGif'] not None:
+            if data['gfycats'][k]['content_urls']['largeGif']:
                 urls.append(data['gfycats'][k]['content_urls']['largeGif']['url'])
-            else if data['gfycats'][k]['content_urls']['max5mbGif'] not None:
+            else if data['gfycats'][k]['content_urls']['max5mbGif']:
                 urls.append(data['gfycats'][k]['content_urls']['max5mbGif']['url'])
-            else if data['gfycats'][k]['content_urls']['max2mbGif'] not None:
+            else if data['gfycats'][k]['content_urls']['max2mbGif']:
                 urls.append(data['gfycats'][k]['content_urls']['max2mbGif']['url'])
-            else if data['gfycats'][k]['content_urls']['max1mbGif'] not None:
+            else if data['gfycats'][k]['content_urls']['max1mbGif']:
                 urls.append(data['gfycats'][k]['content_urls']['max1mbGif']['url'])
-            else if data['gfycats'][k]['content_urls']['100pxGif'] not None:
+            else if data['gfycats'][k]['content_urls']['100pxGif']:
                 urls.append(data['gfycats'][k]['content_urls']['100pxGif']['url'])
             k += 1
 
