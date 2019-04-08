@@ -334,6 +334,5 @@ async def gif(ctx, *args):
 
     except Exception as e:
         await client.say(e)
-        os.system('heroku restart -a discord-heroku-bot')
-
+        
 client.run(os.environ.get('BOT_TOKEN'))
