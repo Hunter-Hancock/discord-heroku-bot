@@ -315,14 +315,14 @@ async def gif(ctx, *args):
         while k < length:
             if data['gfycats'][k]['content_urls']['largeGif']:
                 urls.append(data['gfycats'][k]['content_urls']['largeGif']['url'])
-            if data['gfycats'][k]['content_urls']['max5mbGif']:
-                urls.append(data['gfycats'][k]['content_urls']['max5mbGif']['url'])
-            if data['gfycats'][k]['content_urls']['max2mbGif']:
-                urls.append(data['gfycats'][k]['content_urls']['max2mbGif']['url'])
-            if data['gfycats'][k]['content_urls']['max1mbGif']:
-                urls.append(data['gfycats'][k]['content_urls']['max1mbGif']['url'])
-            if data['gfycats'][k]['content_urls']['100pxGif']:
-                urls.append(data['gfycats'][k]['content_urls']['100pxGif']['url'])
+            # if data['gfycats'][k]['content_urls']['max5mbGif']:
+            #     urls.append(data['gfycats'][k]['content_urls']['max5mbGif']['url'])
+            # if data['gfycats'][k]['content_urls']['max2mbGif']:
+            #     urls.append(data['gfycats'][k]['content_urls']['max2mbGif']['url'])
+            # if data['gfycats'][k]['content_urls']['max1mbGif']:
+            #     urls.append(data['gfycats'][k]['content_urls']['max1mbGif']['url'])
+            # if data['gfycats'][k]['content_urls']['100pxGif']:
+            #     urls.append(data['gfycats'][k]['content_urls']['100pxGif']['url'])
             k += 1
 
         embed = discord.Embed(
@@ -333,8 +333,8 @@ async def gif(ctx, *args):
         await client.say('Here is what i found for: %s' % q)
         await client.say(embed=embed)
 
-    except:
-        await client.say('Sumtin fucked up gimme sec')
+    except Exception as e:
+        await client.say(e)
         os.system('heroku restart -a discord-heroku-bot')
 
 client.run(os.environ.get('BOT_TOKEN'))
