@@ -328,7 +328,7 @@ async def gif(ctx, *args):
         embed = discord.Embed(
             title = f'{q}',
             colour = discord.Colour.green())
-            embed.set_image(url=urls[random.randint(0, len(urls) - 1)])
+        embed.set_image(url=urls[random.randint(0, len(urls) - 1)])
 
         await client.say('Here is what i found for: %s' % q)
         await client.say(embed=embed)
