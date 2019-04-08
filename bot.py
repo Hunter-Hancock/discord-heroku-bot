@@ -164,8 +164,7 @@ async def wfa(ctx, *args):
     q = ' '.join(str(i) for i in args)
     if '+' in q:
         q = q.replace('+', 'plus')
-    r = requests.get(
-        'http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext&output=json' % (id, q))
+    r = requests.get('http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext&output=json' % (id, q))
     data = r.json()
     await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
@@ -193,8 +192,7 @@ async def bait(ctx, member: discord.Member):
     for c in soup3.find_all('h2'):
         text.append(c.get_text())
 
-    jebaits.append(
-        'BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
+    jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
     jebaits.extend(text)
 
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
@@ -309,36 +307,31 @@ async def gif(ctx, *args):
     urls = []
 
     try:
-        # Search EndpointK
-        # api_response = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt)
-        # api_response2 = api_instance.gifs_search_get(api_key, q, limit=100, lang=lang, fmt=fmt, offset=100)
-
-        r = requests.get(
-            f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=1000')
+        r = requests.get(f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=1000')
         data = r.json()
-
-        # r2 = requests.get('https://api.tenor.com/v1/search?q=%s' % q)
-        # data2 = r2.json()
-
-        # l = 0
-        # while l < len(data2['results']) - 1:
-        #     urls.append(data2['results'][l]['url'])
-        #     l += 1
 
         k = 0
         length = len(data['gfycats']) - 1
         while k < length:
-            urls.append(data['gfycats'][k]['mp4Url'])
+            if data['gfycats'][k]['content_urls']['largeGif'] not None:
+                urls.append(data['gfycats'][k]['content_urls']['largeGif']['url'])
+            else if data['gfycats'][k]['content_urls']['max5mbGif'] not None:
+                urls.append(data['gfycats'][k]['content_urls']['max5mbGif']['url'])
+            else if data['gfycats'][k]['content_urls']['max2mbGif'] not None:
+                urls.append(data['gfycats'][k]['content_urls']['max2mbGif']['url'])
+            else if data['gfycats'][k]['content_urls']['max1mbGif'] not None:
+                urls.append(data['gfycats'][k]['content_urls']['max1mbGif']['url'])
+            else if data['gfycats'][k]['content_urls']['100pxGif'] not None:
+                urls.append(data['gfycats'][k]['content_urls']['100pxGif']['url'])
             k += 1
 
-        # i = 0
-        # while i < len(api_response.data) - 1:
-        #     urls.append(api_response.data[i].images.original.url)
-        #     urls.append(api_response2.data[i].images.original.url)
-        #     i += 1
+            embed = discord.Embed(
+                title = f'{q}',
+                colour = discord.Colour.green())
+                embed.set_image(url=urls[random.randint(0, len(urls) - 1)])
 
         await client.say('Here is what i found for: %s' % q)
-        await client.say(urls[random.randint(0, len(urls) - 1)])
+        await client.say(embed=embed)
 
     except:
         await client.say('Sumtin fucked up gimme sec')
