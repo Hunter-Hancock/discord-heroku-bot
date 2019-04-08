@@ -325,10 +325,8 @@ async def gif(ctx, *args):
             #     urls.append(data['gfycats'][k]['content_urls']['100pxGif']['url'])
             k += 1
 
-        embed = discord.Embed(
-            title = f'{q}',
-            colour = discord.Colour.green())
-        embed.set_image(url='https://gfycat.com/arctichideoushoneyeater')
+        embed = discord.Embed(title = '%s' % q, colour = discord.Colour.green())
+        embed.set_image('https://gfycat.com/arctichideoushoneyeater')
         #str(urls[random.randint(0, len(urls) - 1)])
 
         await client.say('Here is what i found for: %s' % q)
