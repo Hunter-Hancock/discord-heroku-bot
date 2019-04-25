@@ -50,7 +50,7 @@ spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'a
 async def on_message(message):
     message_content = message.content.strip().lower()
     if any(spoiler in message_content for spoiler in spoiler_list):
-        if 'fortnite' in message_content:
+        if 'fortnite' in message_content or message_content.startswith('--'):
             pass
         else:
             await client.send_message(message.channel, 'No spoilers bud')
