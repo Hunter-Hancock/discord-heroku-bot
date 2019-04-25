@@ -4,7 +4,7 @@ from discord.ext.commands import Bot
 import os
 bot = Bot(command_prefix='!')
 
-spoiler_text = ['Avengers', 'Endgame', 'Iron man', 'dies', 'captain america', 'ant man', 'thanos'].strip().lower()
+spoiler_text = ['Avengers', 'Endgame', 'Iron man', 'dies', 'captain america', 'ant man', 'thanos']
 
 s = [e.strip().split().lower() for e in spoiler_text]
 
