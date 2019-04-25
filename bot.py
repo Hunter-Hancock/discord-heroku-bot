@@ -50,6 +50,7 @@ async def on_message(message):
     if any(spoiler in message_content for spoiler in spoiler_text):
         await client.send_message(message.channel, 'No spoilers bud')
         await client.delete_message(message)
+        break
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
