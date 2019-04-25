@@ -1,1 +1,1 @@
-worker: python spoilers.py
+worker: python bot.py
