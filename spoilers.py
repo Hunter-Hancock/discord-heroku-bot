@@ -4,7 +4,7 @@ from discord.ext.commands import Bot
 import os
 bot = Bot(command_prefix='!')
 
-spoiler_text = ['Avengers', 'Endgame', 'Iron man', 'dies', 'captain america', 'ant man', 'thanos']
+spoiler_text = ['Avengers', 'Endgame', 'Iron man', 'dies', 'captain america', 'ant man', 'thanos'].strip().lower()
 @bot.event
 async def on_message(message):
     message_content = message.content.strip().lower()
