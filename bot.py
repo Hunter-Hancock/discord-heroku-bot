@@ -37,16 +37,26 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
+    # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
+    await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
 
 spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor']
 
 spoiler_text = ' '.join(spoiler_list).lower()
 
+async def clear(ctx, amount):
+    channel = ctx.message.channel
+    messages = []
+    async for message in client.logs_from(channel, limit=int(amount)):
+        messages.append(message)
+    await client.delete_messages(messages)
+
 @client.event
 async def on_message(message):
-
-
+    message_content = message.content.strip().lower()
+    if any(spoiler in message_content for spoiler in spoiler_text):
+        await client.say('NO SPOILERS BUD')
+        await clear(message.channel, 2)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
