@@ -44,8 +44,6 @@ spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'a
 
 [item.lower() for item in spoiler_list]
 
-# spoiler_text = ' '.join(spoiler_list).lower()
-
 @client.event
 async def on_message(message):
     message_content = message.content.strip().lower()
