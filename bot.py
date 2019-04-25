@@ -44,20 +44,12 @@ spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'a
 
 spoiler_text = ' '.join(spoiler_list).lower()
 
-async def clear(ctx, amount):
-    channel = ctx.message.channel
-    messages = []
-    async for message in client.logs_from(channel, limit=int(amount)):
-        messages.append(message)
-    await client.delete_messages(messages)
-    await client.say(type(channel))
-
 @client.event
 async def on_message(message):
     message_content = message.content.strip().lower()
     if any(spoiler in message_content for spoiler in spoiler_text):
-        await client.say('NO SPOILERS BUD')
-        await clear(465986403281534979, 2)
+        await client.send_message(message.channel, 'No spoilers bud')
+        await client.delete_message(message)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
