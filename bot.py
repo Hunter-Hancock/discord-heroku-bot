@@ -157,7 +157,6 @@ async def scrape(ctx, url, tag, class_=None):
             urls.append(img['src'])
         await client.say(urls[random.randint(0, len(urls) - 1)])
 
-
 @client.command(pass_context=True)
 async def wfa(ctx, *args):
     id = os.environ.get('WFA_ID')
@@ -168,13 +167,10 @@ async def wfa(ctx, *args):
     data = r.json()
     await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
-
 @client.command(pass_context=True)
 async def bait(ctx, member: discord.Member):
     jebaits = []
 
-    # r = requests.get('https://manga.tokyo/')
-    # content = r.text
     r2 = requests.get('https://myanimelist.net/news')
     content2 = r2.text
     r3 = requests.get('https://www.crunchyroll.com/news')
@@ -182,11 +178,9 @@ async def bait(ctx, member: discord.Member):
 
     text = []
 
-    # soup = BeautifulSoup(content, 'html.parser')
     soup2 = BeautifulSoup(content2, 'html.parser')
     soup3 = BeautifulSoup(content3, 'html.parser')
-    # for p in soup.find_all('h3', class_='post-list-content-ttl'):
-    #     text.append(p.text)
+
     for n in soup2.find_all('div', class_='text'):
         text.append(n.text)
     for c in soup3.find_all('h2'):
@@ -300,7 +294,6 @@ async def gal(ctx, s=3):
     if s == 7:
         await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
-
 @client.command(pass_context=True)
 async def gif(ctx, *args):
     q = '+'.join(str(i) for i in args)
@@ -322,5 +315,5 @@ async def gif(ctx, *args):
 
     except Exception as e:
         await client.say(e)
-        
+
 client.run(os.environ.get('BOT_TOKEN'))
