@@ -57,7 +57,7 @@ async def on_message(message):
     message_content = message.content.strip().lower()
     if any(spoiler in message_content for spoiler in spoiler_text):
         await client.say('NO SPOILERS BUD')
-        await clear('465986403281534979', 2)
+        await clear(465986403281534979, 2)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
