@@ -39,6 +39,14 @@ auth_token = os.environ.get('AUTH_TOKEN')
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
 
+spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor']
+
+spoiler_text = ' '.join(spoiler_list).lower()
+
+@client.event
+async def on_message(message):
+
+
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
