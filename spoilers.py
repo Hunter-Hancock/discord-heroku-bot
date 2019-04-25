@@ -8,7 +8,7 @@ spoiler_text = ['Avengers', 'Endgame', 'Iron man', 'dies', 'captain america', 'a
 @bot.event
 async def on_message(message):
     message_content = message.content.strip().lower()
-    if any(spoiler in message for spoiler in spoiler_text):
+    if any(spoiler in message.content for spoiler in spoiler_text):
         await bot.send_message(message.channel, 'No spoilers bud')
         await bot.delete_message(message)
 bot.run(os.environ.get('BOT_TOKEN'))
