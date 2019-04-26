@@ -60,7 +60,11 @@ async def snap(ctx):
     channel = ctx.message.channel
     await client.say('SNAP!')
     time.sleep(.5)
-    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
+    embed = discord.Embed(
+        colour=discord.Colour.green())
+    embed.set_image(url='https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
+    await client.say(embed=embed)
+    # await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
     async for message in client.logs_from(channel, limit=5):
         time.sleep(2)
         await client.delete_message(message)
