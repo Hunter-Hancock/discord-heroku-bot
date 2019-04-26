@@ -8,6 +8,7 @@ from imgurpython import ImgurClient
 import requests
 import praw
 import datetime
+import time
 from twilio.rest import Client
 from bs4 import BeautifulSoup
 import urllib.request
@@ -53,6 +54,12 @@ async def on_ready():
 #         else:
 #             await client.send_message(message.channel, 'No spoilers bud')
 #             await client.delete_message(message)
+
+@client.command()
+async def snap():
+    await client.say('SNAP!')
+    time.sleep(2)
+    await client.say('Nothing happened.')
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
