@@ -55,11 +55,15 @@ async def on_ready():
 #             await client.send_message(message.channel, 'No spoilers bud')
 #             await client.delete_message(message)
 
-@client.command()
-async def snap():
+@client.command(pass_context=True)
+async def snap(ctx):
+    channel = ctx.message.channel
     await client.say('SNAP!')
     time.sleep(.5)
     await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
+    for message in client.logs_from(channel, limit=5):
+        time.sleep(1)
+        await client.delete_message(message)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
