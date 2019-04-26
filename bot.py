@@ -60,8 +60,8 @@ async def snap(ctx):
     channel = ctx.message.channel
     await client.say('SNAP!')
     time.sleep(.5)
-    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')   
-    async for message in client.logs_from(channel, limit=random.randint(0,5)):
+    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
+    async for message in client.logs_from(channel, limit=5):
         time.sleep(2)
         if message.author.bot:
             pass
