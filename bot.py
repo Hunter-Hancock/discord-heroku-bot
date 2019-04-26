@@ -61,7 +61,7 @@ async def snap(ctx):
     await client.say('SNAP!')
     time.sleep(.5)
     await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
-    for message in client.logs_from(channel, limit=5):
+    async for message in client.logs_from(channel, limit=5):
         time.sleep(1)
         await client.delete_message(message)
 
