@@ -60,10 +60,12 @@ async def snap(ctx):
     channel = ctx.message.channel
     await client.say('SNAP!')
     time.sleep(.5)
-    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
-    async for message in client.logs_from(channel, limit=5):
-        time.sleep(1)
-        if message != 'https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235':
+    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')   
+    async for message in client.logs_from(channel, limit=random.randint(0,5)):
+        time.sleep(2)
+        if message.author.bot:
+            pass
+        else:
             await client.delete_message(message)
 
 @client.command(pass_context=True)
@@ -88,7 +90,6 @@ async def translate(ctx, *args):
     # await client.say(f'Translating from {tmsg.src} to {tmsg.dest}')
     await client.say(tmsg.text)
 
-
 @client.command(pass_context=True)
 async def patch(ctx, q):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
@@ -112,7 +113,6 @@ async def patch(ctx, q):
 
     if len(posts) == 0:
         await client.say("Didn't find patch")
-
 
 @client.command(pass_context=True)
 async def reddit(ctx, *args):
@@ -139,7 +139,6 @@ async def reddit(ctx, *args):
     await client.say(embed=embed)
     await client.say('https://www.reddit.com/comments/%s' % wadu.id)
 
-
 @client.command(pass_context=True)
 async def avatar(ctx):
     user = ctx.message.author
@@ -147,7 +146,6 @@ async def avatar(ctx):
         await client.say('https://cdn.discordapp.com/embed/avatars/0.png')
     else:
         await client.say(user.avatar_url)
-
 
 @client.command()
 async def tomatoes(*args):
@@ -159,7 +157,6 @@ async def tomatoes(*args):
     for i in soup.find_all('span', class_='mop-ratings-wrap__percentage'):
         text.append(i.text)
     await client.say(text[0])
-
 
 @client.command(pass_context=True)
 async def scrape(ctx, url, tag, class_=None):
