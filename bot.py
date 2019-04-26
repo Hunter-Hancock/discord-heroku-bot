@@ -37,8 +37,8 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
-    await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
+    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
+    # await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
 
 # spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
 
