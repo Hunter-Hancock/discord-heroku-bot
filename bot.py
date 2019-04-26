@@ -40,19 +40,19 @@ async def on_ready():
     # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
     await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
 
-spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
+# spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
 
-[item.lower() for item in spoiler_list]
+# [item.lower() for item in spoiler_list]
 
-@client.event
-async def on_message(message):
-    message_content = message.content.strip().lower()
-    if any(spoiler in message_content for spoiler in spoiler_list):
-        if 'fortnite' in message_content or message_content.startswith('--'):
-            pass
-        else:
-            await client.send_message(message.channel, 'No spoilers bud')
-            await client.delete_message(message)
+# @client.event
+# async def on_message(message):
+#     message_content = message.content.strip().lower()
+#     if any(spoiler in message_content for spoiler in spoiler_list):
+#         if 'fortnite' in message_content or message_content.startswith('--'):
+#             pass
+#         else:
+#             await client.send_message(message.channel, 'No spoilers bud')
+#             await client.delete_message(message)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
