@@ -58,8 +58,8 @@ async def on_ready():
 @client.command()
 async def snap():
     await client.say('SNAP!')
-    time.sleep(2)
-    await client.say('Nothing happened.')
+    time.sleep(.5)
+    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
