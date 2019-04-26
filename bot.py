@@ -63,10 +63,7 @@ async def snap(ctx):
     await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
     async for message in client.logs_from(channel, limit=5):
         time.sleep(2)
-        if message.author.bot:
-            pass
-        else:
-            await client.delete_message(message)
+        await client.delete_message(message)
 
 @client.command(pass_context=True)
 async def imgur(ctx, *args):
