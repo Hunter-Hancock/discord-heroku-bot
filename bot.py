@@ -320,7 +320,7 @@ async def gif(ctx, *args):
     urls = []
 
     try:
-        r = requests.get(f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=1000')
+        r = requests.get(f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=250')
         data = r.json()
 
         k = 0
