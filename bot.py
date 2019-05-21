@@ -49,6 +49,10 @@ async def on_message(message):
 
     await client.process_commands(message)
 
+@client.command()
+async def logs():
+    await client.say(messages)
+
 # spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
 
 # [item.lower() for item in spoiler_list]
