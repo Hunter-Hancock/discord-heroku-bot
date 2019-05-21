@@ -45,7 +45,13 @@ messages = []
 
 @client.event
 async def on_message(message):
-    messages.append(message.content)
+
+    msg = {f"{message.author}: {message.content}"}
+
+    if message.author.bot:
+        pass
+    else:
+        messages.append(msg)
 
     await client.process_commands(message)
 
