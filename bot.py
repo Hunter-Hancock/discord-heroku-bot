@@ -48,7 +48,7 @@ async def on_message(message):
 
     msg = {f"{message.author}: {message.content}"}
 
-    if message.author.bot:
+    if message.author.bot or message.content == "!logs" # message.author.id == '102817191446982656':
         pass
     else:
         messages.append(msg)
