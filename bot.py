@@ -46,7 +46,7 @@ messages = []
 @client.event
 async def on_message(message):
 
-    msg = {f"{message.author}: {message.content} at {datetime.datetime.now().time()}"}
+    msg = {f"{message.author}: {message.content} || at {datetime.datetime.now().time()}"}
 
     if message.author.bot or message.content == "!logs": # message.author.id == '102817191446982656':
         pass
