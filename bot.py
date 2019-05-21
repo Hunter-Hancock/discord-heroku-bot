@@ -41,6 +41,14 @@ async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
     # await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
 
+messages = []
+
+@client.event
+async def on_message(message):
+    messages.append(message)
+
+    await client.process_commands(message)
+
 # spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
 
 # [item.lower() for item in spoiler_list]
