@@ -45,9 +45,13 @@ messages = []
 
 @client.event
 async def on_message(message):
-    messages.append(message)
+    messages.append(message.content)
 
     await client.process_commands(message)
+
+@client.command()
+async def clearlogs():
+    messages.clear()
 
 @client.command()
 async def logs():
