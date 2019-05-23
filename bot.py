@@ -46,7 +46,7 @@ messages = []
 @client.event
 async def on_message(message):
 
-    msg = {f"{message.author}: {message.content} || at {datetime.datetime.now().time()}"}
+    msg = {f"{message.author}: {message.content}"}
 
     if message.author.bot or message.content == "!logs": # message.author.id == '102817191446982656':
         pass
@@ -82,9 +82,12 @@ async def snap(ctx):
     channel = ctx.message.channel
     await client.say('SNAP!')
     time.sleep(.5)
-    await client.say('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
-    async for message in client.logs_from(channel, limit=5):
-        time.sleep(2)
+    snaps = []
+    snaps.extend('https://tenor.com/view/iam-iron-man-iron-man-avengers-endgame-avengers-endgame-gif-14042823')
+    snaps.extend('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
+    await client.say(snaps[random.randint(0, len(snaps))])
+    async for message in client.logs_from(channel, limit=7):
+        time.sleep(7)
         await client.delete_message(message)
 
 @client.command(pass_context=True)
