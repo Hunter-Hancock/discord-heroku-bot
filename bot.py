@@ -85,8 +85,8 @@ async def snap(ctx):
     snaps = []
     snaps.extend('https://tenor.com/view/iam-iron-man-iron-man-avengers-endgame-avengers-endgame-gif-14042823')
     snaps.extend('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
-    await client.say(snaps[random.randint(0, len(snaps))])
-    async for message in client.logs_from(channel, limit=7):
+    await client.say(snaps[random.randint(0, len(snaps) - 1)])
+    async for message in client.logs_from(channel, limit=6):
         time.sleep(7)
         await client.delete_message(message)
 
