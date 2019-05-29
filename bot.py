@@ -41,27 +41,27 @@ async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
     # await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
 
-messages = []
+# messages = []
 
-@client.event
-async def on_message(message):
+# @client.event
+# async def on_message(message):
 
-    msg = {f"{message.author}: {message.content}"}
+#     msg = {f"{message.author}: {message.content}"}
 
-    if message.author.bot or message.content == "!logs": # message.author.id == '102817191446982656':
-        pass
-    else:
-        messages.append(msg)
+#     if message.author.bot or message.content == "!logs": # message.author.id == '102817191446982656':
+#         pass
+#     else:
+#         messages.append(msg)
 
-    await client.process_commands(message)
+#     await client.process_commands(message)
 
-@client.command()
-async def clearlogs():
-    messages.clear()
+# @client.command()
+# async def clearlogs():
+#     messages.clear()
 
-@client.command()
-async def logs():
-    await client.say(messages)
+# @client.command()
+# async def logs():
+#     await client.say(messages)
 
 # spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
 
