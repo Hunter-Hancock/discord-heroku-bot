@@ -82,12 +82,9 @@ async def snap(ctx):
     channel = ctx.message.channel
     await client.say('SNAP!')
     time.sleep(.5)
-    snaps = []
-    snaps.append('https://tenor.com/view/iam-iron-man-iron-man-avengers-endgame-avengers-endgame-gif-14042823')
-    snaps.append('https://tenor.com/view/thanos-just-the-snap-avengers-infinity-war-gif-12393235')
-    await client.say(snaps[random.randint(0, len(snaps) - 1)])
+    await client.say('https://tenor.com/view/iam-iron-man-iron-man-avengers-endgame-avengers-endgame-gif-14042823')
     async for message in client.logs_from(channel, limit=6):
-        time.sleep(7)
+        time.sleep(6)
         await client.delete_message(message)
 
 @client.command(pass_context=True)
