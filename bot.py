@@ -81,9 +81,10 @@ async def on_ready():
 async def scrape2(ctx, website, class_name):
     browser = webdriver.Chrome()
     browser.get(website)
-    if website == 'https://scrolller.com':
+    if website == 'https://scrolller.com/':
         nsfw = driver.find_element_by_css_selector('body > div.center-bar > div > div > div:nth-child(2) > a:nth-child(3) > div > div').click()
         women = driver.find_element_by_css_selector('#intro-settings > div > div > div > div:nth-child(3) > div:nth-child(2) > div').click()
+        time.sleep(4)
 
     soup = BeautifulSoup(browser.page_source, 'lxml')
     image = soup.find_all('div', class_=class_name)
