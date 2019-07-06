@@ -81,10 +81,32 @@ async def on_ready():
 async def scrape2(ctx, website, class_name):
     browser = webdriver.Chrome()
     browser.get(website)
-    if website == 'https://scrolller.com/':
-        nsfw = browser.find_element_by_css_selector('body > div.center-bar > div > div > div:nth-child(2) > a:nth-child(3) > div > div').click()
-        women = browser.find_element_by_css_selector('#intro-settings > div > div > div > div:nth-child(3) > div:nth-child(2) > div').click()
-        time.sleep(4)
+
+    soup = BeautifulSoup(browser.page_source, 'lxml')
+    result = soup.find_all('div', class_=class_name)
+
+    urls = []
+
+    for img in result:
+        if img.find('img') is not None and img.find('video') == None:
+            links = img.find('img')
+            urls.append(links['src'])
+        else:
+            links = img.find('video')
+            urls.append(links.source['src'])
+
+    await client.say(urls[random.randint(0, len(urls) - 1)])
+    browser.quit()
+
+@client.command(pass_context=True)
+async def nsfw:
+    browser = webdriver.Chrome()
+    browser.get('https://scrolller.com/')
+
+    nsfw = browser.find_element_by_css_selector('body > div.center-bar > div > div > div:nth-child(2) > a:nth-child(3) > div > div').click()
+    women = browser.find_element_by_css_selector('#intro-settings > div > div > div > div:nth-child(3) > div:nth-child(2) > div').click()
+
+    time.sleep(4)
 
     soup = BeautifulSoup(browser.page_source, 'lxml')
     image = soup.find_all('div', class_=class_name)
