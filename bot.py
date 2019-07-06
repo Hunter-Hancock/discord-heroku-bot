@@ -36,26 +36,6 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 # bot_auth = '112223157440-e_P1wON56ltclGn-2Q2LkSazPwQ' # acquire token
 
-@client.command
-async def scrape2(website):
-    browser = webdriver.Chrome()
-    browser.get(website)
-
-    soup = BeautifulSoup(browser.page_source, 'lxml')
-    image = soup.find_all('div', class_='AdaptiveMedia-photoContainer js-adaptive-photo ')
-
-    urls = []
-
-    for img in image:
-        if img.find('img') is not None and img.find('video') == None:
-            links = img.find('img')
-            urls.append(links['src'])
-        else:
-            links = img.find('video')
-            urls.append(links.source['src'])
-
-    await client.say(urls[random.randint(0, len(urls) - 1)])
-
 @client.event
 async def on_ready():
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !wfa'))
@@ -96,6 +76,26 @@ async def on_ready():
 #         else:
 #             await client.send_message(message.channel, 'No spoilers bud')
 #             await client.delete_message(message)
+
+@client.command(pass_context=True)
+async def scrape2(ctx, website):
+    browser = webdriver.Chrome()
+    browser.get(website)
+
+    soup = BeautifulSoup(browser.page_source, 'lxml')
+    image = soup.find_all('div', class_='AdaptiveMedia-photoContainer js-adaptive-photo ')
+
+    urls = []
+
+    for img in image:
+        if img.find('img') is not None and img.find('video') == None:
+            links = img.find('img')
+            urls.append(links['src'])
+        else:
+            links = img.find('video')
+            urls.append(links.source['src'])
+
+    await client.say(urls[random.randint(0, len(urls) - 1)])
 
 @client.command(pass_context=True)
 async def snap(ctx):
