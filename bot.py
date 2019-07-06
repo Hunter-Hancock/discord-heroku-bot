@@ -102,7 +102,6 @@ async def scrape2(ctx, website, class_name):
     await client.say(urls[random.randint(0, len(urls) - 1)])
     browser.quit()
 
-
 @client.command(pass_context=True)
 async def snap(ctx):
     channel = ctx.message.channel
