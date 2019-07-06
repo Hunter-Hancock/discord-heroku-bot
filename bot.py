@@ -109,7 +109,7 @@ async def nsfw(ctx):
     time.sleep(4)
 
     soup = BeautifulSoup(browser.page_source, 'lxml')
-    image = soup.find_all('div', class_=class_name)
+    image = soup.find_all('div', class_='fill-size')
 
     urls = []
 
