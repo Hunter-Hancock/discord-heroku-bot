@@ -99,7 +99,7 @@ async def scrape2(ctx, website, class_name):
     browser.quit()
 
 @client.command(pass_context=True)
-async def nsfw:
+async def nsfw(ctx):
     browser = webdriver.Chrome()
     browser.get('https://scrolller.com/')
 
