@@ -78,12 +78,12 @@ async def on_ready():
 #             await client.delete_message(message)
 
 @client.command(pass_context=True)
-async def scrape2(ctx, website):
+async def scrape2(ctx, website, class_name):
     browser = webdriver.Chrome()
     browser.get(website)
 
     soup = BeautifulSoup(browser.page_source, 'lxml')
-    image = soup.find_all('div', class_='AdaptiveMedia-photoContainer js-adaptive-photo ')
+    image = soup.find_all('div', class_=class_name)
 
     urls = []
 
@@ -96,6 +96,7 @@ async def scrape2(ctx, website):
             urls.append(links.source['src'])
 
     await client.say(urls[random.randint(0, len(urls) - 1)])
+    browser.quit()
 
 
 @client.command(pass_context=True)
