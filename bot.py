@@ -93,6 +93,7 @@ async def instagram(ctx, user):
     async for v in videos:
         video = v.find('video')
         await client.say(video['src'])
+    bot.quit()
 
 @client.command(pass_context=True)
 async def scrape2(ctx, website, class_name):
