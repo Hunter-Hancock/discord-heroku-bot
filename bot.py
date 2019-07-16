@@ -86,13 +86,16 @@ async def instagram(ctx, user):
     time.sleep(1)
     soup = BeautifulSoup(bot.page_source, 'lxml')
     content = soup.find_all('div', class_='KL4Bh')
-    for post in content:
-        image = post.find('img')
-        await client.say(image['src'])
-    videos = soup.find_all('div', class_='_5wCQW')
-    for v in videos:
-        video = v.find('video')
-        await client.say(video['src'])
+    count = 0
+    if count == 0:
+        for post in content:
+            image = post.find('img')
+            await client.say(image['src'])
+        videos = soup.find_all('div', class_='_5wCQW')
+        for v in videos:
+            video = v.find('video')
+            await client.say(video['src'])
+            count += 1
     bot.quit()
 
 @client.command(pass_context=True)
