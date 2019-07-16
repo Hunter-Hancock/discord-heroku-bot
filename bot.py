@@ -14,6 +14,8 @@ from bs4 import BeautifulSoup
 import urllib.request
 from googletrans import Translator
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.keys import Keys
 
 client = commands.Bot(command_prefix='!')
 
