@@ -78,6 +78,64 @@ async def on_ready():
 #             await client.delete_message(message)
 
 @client.command(pass_context=True)
+async def instagram(ctx, username):
+    class InstagramBot:
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+        self.bot = webdriver.Chrome()
+
+    def login(self):
+        bot = self.bot
+        bot.get('https://instagram.com/')
+        time.sleep(2)
+        loginbtn = bot.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/p/a').click()
+        time.sleep(2)
+        time.sleep(1)
+        username = bot.find_element_by_name('username')
+        username.send_keys(self.username)
+        password = bot.find_element_by_name('password')
+        password.send_keys(self.password)
+        password.send_keys(Keys.RETURN)
+        time.sleep(2)
+        bot.find_element_by_xpath('/html/body/div[3]/div/div/div[3]/button[2]').click()
+    def scrape_post(self):
+        bot = self.bot
+        soup = BeautifulSoup(bot.page_source, 'lxml')
+        content = soup.find_all('div', class_='KL4Bh')
+        for post in content:
+            image = post.find('img')
+            print(image['src'])
+            print('\n')
+            bot.get(image['src'])
+        videos = soup.find_all('div', class_='_5wCQW')
+        for v in videos:
+            video = v.find('video')
+            bot.get(video['src'])
+            
+    def scrape_user(self, user):
+        bot = self.bot
+        bot.get(f'https://instagram.com/{user}')
+        soup = BeautifulSoup(bot.page_source, 'lxml')
+        content = soup.find_all('div', class_='KL4Bh')
+        for post in content:
+            image = post.find('img')
+            print(image['src'])
+            print('\n')
+            bot.get(image['src'])
+        videos = soup.find_all('div', class_='_5wCQW')
+        for v in videos:
+            video = v.find('video')
+            bot.get(video['src'])
+
+    user = os.environ.get('INSTAGRAM_USER')
+    password = os.environ.get('INSTAGRAM_PASS')
+
+    instagram = InstagramBot(user, password)
+    instagram.login()
+    instagram.scrape_user(username)
+
+@client.command(pass_context=True)
 async def scrape2(ctx, website, class_name):
     browser = webdriver.Chrome()
     browser.get(website)
