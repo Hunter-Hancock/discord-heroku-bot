@@ -41,7 +41,9 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
+    game = discord.Game('!gif !imgur !reddit !nsfw')
+    await client.change_presence(status=discord.Status.online, activity=game)
+    # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
 
 async def update_data(users, user):
     if not user.id in users:
@@ -49,21 +51,19 @@ async def update_data(users, user):
         users[user.id]['name'] = user.display_name
         users[user.id]['chips'] = 1000
 
-async def hit():
-    pass
-
-@client.command(pass_context=True)
-async def blackjack(ctx, bet):
+@client.command()
+async def blackjack(bet):
 
     with open('blackjack.json', 'r') as f:
         users = json.load(f)
 
-    if int(bet) > users[ctx.message.author.id]['chips']:
-        await client.say(f"Not enough chips. You only have: {users[ctx.message.author.id]['chips']}")
-        users[ctx.message.author.id]['chips'] += int(bet)
-
-    users[ctx.message.author.id]['chips'] -= int(bet)
     await update_data(users, ctx.message.author)
+
+    if int(bet) > users[ctx.message.author.id]['chips']:
+        await ctx.send(f"Not enough chips. You only have: {users[ctx.message.author.id]['chips']}")
+        users[ctx.message.author.id]['chips'] += int(bet)
+    
+    users[ctx.message.author.id]['chips'] -= int(bet)
 
     player_card1 = random.randint(2, 10)
     player_card2 = random.randint(2, 10)
@@ -76,28 +76,28 @@ async def blackjack(ctx, bet):
     player_hand = [player_card1, player_card2]
     dealer_hand = [dealer_card1, dealer_card2]
 
-    await client.say(f'Dealer has: {dealer_card1} you have: {player_hand}')
-    await client.say('Do you want to hit or stand?')
-    # response = await client.wait_for_message()
-    # if response == 'hit':
-    #     await client.say('You hit!')
-    #     new_card = random.randint(2, 10)
-    #     player_hand.append(new_card)
-    #     await client.say(f'You now have {player_hand}')
+    await ctx.send(f'Dealer has: {dealer_card1} you have: {player_hand}')
+    await ctx.send('Do you want to hit or stand?')
+    # response = await client.wait_for_message('message')
+    response = await client.wait_for('message', check='hit')
 
-    # if response == 'stand':
-    #     pass
+    if response.content == 'hit':
+        await ctx.send('You hit!')
+        new_card = random.randint(2, 10)
+        player_hand.append(new_card)
+        await ctx.send(f'You now have {player_hand}')
+
+    if response == 'stand':
+        pass
 
     with open('blackjack.json', 'w') as f:
         json.dump(users, f)
 
-@client.command(pass_context=True)
+@client.command()
 async def chips(ctx):
     with open('blackjack.json', 'r') as f:
         users = json.load(f)
-    await client.say(users[ctx.message.author.id]['chips'])
-
-
+    await ctx.send(users[ctx.message.author.id]['chips'] + 'chips')
 
 # messages = []
 
@@ -119,7 +119,7 @@ async def chips(ctx):
 
 # @client.command()
 # async def logs():
-#     await client.say(messages)
+#     await ctx.send(messages)
 
 # spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
 
@@ -135,8 +135,8 @@ async def chips(ctx):
 #             await client.send_message(message.channel, 'No spoilers bud')
 #             await client.delete_message(message)
 
-@client.command(pass_context=True)
-async def instagram(ctx, account):
+@client.command()
+async def instagram(account):
     bot.get('https://instagram.com/')
     time.sleep(2)
     loginbtn = bot.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/p/a').click()
@@ -160,16 +160,16 @@ async def instagram(ctx, account):
     if count == 0:
         for post in content:
             image = post.find('img')
-            await client.say(image['src'])
+            await ctx.send(image['src'])
         videos = soup.find_all('div', class_='_5wCQW')
         for v in videos:
             video = v.find('video')
-            await client.say(video['src'])
+            await ctx.send(video['src'])
             count += 1
     bot.quit()
 
-@client.command(pass_context=True)
-async def scrape2(ctx, website, class_name):
+@client.command()
+async def scrape2(website, class_name):
     browser = webdriver.Chrome()
     browser.get(website)
 
@@ -186,10 +186,10 @@ async def scrape2(ctx, website, class_name):
             links = img.find('video')
             urls.append(links.source['src'])
 
-    await client.say(urls[random.randint(0, len(urls) - 1)])
+    await ctx.send(urls[random.randint(0, len(urls) - 1)])
     browser.quit()
 
-@client.command(pass_context=True)
+@client.command()
 async def nsfw(ctx):
     browser = webdriver.Chrome()
     browser.get('https://scrolller.com/')
@@ -212,43 +212,43 @@ async def nsfw(ctx):
             links = img.find('video')
             urls.append(links.source['src'])
 
-    await client.say(urls[random.randint(0, len(urls) - 1)])
+    await ctx.send(urls[random.randint(0, len(urls) - 1)])
     browser.quit()
 
-@client.command(pass_context=True)
+@client.command()
 async def snap(ctx):
     channel = ctx.message.channel
-    await client.say('SNAP!')
+    await ctx.send('SNAP!')
     time.sleep(.5)
-    await client.say('https://tenor.com/view/iam-iron-man-iron-man-avengers-endgame-avengers-endgame-gif-14042823')
+    await ctx.send('https://tenor.com/view/iam-iron-man-iron-man-avengers-endgame-avengers-endgame-gif-14042823')
     async for message in client.logs_from(channel, limit=6):
         time.sleep(7)
         await client.delete_message(message)
 
-@client.command(pass_context=True)
-async def imgur(ctx, *args):
+@client.command()
+async def imgur(*args):
 
     search = '+'.join(str(i) for i in args)
     res = [item for item in imgclient.gallery_search(
         search, sort='top', window='all')]
 
     if (len(res) == 0):
-        await client.say('Sorry no results for: %s' % search)
+        await ctx.send('Sorry no results for: %s' % search)
     else:
-        await client.say('Here is what i found for: %s on imgur' % search)
-        await client.say(res[random.randint(0, len(res))].link)
+        await ctx.send('Here is what i found for: %s on imgur' % search)
+        await ctx.send(res[random.randint(0, len(res))].link)
 
 
-@client.command(pass_context=True)
-async def translate(ctx, *args):
+@client.command()
+async def translate(*args):
     imsg = ''.join(str(i) for i in args)
     # tmsg = translator.translate(imsg, dest=lang)
     tmsg = translator.translate(imsg, dest='en')
-    # await client.say(f'Translating from {tmsg.src} to {tmsg.dest}')
-    await client.say(tmsg.text)
+    # await ctx.send(f'Translating from {tmsg.src} to {tmsg.dest}')
+    await ctx.send(tmsg.text)
 
-@client.command(pass_context=True)
-async def patch(ctx, q):
+@client.command()
+async def patch(q):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                          client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                          username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
@@ -264,15 +264,15 @@ async def patch(ctx, q):
         colour=discord.Colour.green())
     embed.set_footer(text=posts[0].url)
 
-    await client.say('Here is the latest patch notes for %s.' % q)
-    # await client.say(embed=embed)
-    await client.say(posts[0].url)
+    await ctx.send('Here is the latest patch notes for %s.' % q)
+    # await ctx.send(embed=embed)
+    await ctx.send(posts[0].url)
 
     if len(posts) == 0:
-        await client.say("Didn't find patch")
+        await ctx.send("Didn't find patch")
 
-@client.command(pass_context=True)
-async def reddit(ctx, *args):
+@client.command()
+async def reddit(*args):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                          client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                          username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
@@ -293,16 +293,16 @@ async def reddit(ctx, *args):
         colour=discord.Colour.green())
     embed.set_image(url=wadu.url)
     embed.set_footer(text='https://www.reddit.com/comments/%s' % wadu.id)
-    await client.say(embed=embed)
-    await client.say('https://www.reddit.com/comments/%s' % wadu.id)
+    await ctx.send(embed=embed)
+    await ctx.send('https://www.reddit.com/comments/%s' % wadu.id)
 
-@client.command(pass_context=True)
+@client.command()
 async def avatar(ctx):
     user = ctx.message.author
     if user.avatar == None:
-        await client.say('https://cdn.discordapp.com/embed/avatars/0.png')
+        await ctx.send('https://cdn.discordapp.com/embed/avatars/0.png')
     else:
-        await client.say(user.avatar_url)
+        await ctx.send(user.avatar_url)
 
 @client.command()
 async def tomatoes(*args):
@@ -313,10 +313,10 @@ async def tomatoes(*args):
     soup = BeautifulSoup(content, 'html.parser')
     for i in soup.find_all('span', class_='mop-ratings-wrap__percentage'):
         text.append(i.text)
-    await client.say(text[0])
+    await ctx.send(text[0])
 
-@client.command(pass_context=True)
-async def scrape(ctx, url, tag, class_=None):
+@client.command()
+async def scrape(url, tag, class_=None):
     url = url
     tag = tag
     c = class_
@@ -331,24 +331,24 @@ async def scrape(ctx, url, tag, class_=None):
     if c:
         for p in soup.find_all(tag, class_=c):
             text.append(p.text)
-        await client.say(text[random.randint(0, len(text) - 1)])
+        await ctx.send(text[random.randint(0, len(text) - 1)])
     if tag == 'image':
         for img in soup.find_all('img'):
             urls.append(img['src'])
-        await client.say(urls[random.randint(0, len(urls) - 1)])
+        await ctx.send(urls[random.randint(0, len(urls) - 1)])
 
-@client.command(pass_context=True)
-async def wfa(ctx, *args):
+@client.command()
+async def wfa(*args):
     id = os.environ.get('WFA_ID')
     q = ' '.join(str(i) for i in args)
     if '+' in q:
         q = q.replace('+', 'plus')
     r = requests.get('http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext&output=json' % (id, q))
     data = r.json()
-    await client.say(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
+    await ctx.send(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
-@client.command(pass_context=True)
-async def bait(ctx, member: discord.Member):
+@client.command()
+async def bait(member: discord.Member):
     jebaits = []
 
     r2 = requests.get('https://myanimelist.net/news')
@@ -369,22 +369,22 @@ async def bait(ctx, member: discord.Member):
     jebaits.append('BRAND SPANKIN NEW ANIME STRAIGHT OFF THE JAPANESE PRINTERS ELECTRONICALLY DIGITIZED INTO CRISP HIGH DEFINITION PIXEL JAPANESE GOODNESS!!!')
     jebaits.extend(text)
 
-    await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
+    await ctx.send(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 @client.command()
 async def roll(numRolls, sides):
     rolls = []
     for i in range(int(numRolls)):
         r = random.randint(1, int(sides))
-        await client.say(str(r) + f'/{sides}')
+        await ctx.send(str(r) + f'/{sides}')
         rolls.append(r)
         total = 0
     for num in rolls:
         total += num
-    await client.say(f'You rolled {total}')
+    await ctx.send(f'You rolled {total}')
 
-@client.command(pass_context=True)
-async def text(ctx, number, *args):
+@client.command()
+async def text(number, *args):
     if number == 'travis':
         number = os.environ.get('num1')
     if number == 'lewis':
@@ -398,29 +398,29 @@ async def text(ctx, number, *args):
         body=' '.join(str(i) for i in args)
     )
 
-# @client.command(pass_context=True)
-# async def ffz(ctx, q):
+# @client.command()
+# async def ffz(q):
 #     #starttime = time.time()
 #     if(q == 'monkaS'):
 #         embed = discord.Embed(
 #         title = 'monkaS',
 #         colour = discord.Colour.green())
 #         embed.set_image(url='https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')
-#         await client.say(embed=embed)
+#         await ctx.send(embed=embed)
 #     elif(q == None):
-#         await client.say('Enter an arguement.')
+#         await ctx.send('Enter an arguement.')
 #     elif(q == 'hypers'):
 #         embed = discord.Embed(
 #         title = 'hypers',
 #         colour = discord.Colour.green())
 #         embed.set_image(url='https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
-#         await client.say(embed=embed)
+#         await ctx.send(embed=embed)
 #     elif(q == 'pepehands'):
 #         embed = discord.Embed(
 #         title = 'pepehands',
 #         colour = discord.Colour.green())
 #         embed.set_image(url='https://cdn.frankerfacez.com/b97ed9ea44a548134578aecd47348784.png')
-#         await client.say(embed=embed)
+#         await ctx.send(embed=embed)
 #     else:
 #         url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
 #         s = requests.Session()
@@ -435,45 +435,48 @@ async def text(ctx, number, *args):
 #         try:
 #             res = 'https:',(r['emoticons'][0]['urls']['4'])
 #             embed.set_image(url=''.join(res))
-#             await client.say(embed=embed)
+#             await ctx.send(embed=embed)
 #         except KeyError:
 #             res = 'https:',(r['emoticons'][0]['urls']['2'])
 #             embed.set_image(url=''.join(res))
-#             await client.say(embed=embed)
+#             await ctx.send(embed=embed)
 #     except KeyError:
 #         res = 'https:',(r['emoticons'][0]['urls']['1'])
 #         embed.set_image(url=''.join(res))
-#         await client.say(embed=embed)
+#         await ctx.send(embed=embed)
 
 
-@client.command(pass_context=True)
-async def clear(ctx, amount):
-    channel = ctx.message.channel
-    messages = []
-    async for message in client.logs_from(channel, limit=int(amount)):
-        messages.append(message)
-    await client.delete_messages(messages)
+@client.command()
+async def clear(amount):
+    channel = ctx.channel
+    await channel.purge(limit=int(amount))
+
+    # channel = ctx.channel
+    # messages = []
+    # async for message in channel.history(limit=int(amount)):
+    #     messages.append(message)
+    # await client.delete_messages(messages)
 
 
-@client.command(pass_context=True)
-async def gal(ctx, s=3):
+@client.command()
+async def gal(s=3):
     if s == 1:
-        await client.say('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
+        await ctx.send('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
     if s == 2:
-        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-legs.gif')
+        await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-legs.gif')
     if s == 3:
-        await client.say('https://gfycat.com/arctichideoushoneyeater')
+        await ctx.send('https://gfycat.com/arctichideoushoneyeater')
     if s == 4:
-        await client.say('https://gfycat.com/SplendidNextAsiaticgreaterfreshwaterclam')
+        await ctx.send('https://gfycat.com/SplendidNextAsiaticgreaterfreshwaterclam')
     if s == 5:
-        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-on-bed.gif')
+        await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-on-bed.gif')
     if s == 6:
-        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-cleavage.gif')
+        await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-cleavage.gif')
     if s == 7:
-        await client.say('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
+        await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
-@client.command(pass_context=True)
-async def gif(ctx, *args):
+@client.command()
+async def gif(*args):
     q = '+'.join(str(i) for i in args)
     urls = []
 
@@ -487,11 +490,10 @@ async def gif(ctx, *args):
             urls.append(data['gfycats'][k]['mp4Url'])
             k += 1
 
-
-        await client.say('Here is what i found for: %s' % q)
-        await client.say(urls[random.randint(0, len(urls) - 1)])
+        await ctx.send('Here is what i found for: %s' % q)
+        await ctx.send(urls[random.randint(0, len(urls) - 1)])
 
     except Exception as e:
-        await client.say(e)
+        await ctx.send(e)
 
 client.run(os.environ.get('BOT_TOKEN'))
