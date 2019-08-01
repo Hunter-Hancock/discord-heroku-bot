@@ -49,6 +49,9 @@ async def update_data(users, user):
         users[user.id]['name'] = user.display_name
         users[user.id]['chips'] = 1000
 
+async def hit():
+    pass
+
 @client.command(pass_context=True)
 async def blackjack(ctx, bet):
 
@@ -62,8 +65,25 @@ async def blackjack(ctx, bet):
     users[ctx.message.author.id]['chips'] -= int(bet)
     await update_data(users, ctx.message.author)
 
+    dealer_initial = [random.randint(2, 10)]
+    player_initial = [random.randint(2, 10)]
+
+    await client.say(f'Dealer has: {dealer_initial} you have: {player_initial}')
+    await client.say('Do you want to hit or stand?')
+    response = await client.wait_for_message()
+    if response == 'hit':
+        await client.say('You hit!')
+        await client.say(f'You now have {}')
+
+    if response == 'stand':
+        pass
+
     with open('blackjack.json', 'w') as f:
         json.dump(users, f)
+
+@client.command(pass_context=True)
+async def chips(ctx):
+    await client.say(users[ctx.message.author.id]['chips'])
 
 
 
