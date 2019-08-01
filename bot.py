@@ -78,7 +78,7 @@ async def blackjack(ctx, bet):
 
     await client.say(f'Dealer has: {dealer_card1} you have: {player_hand}')
     await client.say('Do you want to hit or stand?')
-    response = await client.wait_for_message()
+    response = await client.wait_for_message('hit' or 'stand')
     if response == 'hit':
         await client.say('You hit!')
         new_card = random.randint(2, 10)
@@ -93,6 +93,8 @@ async def blackjack(ctx, bet):
 
 @client.command(pass_context=True)
 async def chips(ctx):
+    with open('blackjack.json', 'r') as f:
+        json.dump(users, f)
     await client.say(users[ctx.message.author.id]['chips'])
 
 
