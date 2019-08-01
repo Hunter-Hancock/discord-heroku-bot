@@ -94,7 +94,7 @@ async def blackjack(ctx, bet):
 @client.command(pass_context=True)
 async def chips(ctx):
     with open('blackjack.json', 'r') as f:
-        json.dump(users, f)
+        users = json.load(f)
     await client.say(users[ctx.message.author.id]['chips'])
 
 
