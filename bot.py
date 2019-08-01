@@ -43,6 +43,7 @@ auth_token = os.environ.get('AUTH_TOKEN')
 async def on_ready():
     game = discord.Game('!gif !imgur !reddit !nsfw')
     await client.change_presence(status=discord.Status.online, activity=game)
+    print('Version 1.2.3 online.')
     # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
 
 async def update_data(users, user):
@@ -50,18 +51,22 @@ async def update_data(users, user):
         users[user.id] = {}
         users[user.id]['name'] = user.display_name
         users[user.id]['chips'] = 1000
+        print('FUNCTION CALLED')
+    
+    with open('blackjack.json', 'w') as f:
+        json.dump(users, f)
 
 @client.command()
-async def blackjack(bet):
+async def blackjack(ctx, bet):
 
     with open('blackjack.json', 'r') as f:
         users = json.load(f)
 
-    await update_data(users, ctx.message.author)
+    await update_data(users, ctx.author)
 
-    if int(bet) > users[ctx.message.author.id]['chips']:
-        await ctx.send(f"Not enough chips. You only have: {users[ctx.message.author.id]['chips']}")
-        users[ctx.message.author.id]['chips'] += int(bet)
+    if int(bet) > users[ctx.author.id]['chips']:
+        await ctx.send(f"Not enough chips. You only have: {users[ctx.author.id]['chips']}")
+        users[ctx.author.id]['chips'] += int(bet)
     
     users[ctx.message.author.id]['chips'] -= int(bet)
 
@@ -97,7 +102,8 @@ async def blackjack(bet):
 async def chips(ctx):
     with open('blackjack.json', 'r') as f:
         users = json.load(f)
-    await ctx.send(users[ctx.message.author.id]['chips'] + 'chips')
+    print(users)
+    await ctx.send(users[ctx.author.id]['chips'] + 'chips')
 
 # messages = []
 
@@ -136,7 +142,7 @@ async def chips(ctx):
 #             await client.delete_message(message)
 
 @client.command()
-async def instagram(account):
+async def instagram(ctx, account):
     bot.get('https://instagram.com/')
     time.sleep(2)
     loginbtn = bot.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/p/a').click()
@@ -169,7 +175,7 @@ async def instagram(account):
     bot.quit()
 
 @client.command()
-async def scrape2(website, class_name):
+async def scrape2(ctx, website, class_name):
     browser = webdriver.Chrome()
     browser.get(website)
 
@@ -226,7 +232,7 @@ async def snap(ctx):
         await client.delete_message(message)
 
 @client.command()
-async def imgur(*args):
+async def imgur(ctx, *args):
 
     search = '+'.join(str(i) for i in args)
     res = [item for item in imgclient.gallery_search(
@@ -240,7 +246,7 @@ async def imgur(*args):
 
 
 @client.command()
-async def translate(*args):
+async def translate(ctx, *args):
     imsg = ''.join(str(i) for i in args)
     # tmsg = translator.translate(imsg, dest=lang)
     tmsg = translator.translate(imsg, dest='en')
@@ -248,7 +254,7 @@ async def translate(*args):
     await ctx.send(tmsg.text)
 
 @client.command()
-async def patch(q):
+async def patch(ctx, q):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                          client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                          username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
@@ -272,7 +278,7 @@ async def patch(q):
         await ctx.send("Didn't find patch")
 
 @client.command()
-async def reddit(*args):
+async def reddit(ctx, *args):
     reddit = praw.Reddit(user_agent='discord-bot (by /u/MildlyAdequateDOC)',
                          client_id=os.environ.get('REDDIT_CLIENT_ID'), client_secret=os.environ.get('REDDIT_CLIENT_SECRET'),
                          username='MildlyAdequateDOC', password=os.environ.get('REDDIT_PASSWORD'))
@@ -316,7 +322,7 @@ async def tomatoes(*args):
     await ctx.send(text[0])
 
 @client.command()
-async def scrape(url, tag, class_=None):
+async def scrape(ctx, url, tag, class_=None):
     url = url
     tag = tag
     c = class_
@@ -338,7 +344,7 @@ async def scrape(url, tag, class_=None):
         await ctx.send(urls[random.randint(0, len(urls) - 1)])
 
 @client.command()
-async def wfa(*args):
+async def wfa(ctx, *args):
     id = os.environ.get('WFA_ID')
     q = ' '.join(str(i) for i in args)
     if '+' in q:
@@ -348,7 +354,7 @@ async def wfa(*args):
     await ctx.send(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
 
 @client.command()
-async def bait(member: discord.Member):
+async def bait(ctx, member: discord.Member):
     jebaits = []
 
     r2 = requests.get('https://myanimelist.net/news')
@@ -372,7 +378,7 @@ async def bait(member: discord.Member):
     await ctx.send(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
 @client.command()
-async def roll(numRolls, sides):
+async def roll(ctx,numRolls, sides):
     rolls = []
     for i in range(int(numRolls)):
         r = random.randint(1, int(sides))
@@ -384,7 +390,7 @@ async def roll(numRolls, sides):
     await ctx.send(f'You rolled {total}')
 
 @client.command()
-async def text(number, *args):
+async def text(ctx, number, *args):
     if number == 'travis':
         number = os.environ.get('num1')
     if number == 'lewis':
@@ -399,7 +405,7 @@ async def text(number, *args):
     )
 
 # @client.command()
-# async def ffz(q):
+# async def ffz(ctx, q):
 #     #starttime = time.time()
 #     if(q == 'monkaS'):
 #         embed = discord.Embed(
@@ -447,7 +453,7 @@ async def text(number, *args):
 
 
 @client.command()
-async def clear(amount):
+async def clear(ctx, amount):
     channel = ctx.channel
     await channel.purge(limit=int(amount))
 
@@ -459,7 +465,7 @@ async def clear(amount):
 
 
 @client.command()
-async def gal(s=3):
+async def gal(ctx, s=3):
     if s == 1:
         await ctx.send('https://zippy.gfycat.com/RaggedChillyHoopoe.mp4')
     if s == 2:
@@ -476,7 +482,7 @@ async def gal(s=3):
         await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
 @client.command()
-async def gif(*args):
+async def gif(ctx, *args):
     q = '+'.join(str(i) for i in args)
     urls = []
 
