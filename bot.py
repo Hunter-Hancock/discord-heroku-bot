@@ -16,6 +16,7 @@ from googletrans import Translator
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+import json
 
 client = commands.Bot(command_prefix='!')
 
@@ -40,8 +41,24 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
+
+    with open('blackjack.json', 'r') as f:
+        users = json.load(f)
+
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
-    # await client.change_presence(game=discord.Game(name='NO SPOILERS!'))
+
+async def update_data(users, user):
+    if not user.id in users:
+        users[user.id] = {}
+        users[user.id]['chips'] = 1000
+
+@client.command(pass_context=True)
+async def blackjack():
+    chips = 1000
+    await update_data()
+    
+
+
 
 # messages = []
 
@@ -315,7 +332,6 @@ async def bait(ctx, member: discord.Member):
 
     await client.say(f'{member.mention}{jebaits[random.randint(0, len(jebaits) - 1)]}')
 
-
 @client.command()
 async def roll(numRolls, sides):
     rolls = []
@@ -327,7 +343,6 @@ async def roll(numRolls, sides):
     for num in rolls:
         total += num
     await client.say(f'You rolled {total}')
-
 
 @client.command(pass_context=True)
 async def text(ctx, number, *args):
