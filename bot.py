@@ -41,22 +41,29 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-
-    with open('blackjack.json', 'r') as f:
-        users = json.load(f)
-
     await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
 
 async def update_data(users, user):
     if not user.id in users:
         users[user.id] = {}
+        users[user.id]['name'] = user.display_name
         users[user.id]['chips'] = 1000
 
 @client.command(pass_context=True)
-async def blackjack():
-    chips = 1000
-    await update_data()
-    
+async def blackjack(ctx, bet):
+
+    with open('blackjack.json', 'r') as f:
+        users = json.load(f)
+
+    if int(bet) > users[ctx.message.author.id]['chips']:
+        await client.say(f"Not enough chips. You only have: {users[ctx.message.author.id]['chips']}")
+        users[ctx.message.author.id]['chips'] += int(bet)
+
+    users[ctx.message.author.id]['chips'] -= int(bet)
+    await update_data(users, ctx.message.author)
+
+    with open('blackjack.json', 'w') as f:
+        json.dump(users, f)
 
 
 
