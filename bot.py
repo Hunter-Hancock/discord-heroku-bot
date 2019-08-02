@@ -51,10 +51,9 @@ async def update_data(users, user):
         users[user.id] = {}
         users[user.id]['name'] = user.display_name
         users[user.id]['chips'] = 1000
-        print('FUNCTION CALLED')
     
-    with open('blackjack.json', 'w') as f:
-        json.dump(users, f)
+        with open('blackjack.json', 'w') as f:
+            json.dump(users, f)
 
 @client.command()
 async def blackjack(ctx, bet):
@@ -68,7 +67,7 @@ async def blackjack(ctx, bet):
         await ctx.send(f"Not enough chips. You only have: {users[ctx.author.id]['chips']}")
         users[ctx.author.id]['chips'] += int(bet)
     
-    users[ctx.message.author.id]['chips'] -= int(bet)
+    users[ctx.author.id]['chips'] -= int(bet)
 
     player_card1 = random.randint(2, 10)
     player_card2 = random.randint(2, 10)
@@ -84,16 +83,60 @@ async def blackjack(ctx, bet):
     await ctx.send(f'Dealer has: {dealer_card1} you have: {player_hand}')
     await ctx.send('Do you want to hit or stand?')
     # response = await client.wait_for_message('message')
-    response = await client.wait_for('message', check='hit')
 
-    if response.content == 'hit':
-        await ctx.send('You hit!')
-        new_card = random.randint(2, 10)
-        player_hand.append(new_card)
-        await ctx.send(f'You now have {player_hand}')
+    def check(m):
+        return m.content =='hit' or 'stand'
 
-    if response == 'stand':
-        pass
+    response = await client.wait_for('message', check=check, timeout=5)
+
+    while 0 == 0 :
+        if response.content == 'hit':
+            await ctx.send('You hit!')
+            new_card = random.randint(2, 10)
+            player_hand.append(new_card)
+            player_total += new_card
+            await ctx.send(f'You now have {player_hand}')
+
+        if response == 'stand':
+            await ctx.send('You stand!')
+            break
+
+        if player_total > 21:
+            await ctx.send('You busted!')
+            break
+
+        elif dealer_total >= 17 and dealer_total < player_total:
+            await ctx.send('Player wins!')
+            int(bet) *= 10
+            users[ctx.author.id]['chips'] += int(bet)
+            break
+
+        elif dealer_total < 17:
+            dealer_new_card = random.randint(2, 10)
+            dealer_hand.append(dealer_new_card)
+            dealer_total += dealer_new_card
+            await ctx.send(f'Dealer now has {dealer_hand}')
+
+        elif dealer_total > 21:
+            await ctx.send('Dealer busted!')
+            int(bet) *= 10
+            users[ctx.author.id]['chips'] += int(bet)
+            break
+
+        elif player_total == dealer_total:
+            await ctx.send('Player and Dealer Push!')
+            users[ctx.author.id]['chips'] += int(bet)
+            break
+
+        elif player_total > dealer_total:
+            await ctx.send('Player wins!')
+            int(bet) *= 10
+            users[ctx.author.id]['chips'] += int(bet)
+            break
+        
+        elif player_total < dealer_total:
+            await ctx.send('Dealer wins!')
+            break
 
     with open('blackjack.json', 'w') as f:
         json.dump(users, f)
