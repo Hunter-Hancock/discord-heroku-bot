@@ -52,8 +52,8 @@ async def update_data(users, user):
         users[user.id]['name'] = user.display_name
         users[user.id]['chips'] = 1000
     
-        with open('blackjack.json', 'w') as f:
-            json.dump(users, f)
+        # with open('blackjack.json', 'w') as f:
+        #     json.dump(users, f)
 
 @client.command()
 async def blackjack(ctx, bet):
@@ -111,6 +111,7 @@ async def blackjack(ctx, bet):
             await ctx.send('Player wins!')
             bet *= 10
             users[ctx.author.id]['chips'] += bet
+            await ctx.send(users[ctx.author.id]['chips'] + 'chips')
             break
 
         elif dealer_total < 17:
@@ -123,6 +124,7 @@ async def blackjack(ctx, bet):
             await ctx.send('Dealer busted!')
             bet *= 10
             users[ctx.author.id]['chips'] += bet
+            await ctx.send(users[ctx.author.id]['chips'] + 'chips')
             break
 
         elif player_total == dealer_total:
@@ -134,6 +136,7 @@ async def blackjack(ctx, bet):
             await ctx.send('Player wins!')
             bet *= 10
             users[ctx.author.id]['chips'] += bet
+            await ctx.send(users[ctx.author.id]['chips'] + 'chips')
             break
         
         elif player_total < dealer_total:
