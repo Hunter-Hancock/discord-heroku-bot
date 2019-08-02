@@ -98,8 +98,9 @@ async def blackjack(ctx, bet):
             player_hand.append(new_card)
             player_total += new_card
             await ctx.send(f'You now have {player_hand}')
+            break
 
-        if response == 'stand':
+        if response.content == 'stand':
             await ctx.send('You stand!')
             break
 
