@@ -63,11 +63,13 @@ async def blackjack(ctx, bet):
 
     await update_data(users, ctx.author)
 
-    if int(bet) > users[ctx.author.id]['chips']:
+    bet = int(bet)
+
+    if bet > users[ctx.author.id]['chips']:
         await ctx.send(f"Not enough chips. You only have: {users[ctx.author.id]['chips']}")
         users[ctx.author.id]['chips'] += int(bet)
     
-    users[ctx.author.id]['chips'] -= int(bet)
+    users[ctx.author.id]['chips'] -= bet
 
     player_card1 = random.randint(2, 10)
     player_card2 = random.randint(2, 10)
@@ -107,8 +109,8 @@ async def blackjack(ctx, bet):
 
         elif dealer_total >= 17 and dealer_total < player_total:
             await ctx.send('Player wins!')
-            int(bet) *= 10
-            users[ctx.author.id]['chips'] += int(bet)
+            bet *= 10
+            users[ctx.author.id]['chips'] += bet
             break
 
         elif dealer_total < 17:
@@ -119,19 +121,19 @@ async def blackjack(ctx, bet):
 
         elif dealer_total > 21:
             await ctx.send('Dealer busted!')
-            int(bet) *= 10
-            users[ctx.author.id]['chips'] += int(bet)
+            bet *= 10
+            users[ctx.author.id]['chips'] += bet
             break
 
         elif player_total == dealer_total:
             await ctx.send('Player and Dealer Push!')
-            users[ctx.author.id]['chips'] += int(bet)
+            users[ctx.author.id]['chips'] += bet
             break
 
         elif player_total > dealer_total:
             await ctx.send('Player wins!')
-            int(bet) *= 10
-            users[ctx.author.id]['chips'] += int(bet)
+            bet *= 10
+            users[ctx.author.id]['chips'] += bet
             break
         
         elif player_total < dealer_total:
