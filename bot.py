@@ -41,9 +41,11 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 @client.event
 async def on_ready():
-    game = discord.Game('!gif !imgur !reddit !nsfw')
+    game = discord.Game('!gif !imgur !blackjack !nsfw')
     await client.change_presence(status=discord.Status.online, activity=game)
     print('Version 1.2.3 online.')
+    with open('blackjack.json', 'r') as f:
+        users = json.load(f)
     # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
 
 async def update_data(users, user):
@@ -67,82 +69,75 @@ async def blackjack(ctx, bet):
 
     if bet > users[ctx.author.id]['chips']:
         await ctx.send(f"Not enough chips. You only have: {users[ctx.author.id]['chips']}")
-        users[ctx.author.id]['chips'] += int(bet)
+        
+    else:
     
-    users[ctx.author.id]['chips'] -= bet
+        users[ctx.author.id]['chips'] -= bet
 
-    player_card1 = random.randint(2, 10)
-    player_card2 = random.randint(2, 10)
-    player_total = player_card1 + player_card2
+        player_card1 = random.randint(2, 10)
+        player_card2 = random.randint(2, 10)
+        player_total = player_card1 + player_card2
 
-    dealer_card1 = random.randint(2, 10)
-    dealer_card2 = random.randint(2, 10)
-    dealer_total = dealer_card1 + dealer_card2
+        dealer_card1 = random.randint(2, 10)
+        dealer_card2 = random.randint(2, 10)
+        dealer_total = dealer_card1 + dealer_card2
 
-    player_hand = [player_card1, player_card2]
-    dealer_hand = [dealer_card1, dealer_card2]
+        player_hand = [player_card1, player_card2]
+        dealer_hand = [dealer_card1, dealer_card2]
 
-    await ctx.send(f'Dealer has: {dealer_card1} you have: {player_hand}')
-    await ctx.send('Do you want to hit or stand?')
-    # response = await client.wait_for_message('message')
+        await ctx.send(f'Dealer has: {dealer_card1} you have: {player_hand}')
+        await ctx.send('Do you want to hit or stand?')
+        # response = await client.wait_for_message('message')
 
-    def check(m):
-        return m.content =='hit' or 'stand'
+        def check(m):
+            return m.content =='hit' or 'stand'
 
-    response = await client.wait_for('message', check=check, timeout=5)
+        response = await client.wait_for('message', check=check, timeout=10)
 
-    while 0 == 0 :
         if response.content == 'hit':
             await ctx.send('You hit!')
             new_card = random.randint(2, 10)
             player_hand.append(new_card)
             player_total += new_card
             await ctx.send(f'You now have {player_hand}')
-            break
 
-        if response.content == 'stand':
-            await ctx.send('You stand!')
-            break
+        while 0 == 0:
+            if response.content == 'stand':
+                await ctx.send('You stand!')
 
-        if player_total > 21:
-            await ctx.send('You busted!')
-            break
+            if player_total > 21:
+                await ctx.send('You busted!')
 
-        elif dealer_total >= 17 and dealer_total < player_total:
-            await ctx.send('Player wins!')
-            bet *= 10
-            users[ctx.author.id]['chips'] += bet
-            await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-            break
+            elif dealer_total >= 17 and dealer_total < player_total:
+                await ctx.send('Player wins!')
+                bet *= 10
+                users[ctx.author.id]['chips'] += bet
+                await ctx.send(users[ctx.author.id]['chips'] + 'chips')
 
-        elif dealer_total < 17:
-            dealer_new_card = random.randint(2, 10)
-            dealer_hand.append(dealer_new_card)
-            dealer_total += dealer_new_card
-            await ctx.send(f'Dealer now has {dealer_hand}')
+            elif dealer_total < 17:
+                dealer_new_card = random.randint(2, 10)
+                dealer_hand.append(dealer_new_card)
+                dealer_total += dealer_new_card
+                await ctx.send(f'Dealer now has {dealer_hand}')
 
-        elif dealer_total > 21:
-            await ctx.send('Dealer busted!')
-            bet *= 10
-            users[ctx.author.id]['chips'] += bet
-            await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-            break
+            elif dealer_total > 21:
+                await ctx.send('Dealer busted!')
+                bet *= 10
+                users[ctx.author.id]['chips'] += bet
+                await ctx.send(users[ctx.author.id]['chips'] + 'chips')
 
-        elif player_total == dealer_total:
-            await ctx.send('Player and Dealer Push!')
-            users[ctx.author.id]['chips'] += bet
-            break
+            elif player_total == dealer_total:
+                await ctx.send('Player and Dealer Push!')
+                users[ctx.author.id]['chips'] += bet
 
-        elif player_total > dealer_total:
-            await ctx.send('Player wins!')
-            bet *= 10
-            users[ctx.author.id]['chips'] += bet
-            await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-            break
-        
-        elif player_total < dealer_total:
-            await ctx.send('Dealer wins!')
-            break
+            elif player_total > dealer_total:
+                await ctx.send('Player wins!')
+                bet *= 10
+                users[ctx.author.id]['chips'] += bet
+                await ctx.send(users[ctx.author.id]['chips'] + 'chips')
+            
+            elif player_total < dealer_total:
+                await ctx.send('Dealer wins!')
 
     with open('blackjack.json', 'w') as f:
         json.dump(users, f)
@@ -151,7 +146,7 @@ async def blackjack(ctx, bet):
 async def chips(ctx):
     with open('blackjack.json', 'r') as f:
         users = json.load(f)
-    print(users)
+    print(users[ctx.author.id]['chips'])
     await ctx.send(users[ctx.author.id]['chips'] + 'chips')
 
 # messages = []
@@ -192,6 +187,7 @@ async def chips(ctx):
 
 @client.command()
 async def instagram(ctx, account):
+    bot = webdriver.Chrome()
     bot.get('https://instagram.com/')
     time.sleep(2)
     loginbtn = bot.find_element_by_xpath('//*[@id="react-root"]/section/main/article/div[2]/div[2]/p/a').click()
