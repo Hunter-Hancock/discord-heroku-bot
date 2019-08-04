@@ -104,40 +104,48 @@ async def blackjack(ctx, bet):
         while 0 == 0:
             if response.content == 'stand':
                 await ctx.send('You stand!')
+                break
 
             if player_total > 21:
                 await ctx.send('You busted!')
+                break
 
             elif dealer_total >= 17 and dealer_total < player_total:
                 await ctx.send('Player wins!')
                 bet *= 10
                 users[ctx.author.id]['chips'] += bet
                 await ctx.send(users[ctx.author.id]['chips'] + 'chips')
+                break
 
             elif dealer_total < 17:
                 dealer_new_card = random.randint(2, 10)
                 dealer_hand.append(dealer_new_card)
                 dealer_total += dealer_new_card
                 await ctx.send(f'Dealer now has {dealer_hand}')
+                break
 
             elif dealer_total > 21:
                 await ctx.send('Dealer busted!')
                 bet *= 10
                 users[ctx.author.id]['chips'] += bet
                 await ctx.send(users[ctx.author.id]['chips'] + 'chips')
+                break
 
             elif player_total == dealer_total:
                 await ctx.send('Player and Dealer Push!')
                 users[ctx.author.id]['chips'] += bet
+                break
 
             elif player_total > dealer_total:
                 await ctx.send('Player wins!')
                 bet *= 10
                 users[ctx.author.id]['chips'] += bet
                 await ctx.send(users[ctx.author.id]['chips'] + 'chips')
+                break
             
             elif player_total < dealer_total:
                 await ctx.send('Dealer wins!')
+                break
 
     with open('blackjack.json', 'w') as f:
         json.dump(users, f)
