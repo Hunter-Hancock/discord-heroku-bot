@@ -94,16 +94,16 @@ async def blackjack(ctx, bet):
 
         response = await client.wait_for('message', check=check, timeout=10)
 
-        if response.content == 'hit':
-            await ctx.send('You hit!')
-            new_card = random.randint(2, 10)
-            player_hand.append(new_card)
-            player_total += new_card
-            await ctx.send(f'You now have {player_hand}')
-
         while 0 == 0:
             a = False
             while a == False:
+                if response.content == 'hit':
+                    await ctx.send('You hit!')
+                    new_card = random.randint(2, 10)
+                    player_hand.append(new_card)
+                    player_total += new_card
+                    await ctx.send(f'You now have {player_hand}')
+
                 if response.content == 'stand':
                     await ctx.send('You stand!')
                     break
@@ -524,7 +524,6 @@ async def clear(ctx, amount):
     #     messages.append(message)
     # await client.delete_messages(messages)
 
-
 @client.command()
 async def gal(ctx, s=3):
     if s == 1:
@@ -562,5 +561,9 @@ async def gif(ctx, *args):
 
     except Exception as e:
         await ctx.send(e)
+
+@client.command()
+async def stop():
+    client.logout()
 
 client.run(os.environ.get('BOT_TOKEN'))
