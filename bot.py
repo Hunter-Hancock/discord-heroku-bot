@@ -563,7 +563,9 @@ async def gif(ctx, *args):
         await ctx.send(e)
 
 @client.command()
-async def stop():
-    client.logout()
+async def restart():
+    await client.logout()
+    await client.close()
+    await client.run(os.environ.get('BOT_TOKEN'))
 
 client.run(os.environ.get('BOT_TOKEN'))
