@@ -8,7 +8,7 @@ class Music(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        discord.opus.load_opus()
+        discord.opus.load_opus('opus')
 
     @commands.command(aliases=['j'])
     async def join(self, ctx):
