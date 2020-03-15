@@ -20,9 +20,6 @@ import json
 
 client = commands.Bot(command_prefix='!')
 
-gfyclient_id: '2_WTCi12'
-gfyclient_secret: 'J6pITJVLezQShlLJxCqyvxJWOeFklGRepRVE6xvekVmJO69kY8H76HxEipagvA9y'
-
 imgclient_id = os.environ.get('IMGCLIENT_ID')
 imgclient_secret = os.environ.get('IMGCLIENT_SECRET')
 imgclient = ImgurClient(imgclient_id, imgclient_secret)
@@ -39,167 +36,21 @@ auth_token = os.environ.get('AUTH_TOKEN')
 
 # bot_auth = '112223157440-e_P1wON56ltclGn-2Q2LkSazPwQ' # acquire token
 
-@client.event
-async def on_ready():
-    game = discord.Game('!gif !imgur !reddit !nsfw')
-    await client.change_presence(status=discord.Status.online, activity=game)
-    print('Version 1.2.3 online.')
-    # with open('blackjack.json', 'r') as f:
-    #     users = json.load(f)
-    # await client.change_presence(game=discord.Game(name='!gif !imgur !reddit !nsfw'))
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
+    await ctx.send('Extension loaded!')
 
-# async def update_data(users, user):
-#     if not user.id in users:
-#         users[user.id] = {}
-#         users[user.id]['name'] = user.display_name
-#         users[user.id]['chips'] = 1000
-    
-#         # with open('blackjack.json', 'w') as f:
-#         #     json.dump(users, f)
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
+    await ctx.send('Extension unloaded!')
 
-# @client.command()
-# async def blackjack(ctx, bet):
-
-#     with open('blackjack.json', 'r') as f:
-#         users = json.load(f)
-
-#     await update_data(users, ctx.author)
-
-#     bet = int(bet)
-
-#     if bet > users[ctx.author.id]['chips']:
-#         await ctx.send(f"Not enough chips. You only have: {users[ctx.author.id]['chips']}")
-        
-#     else:
-    
-#         users[ctx.author.id]['chips'] -= bet
-
-#         player_card1 = random.randint(2, 10)
-#         player_card2 = random.randint(2, 10)
-#         player_total = player_card1 + player_card2
-
-#         dealer_card1 = random.randint(2, 10)
-#         dealer_card2 = random.randint(2, 10)
-#         dealer_total = dealer_card1 + dealer_card2
-
-#         player_hand = [player_card1, player_card2]
-#         dealer_hand = [dealer_card1, dealer_card2]
-
-#         await ctx.send(f'Dealer has: {dealer_card1} you have: {player_hand}')
-#         await ctx.send('Do you want to hit or stand?')
-#         # response = await client.wait_for_message('message')
-
-#         def check(m):
-#             return m.content =='hit' or 'stand'
-
-#         response = await client.wait_for('message', check=check, timeout=10)
-
-#         while 0 == 0:
-#             a = False
-#             while a == False:
-#                 if response.content == 'hit':
-#                     await ctx.send('You hit!')
-#                     new_card = random.randint(2, 10)
-#                     player_hand.append(new_card)
-#                     player_total += new_card
-#                     await ctx.send(f'You now have {player_hand}')
-
-#                 if response.content == 'stand':
-#                     await ctx.send('You stand!')
-#                     break
-
-#                 if player_total > 21:
-#                     await ctx.send('You busted!')
-#                     a = True
-#                     break
-
-#                 elif dealer_total >= 17 and dealer_total < player_total:
-#                     await ctx.send('Player wins!')
-#                     bet *= 10
-#                     users[ctx.author.id]['chips'] += bet
-#                     await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-#                     a = True
-#                     break
-
-#                 elif dealer_total < 17:
-#                     dealer_new_card = random.randint(2, 10)
-#                     dealer_hand.append(dealer_new_card)
-#                     dealer_total += dealer_new_card
-#                     await ctx.send(f'Dealer now has {dealer_hand}')
-#                     break
-
-#                 elif dealer_total > 21:
-#                     await ctx.send('Dealer busted!')
-#                     bet *= 10
-#                     users[ctx.author.id]['chips'] += bet
-#                     await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-#                     a = True
-#                     break
-
-#                 elif player_total == dealer_total:
-#                     await ctx.send('Player and Dealer Push!')
-#                     users[ctx.author.id]['chips'] += bet
-#                     a = True
-#                     break
-
-#                 elif player_total > dealer_total:
-#                     await ctx.send('Player wins!')
-#                     bet *= 10
-#                     users[ctx.author.id]['chips'] += bet
-#                     await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-#                     a = True
-#                     break
-                
-#                 elif player_total < dealer_total:
-#                     await ctx.send('Dealer wins!')
-#                     a = True
-#                     break
-
-#     with open('blackjack.json', 'w') as f:
-#         json.dump(users, f)
-
-# @client.command()
-# async def chips(ctx):
-#     with open('blackjack.json', 'r') as f:
-#         users = json.load(f)
-#     print(users[ctx.author.id]['chips'])
-#     await ctx.send(users[ctx.author.id]['chips'] + 'chips')
-
-# messages = []
-
-# @client.event
-# async def on_message(message):
-
-#     msg = {f"{message.author}: {message.content}"}
-
-#     if message.author.bot or message.content == "!logs": # message.author.id == '102817191446982656':
-#         pass
-#     else:
-#         messages.append(msg)
-
-#     await client.process_commands(message)
-
-# @client.command()
-# async def clearlogs():
-#     messages.clear()
-
-# @client.command()
-# async def logs():
-#     await ctx.send(messages)
-
-# spoiler_list = ['avengers', 'endgame', 'iron man', 'dies', 'captain america', 'ant man', 'thanos', 'avengers endgame', 'thor', 'black panther', 'spider-man']
-
-# [item.lower() for item in spoiler_list]
-
-# @client.event
-# async def on_message(message):
-#     message_content = message.content.strip().lower()
-#     if any(spoiler in message_content for spoiler in spoiler_list):
-#         if 'fortnite' in message_content or message_content.startswith('--'):
-#             pass
-#         else:
-#             await client.send_message(message.channel, 'No spoilers bud')
-#             await client.delete_message(message)
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+    if filename[:-3] == 'spoilers':
+            client.unload_extension(f'cogs.spoilers')
 
 @client.command()
 async def instagram(ctx, account):
@@ -331,7 +182,7 @@ async def patch(ctx, q):
         colour=discord.Colour.green())
     embed.set_footer(text=posts[0].url)
 
-    await ctx.send('Here is the latest patch notes for %s.' % q)
+    await ctx.send(f'Here is the latest patch notes for {q}.') 
     # await ctx.send(embed=embed)
     await ctx.send(posts[0].url)
 
@@ -405,16 +256,6 @@ async def scrape(ctx, url, tag, class_=None):
         await ctx.send(urls[random.randint(0, len(urls) - 1)])
 
 @client.command()
-async def wfa(ctx, *args):
-    id = os.environ.get('WFA_ID')
-    q = ' '.join(str(i) for i in args)
-    if '+' in q:
-        q = q.replace('+', 'plus')
-    r = requests.get('http://api.wolframalpha.com/v2/query?appid=%s&input=%s&format=plaintext&output=json' % (id, q))
-    data = r.json()
-    await ctx.send(data['queryresult']['pods'][1]['subpods'][0]['plaintext'])
-
-@client.command()
 async def bait(ctx, member: discord.Member):
     jebaits = []
 
@@ -465,64 +306,10 @@ async def text(ctx, number, *args):
         body=' '.join(str(i) for i in args)
     )
 
-# @client.command()
-# async def ffz(ctx, q):
-#     #starttime = time.time()
-#     if(q == 'monkaS'):
-#         embed = discord.Embed(
-#         title = 'monkaS',
-#         colour = discord.Colour.green())
-#         embed.set_image(url='https://cdn.frankerfacez.com/7ed3da04c09547097595ff979e629c36.png')
-#         await ctx.send(embed=embed)
-#     elif(q == None):
-#         await ctx.send('Enter an arguement.')
-#     elif(q == 'hypers'):
-#         embed = discord.Embed(
-#         title = 'hypers',
-#         colour = discord.Colour.green())
-#         embed.set_image(url='https://cdn.frankerfacez.com/2eca1ebdd82e120d31ab3b59e6aea68b.png')
-#         await ctx.send(embed=embed)
-#     elif(q == 'pepehands'):
-#         embed = discord.Embed(
-#         title = 'pepehands',
-#         colour = discord.Colour.green())
-#         embed.set_image(url='https://cdn.frankerfacez.com/b97ed9ea44a548134578aecd47348784.png')
-#         await ctx.send(embed=embed)
-#     else:
-#         url = 'https://api.frankerfacez.com/v1/emoticons?q=%s&sort=count-desc' % q
-#         s = requests.Session()
-#         r = s.get(url).json()
-#         # r = requests.get(url).json()
-
-#     embed = discord.Embed(
-#         title = q,
-#         colour = discord.Colour.green())
-
-#     try:
-#         try:
-#             res = 'https:',(r['emoticons'][0]['urls']['4'])
-#             embed.set_image(url=''.join(res))
-#             await ctx.send(embed=embed)
-#         except KeyError:
-#             res = 'https:',(r['emoticons'][0]['urls']['2'])
-#             embed.set_image(url=''.join(res))
-#             await ctx.send(embed=embed)
-#     except KeyError:
-#         res = 'https:',(r['emoticons'][0]['urls']['1'])
-#         embed.set_image(url=''.join(res))
-#         await ctx.send(embed=embed)
-
-
 @client.command()
 async def clear(ctx, amount):
     channel = ctx.channel
     await channel.purge(limit=int(amount))
-
-    # channel = ctx.channel
-    # messages = []
-    # async for message in channel.history(limit=int(amount)):
-    #     messages.append(message)
-    # await client.delete_messages(messages)
 
 @client.command()
 async def gal(ctx, s=3):
@@ -541,31 +328,25 @@ async def gal(ctx, s=3):
     if s == 7:
         await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
 
-@client.command()
-async def gif(ctx, *args):
-    q = '+'.join(str(i) for i in args)
-    urls = []
+# @client.command()
+# async def gif(ctx, *args):
+#     q = '+'.join(str(i) for i in args)
+#     urls = []
 
-    try:
-        r = requests.get(f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=250')
-        data = r.json()
+#     try:
+#         r = requests.get(f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=250')
+#         data = r.json()
 
-        k = 0
-        length = len(data['gfycats']) - 1
-        while k < length:
-            urls.append(data['gfycats'][k]['mp4Url'])
-            k += 1
+#         k = 0
+#         length = len(data['gfycats']) - 1
+#         while k < length:
+#             urls.append(data['gfycats'][k]['mp4Url'])
+#             k += 1
 
-        await ctx.send('Here is what i found for: %s' % q)
-        await ctx.send(urls[random.randint(0, len(urls) - 1)])
+#         await ctx.send('Here is what i found for: %s' % q)
+#         await ctx.send(urls[random.randint(0, len(urls) - 1)])
 
-    except Exception as e:
-        await ctx.send(e)
-
-@client.command()
-async def restart(ctx):
-    await client.logout()
-    await client.close()
-    await client.run(os.environ.get('BOT_TOKEN'))
+#     except Exception as e:
+#         await ctx.send(e)
 
 client.run(os.environ.get('BOT_TOKEN'))
