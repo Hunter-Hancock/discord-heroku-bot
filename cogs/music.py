@@ -65,7 +65,7 @@ class Music(commands.Cog):
                 print(f'Renamed File: {file}')
                 os.rename(file, 'song.mp3')
 
-        voice.play(discord.FFmpegPCMAudio('song.mp3'), after=lambda e: await voice.disconnect())
+        voice.play(discord.FFmpegPCMAudio('song.mp3'), after=async lambda e: await voice.disconnect())
 
 def setup(client):
     client.add_cog(Music(client))
