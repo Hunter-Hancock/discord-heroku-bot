@@ -3,3 +3,4 @@ debug.py
 .vscode/settings.json
 **/__pycache__
 **/workspace.code-workspace
+.mp3
