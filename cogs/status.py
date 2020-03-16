@@ -26,8 +26,8 @@ class Status(commands.Cog):
         try:
             server = MinecraftServer.lookup('68.63.192.222')
             status = server.status()
-            await client.change_presence(activity=discord.Game(f'Enigmatica 2 Expert: {status.players.online}/4 players on server'))
-        except Exception:
+            await client.change_presence(status=discord.Status.online, activity=discord.Game(f'Enigmatica 2 Expert: {status.players.online}/4 players on server'))
+        except TimeoutError:
             game = discord.Game('!gif !imgur !reddit !nsfw')
             await self.client.change_presence(status=discord.Status.online, activity=game)
         
