@@ -1,3 +1,5 @@
+import discord
+from discord.ext import commands
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
@@ -8,8 +10,8 @@ class Stock(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-    
-    @commands.command(aliases=['s'])
+
+    @commands.command()
     async def dividends(self, ctx):
 
         options = webdriver.ChromeOptions()
