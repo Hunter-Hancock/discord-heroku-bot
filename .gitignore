@@ -1,3 +1,4 @@
 test.py
 debug.py
 .vscode/settings.json
+__pycache__
