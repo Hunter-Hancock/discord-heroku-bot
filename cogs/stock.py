@@ -25,7 +25,7 @@ class Stock(commands.Cog):
 
         email.send_keys('hunterhancock1141@gmail.com')
 
-        password.send_keys('Bimbo2018!')
+        password.send_keys(os.environ.get('INSTAGRAM_PASS'))
 
         prop.find_element_by_xpath('/html/body/div/div/div[2]/div/div[2]/form/button/span[1]').click()
 
