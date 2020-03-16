@@ -10,27 +10,32 @@ class Status(commands.Cog):
     
     @commands.Cog.listener()
     async def on_ready(self):
-       self.update_status.start()
+        self.update_status.start()
+        print('Ready 2')
 
     @commands.command()
-    async def status(self, ctx, ip: str):
-        try:
-            server = MinecraftServer.lookup(ip)
-            status = server.status()
-            await ctx.send(status.players.online)
-        except Exception as e:
-            print(e)
+    async def status(self, ctx, ip: str, mode: str):
+        if mode == 'status':
+            try:
+                server = MinecraftServer.lookup(ip)
+                status = server.status()
+                await ctx.send(status.players.online)
+            except Exception as e:
+                print(e)
+        elif mode == 'ping':
+            await ctx.send(server.ping)
+        elif mode == 'query':
+            query = server.query()
+            await ctx.send(', '.join(query.players.names) + 'is on the server' )
         
-    @tasks.loop(seconds=60)
+    @tasks.loop(seconds=30)
     async def update_status(self):
-        try:
-            server = MinecraftServer.lookup('68.63.192.222')
-            status = server.status()
-            await client.change_presence(status=discord.Status.online, activity=discord.Game(f'Enigmatica 2 Expert: {status.players.online}/4 players on server'))
-        except TimeoutError:
-            game = discord.Game('!gif !imgur !reddit !nsfw')
-            await self.client.change_presence(status=discord.Status.online, activity=game)
+        server = MinecraftServer.lookup('68.63.192.222')
+        status = server.status()
+        statuses = ['!gif !imgur !reddit !nsfw', f'Enigmatica 2 Expert: {status.players.online}/4 players on server']
+        await client.change_presence(status=discord.Status.online, activity=discord.Game(next(statuses)))
+        print('Changed Status')
         
-
+        
 def setup(client):
     client.add_cog(Status(client))
