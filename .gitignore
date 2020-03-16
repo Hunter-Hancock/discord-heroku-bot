@@ -1,4 +1,5 @@
 test.py
 debug.py
 .vscode/settings.json
-cogs/__pycache__
+**/__pycache__
+**/workspace.code-workspace
