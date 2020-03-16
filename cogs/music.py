@@ -7,17 +7,9 @@ import os
 class Music(commands.Cog):
 
     def __init__(self, client):
-        self.client = client
+        self.client = client  
 
-    @commands.command(aliases=['j'])
-    async def join(self, ctx):
-        global voice
-        channel = ctx.message.author.voice.channel
-        voice = get(self.client.voice_clients, guild=ctx.guild)
-
-        
-
-    @commands.command(aliases=['l'])
+    @commands.command(aliases=['s'])
     async def stop(self, ctx):
         channel = ctx.message.author.voice.channel
         voice = get(self.client.voice_clients, guild=ctx.guild)
@@ -29,6 +21,10 @@ class Music(commands.Cog):
     
     @commands.command(aliases=['p'])
     async def play(self, ctx, url: str):
+
+        global voice
+        channel = ctx.message.author.voice.channel
+        voice = get(self.client.voice_clients, guild=ctx.guild)
 
         if voice and voice.is_connected():
             await voice.move_to(channel)
