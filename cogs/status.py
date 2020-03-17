@@ -37,7 +37,7 @@ class Status(commands.Cog):
             await self.client.change_presence(status=discord.Status.online, activity=discord.Game(next(statuses)))
 
     @commands.command()
-    async def update_status(self, ctx, ip: str, option: str):
+    async def update_status(self, ctx, option: str):
         server = MinecraftServer.lookup(ip)
         status = server.status
         players = status.players.players
