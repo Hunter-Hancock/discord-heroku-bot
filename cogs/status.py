@@ -24,10 +24,10 @@ class Status(commands.Cog):
             query = server.query()
             await ctx.send(', '.join(query.players.names) + 'is on the server' )
         
-    @tasks.loop(seconds=5.0, count=2)
+    @tasks.loop(seconds=10)
     async def update_status(self):
         try:
-            server = MinecraftServer.lookup('68.63.192.222')
+            server = MinecraftServer.lookup('localhost')
             status = server.status()
             players = status.players.online
             statuses = cycle(['!gif !imgur !reddit !nsfw', f'Enigmatica 2 Expert: {players}/4'])
