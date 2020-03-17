@@ -27,7 +27,7 @@ class Status(commands.Cog):
     @tasks.loop(seconds=10)
     async def task_status(self):
         try:
-            server = MinecraftServer.lookup('localhost')
+            server = MinecraftServer.lookup('68.63.192.222')
             status = server.status()
             players = status.players.online
             statuses = cycle(['!gif !imgur !reddit !nsfw', f'Enigmatica 2 Expert: {players}/4'])
@@ -38,7 +38,7 @@ class Status(commands.Cog):
 
     @commands.command()
     async def update_status(self, ctx, *option: str):
-        server = MinecraftServer.lookup(ip)
+        server = MinecraftServer.lookup('68.63.192.222')
         status = server.status
         players = status.players.players
         if option:
