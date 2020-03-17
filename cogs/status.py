@@ -46,7 +46,7 @@ class Status(commands.Cog):
         else:
             await self.client.change_presence(status=discord.Status.online, activity=discord.Game(f'Enigmatica 2 Expert: {players}/4'))
 
-    @update_status.before_loop
+    @task_status.before_loop
     async def before_update_status(self):
         print('waiting...')
         await self.client.wait_until_ready()
