@@ -40,7 +40,7 @@ class Status(commands.Cog):
     async def update_status(self, ctx, *option: str):
         server = MinecraftServer.lookup('68.63.192.222')
         status = server.status()
-        players = status.players.players
+        players = status.players.online
         if option:
             await self.client.change_presence(status=discord.Status.online, activity=discord.Game(''.join(option)))
         else:
