@@ -11,7 +11,6 @@ class Ready(commands.Cog):
     async def on_ready(self):
         # game = discord.Game('!gif !imgur !reddit !nsfw')
         # await self.client.change_presence(status=discord.Status.online, activity=game)
-        # Status.update_status.start()
         print('Ready')
 
 def setup(client):
