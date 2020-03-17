@@ -7,7 +7,7 @@ class Status(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.update_status.start()
+        self.task_status.start()
 
     @commands.command()
     async def status(self, ctx, ip: str, mode: str):
@@ -25,7 +25,7 @@ class Status(commands.Cog):
             await ctx.send(', '.join(query.players.names) + 'is on the server' )
         
     @tasks.loop(seconds=10)
-    async def update_status(self):
+    async def task_status(self):
         try:
             server = MinecraftServer.lookup('localhost')
             status = server.status()
@@ -35,6 +35,16 @@ class Status(commands.Cog):
         except Exception:
             statuses = cycle(['!gif !imgur !reddit !nsfw', 'Minecraft Server offline'])
             await self.client.change_presence(status=discord.Status.online, activity=discord.Game(next(statuses)))
+
+    @commands.command()
+    async def update_status(self, ctx, ip: str, option: str):
+        server = MinecraftServer.lookup(ip)
+        status = server.status
+        players = status.players.players
+        if option:
+            await self.client.change_presence(status=discord.Status.online, activity=discord.Game(''.join(option)))
+        else:
+            await self.client.change_presence(status=discord.Status.online, activity=discord.Game(f'Enigmatica 2 Expert: {players}/4'))
 
     @update_status.before_loop
     async def before_update_status(self):
