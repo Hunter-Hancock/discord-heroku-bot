@@ -24,13 +24,14 @@ class Status(commands.Cog):
             query = server.query()
             await ctx.send(', '.join(query.players.names) + 'is on the server' )
         
-    @tasks.loop(seconds=10)
+    @tasks.loop(seconds=30)
     async def task_status(self):
         try:
             server = MinecraftServer.lookup('68.63.192.222')
             status = server.status()
             players = status.players.online
             statuses = cycle(['!gif !imgur !reddit !nsfw', f'Enigmatica 2 Expert: {players}/4'])
+            update_status()
             await self.client.change_presence(status=discord.Status.online, activity=discord.Game(next(statuses)))
         except Exception:
             statuses = cycle(['!gif !imgur !reddit !nsfw', 'Minecraft Server offline'])
