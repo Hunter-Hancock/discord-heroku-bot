@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+import datetime as dt
 
 class Presence(commands.Cog):
 
@@ -7,9 +8,17 @@ class Presence(commands.Cog):
         self.client = client
 
     @commands.Cog.listener()
-    def on_member_update(self, oldMember, newMember):
+    async def on_member_update(self, oldMember, newMember):
+        if oldMember.status != newMember.status:
+            sendDM()
+
+    @staticmethod
+    async def sendDM():
+        me = self.client.get_user('102817191446982656')
         
-        print(f'{oldMember.name} is now {newMember.status}')
+        hr = dt.datetime.today().hour
+        if hr > 12 and hr < 24:
+            (await me).send('test')
 
 def setup(client):
     client.add_cog(Presence(client))
