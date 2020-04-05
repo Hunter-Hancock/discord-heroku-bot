@@ -87,27 +87,6 @@ async def instagram(ctx, account):
     bot.quit()
 
 @client.command()
-async def scrape2(ctx, website, class_name):
-    browser = webdriver.Chrome()
-    browser.get(website)
-
-    soup = BeautifulSoup(browser.page_source, 'lxml')
-    result = soup.find_all('div', class_=class_name)
-
-    urls = []
-
-    for img in result:
-        if img.find('img') is not None and img.find('video') == None:
-            links = img.find('img')
-            urls.append(links['src'])
-        else:
-            links = img.find('video')
-            urls.append(links.source['src'])
-
-    await ctx.send(urls[random.randint(0, len(urls) - 1)])
-    browser.quit()
-
-@client.command()
 async def nsfw(ctx):
     browser = webdriver.Chrome()
     browser.get('https://scrolller.com/')
@@ -256,6 +235,47 @@ async def scrape(ctx, url, tag, class_=None):
         await ctx.send(urls[random.randint(0, len(urls) - 1)])
 
 @client.command()
+async def scrape2(ctx, website, class_name):
+    browser = webdriver.Chrome()
+    browser.get(website)
+
+    soup = BeautifulSoup(browser.page_source, 'lxml')
+    result = soup.find_all('div', class_=class_name)
+
+    urls = []
+
+    for img in result:
+        if img.find('img') is not None and img.find('video') == None:
+            links = img.find('img')
+            urls.append(links['src'])
+        else:
+            links = img.find('video')
+            urls.append(links.source['src'])
+
+    await ctx.send(urls[random.randint(0, len(urls) - 1)])
+    browser.quit()
+
+@client.command()
+async def filler(ctx, *args):
+    ep = []
+    search = '-'.join(str(i) for i in args)
+
+    r = requests.get(f'https://www.animefillerlist.com/shows/{search}')
+    content = r.text
+
+    try:
+        soup = BeautifulSoup(content, 'html.parser')
+        episodes = soup.find('span', class_='Episodes')
+        for child in episodes.children:
+            ep.append(child.string.strip(' ,'))
+
+        ep = list(filter(None, ep))
+        ep_string = ', '.join(ep)
+        await ctx.send(f'Episodes {ep_string} are filler.')
+    except Exception:
+        await ctx.send(f'Could not find {search}.')
+
+@client.command()
 async def bait(ctx, member: discord.Member):
     jebaits = []
 
@@ -327,26 +347,5 @@ async def gal(ctx, s=3):
         await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-cleavage.gif')
     if s == 7:
         await ctx.send('https://bestofcomicbooks.com/wp-content/uploads/2018/06/gal-gadot-fantastic.gif')
-
-# @client.command()
-# async def gif(ctx, *args):
-#     q = '+'.join(str(i) for i in args)
-#     urls = []
-
-#     try:
-#         r = requests.get(f'https://api.gfycat.com/v1/me/gfycats/search?search_text={q}&count=250')
-#         data = r.json()
-
-#         k = 0
-#         length = len(data['gfycats']) - 1
-#         while k < length:
-#             urls.append(data['gfycats'][k]['mp4Url'])
-#             k += 1
-
-#         await ctx.send('Here is what i found for: %s' % q)
-#         await ctx.send(urls[random.randint(0, len(urls) - 1)])
-
-#     except Exception as e:
-#         await ctx.send(e)
 
 client.run(os.environ.get('BOT_TOKEN'))
