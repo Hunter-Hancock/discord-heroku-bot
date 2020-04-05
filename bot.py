@@ -17,6 +17,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import json
+import re
 
 client = commands.Bot(command_prefix='!')
 
@@ -265,14 +266,18 @@ async def filler(ctx, *args):
 
     try:
         soup = BeautifulSoup(content, 'html.parser')
+        body = soup.body.find(text=re.compile('[0-9][0-9][%]'))
+        filler_percentage = re.findall('[0-9][0-9][%]', str(body.encode('utf-8')))
+        # filler_percentage = ''.join(re.split('[0-9][0-9][%]', str(body.encode('utf-8'))))
         episodes = soup.find('span', class_='Episodes')
         for child in episodes.children:
             ep.append(child.string.strip(' ,'))
 
         ep = list(filter(None, ep))
         ep_string = ', '.join(ep)
-        await ctx.send(f'Episodes {ep_string} are filler.')
-    except Exception:
+        await ctx.send(f"Episodes {ep_string} are filler. {search.capitalize()}'s filler percentage is {filler_percentage[0]}")
+    except Exception as e:
+        print(e)
         await ctx.send(f'Could not find {search}.')
 
 @client.command()
