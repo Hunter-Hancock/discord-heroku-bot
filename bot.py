@@ -269,8 +269,9 @@ async def filler(ctx, *args):
         body = soup.body.find(text=re.compile('[0-9][0-9][%]'))
         filler_percentage = re.findall('[0-9][0-9][%]', str(body.encode('utf-8')))
         # filler_percentage = ''.join(re.split('[0-9][0-9][%]', str(body.encode('utf-8'))))
-        episodes = soup.find('span', class_='Episodes')
-        for child in episodes.children:
+        episodes = soup.findAll('span', class_='Episodes')
+        episode = episodes[2]
+        for child in episode.children:
             ep.append(child.string.strip(' ,'))
 
         ep = list(filter(None, ep))
