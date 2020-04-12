@@ -24,15 +24,15 @@ class Status(commands.Cog):
             query = server.query()
             await ctx.send(', '.join(query.players.names) + 'is on the server' )
         
-    @tasks.loop(seconds=30)
-    async def task_status(self):
-        try:
-            server = MinecraftServer.lookup('68.63.192.222')
-            status = server.status()
-            players = status.players.online
-            await self.client.change_presence(status=discord.Status.online, activity=discord.Game(f'FTB Revelations: {players}/4'))
-        except Exception:
-            await self.client.change_presence(status=discord.Status.online, activity=discord.Game('!gif !imgur !reddit !nsfw'))
+    # @tasks.loop(seconds=30)
+    # async def task_status(self):
+    #     try:
+    #         server = MinecraftServer.lookup('68.63.192.222')
+    #         status = server.status()
+    #         players = status.players.online
+    #         await self.client.change_presence(status=discord.Status.online, activity=discord.Game(f'FTB Revelations: {players}/4'))
+    #     except Exception:
+    #         await self.client.change_presence(status=discord.Status.online, activity=discord.Game('!gif !imgur !reddit !nsfw'))
 
     @commands.command()
     async def update_status(self, ctx, *option: str):
@@ -44,10 +44,10 @@ class Status(commands.Cog):
         else:
             await self.client.change_presence(status=discord.Status.online, activity=discord.Game(f'Enigmatica 2 Expert: {players}/4'))
 
-    @task_status.before_loop
-    async def before_update_status(self):
-        print('waiting...')
-        await self.client.wait_until_ready()
+    # @task_status.before_loop
+    # async def before_update_status(self):
+    #     print('waiting...')
+    #     await self.client.wait_until_ready()
         
 def setup(client):
     client.add_cog(Status(client))
