@@ -7,7 +7,7 @@ class Status(commands.Cog):
 
     def __init__(self, client):
         self.client = client
-        self.task_status.start()
+        # self.task_status.start()
 
     @commands.command()
     async def status(self, ctx, ip: str, mode: str):
