@@ -9,8 +9,8 @@ class Ready(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        # game = discord.Game('!gif !imgur !reddit !nsfw')
-        # await self.client.change_presence(status=discord.Status.online, activity=game)
+        game = discord.Game('!gif !imgur !reddit !nsfw')
+        await self.client.change_presence(status=discord.Status.online, activity=game)
         print('Ready')
 
 def setup(client):
