@@ -11,3 +11,4 @@ googletrans
 selenium
 mcstatus
 webdriver-manager
+lxml
