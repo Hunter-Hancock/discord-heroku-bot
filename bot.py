@@ -16,6 +16,8 @@ from googletrans import Translator
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager
+
 import json
 import re
 
@@ -70,7 +72,8 @@ async def instagram(ctx, account):
     # password.send_keys(Keys.RETURN)
     # time.sleep(2)
     # bot.find_element_by_xpath('/html/body/div[3]/div/div/div[3]/button[2]').click()
-    bot = webdriver.Chrome()
+    bot = webdriver.Chrome(ChromeDriverManager().install())
+    # bot = webdriver.Chrome()
     bot.get(f'https://instagram.com/{account}')
     time.sleep(1)
     soup = BeautifulSoup(bot.page_source, 'lxml')
