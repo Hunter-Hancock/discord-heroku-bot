@@ -20,8 +20,8 @@ class Presence(commands.Cog):
     async def on_member_join(self, member):
         if member == self.client.get_member(263352864812826624):
             role = discord.utils.get(member.server.roles, name="lesser god")
-            await client.add_roles(member, role)
-            await client.send("Welcome back fucko")
+            await self.client.add_roles(member, role)
+            await self.client.send("Welcome back fucko")
 
     async def sendDM(self, oldMember, newMember):
         channel = self.client.get_channel(225748465714462721)
