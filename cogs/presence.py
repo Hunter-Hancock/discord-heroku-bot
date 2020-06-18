@@ -23,7 +23,7 @@ class Presence(commands.Cog):
         if member == dylan:
             lewis = guild.get_member(186938617787056128)
             role = discord.utils.get(member.server.roles, name="lesser god")
-            await self.client.add_roles(member, role)
+            await member.add_roles(role)
             await self.client.send("Welcome back fucko")
             await lewis.edit(nick="Iron Man")
 
