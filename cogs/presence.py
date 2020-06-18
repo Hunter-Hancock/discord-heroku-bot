@@ -19,9 +19,11 @@ class Presence(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         if member == self.client.get_member(263352864812826624):
+            lewis = self.client.get_member(186938617787056128)
             role = discord.utils.get(member.server.roles, name="lesser god")
             await self.client.add_roles(member, role)
             await self.client.send("Welcome back fucko")
+            await lewis.edit(nick="Iron Man")
 
     async def sendDM(self, oldMember, newMember):
         channel = self.client.get_channel(225748465714462721)
