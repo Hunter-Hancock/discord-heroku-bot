@@ -36,7 +36,7 @@ class Presence(commands.Cog):
 
         hr = dt.datetime.today().hour
         if role in newMember.roles:
-            if (hr > 12 and hr < 24) and (str(newMember.status) == 'online'):
+            if (hr > 12 and hr < 24) and (str(newMember.status) == 'online') and str(oldMember.status) != 'idle':
                 await channel.send(f'{newMember.name} is {newMember.status} :green_circle:')
 
 def setup(client):
