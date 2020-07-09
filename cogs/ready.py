@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from .status import Status
 
 class Ready(commands.Cog):
 
