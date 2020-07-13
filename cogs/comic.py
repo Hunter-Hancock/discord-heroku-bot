@@ -22,7 +22,9 @@ class Comic(commands.Cog):
             if param == ' ':
                 params.remove(param)
 
-        if len(params) > 2:
+        await ctx.send("Finding Comic one sec m8")
+
+        if len(params) > 2: 
             try:
                 url = f"https://my-comic-api.herokuapp.com/search?name={name.replace(' ', '%20')}&chapter={chapter}"
                 print(url)
